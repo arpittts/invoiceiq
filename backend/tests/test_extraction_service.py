@@ -2,13 +2,11 @@ import json
 from decimal import Decimal
 
 import pymupdf
-import pytest
 from sqlalchemy import select
 
 from app.config import get_settings
 from app.llm.provider import FakeProvider
 from app.models import ExtractionRun
-from app.services import extraction
 from app.services.extraction import extract_from_pages
 from app.services.pdf import PageImage
 from tests.conftest import register_and_login
@@ -101,15 +99,6 @@ def make_pdf() -> bytes:
     doc = pymupdf.open()
     doc.new_page().insert_text((72, 72), "TAX INVOICE")
     return doc.tobytes()
-
-
-@pytest.fixture
-def extraction_on(monkeypatch):
-    """Turn extraction on and route it to a FakeProvider the test controls."""
-    monkeypatch.setattr(get_settings(), "extraction_enabled", True)
-    provider = FakeProvider([], model="claude-opus-5-5")
-    monkeypatch.setattr(extraction, "get_provider", lambda: provider)
-    return provider
 
 
 def upload(client, headers, content: bytes | None = None):

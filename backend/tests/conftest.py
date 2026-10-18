@@ -28,8 +28,11 @@ from alembic.config import Config  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 from sqlalchemy import text  # noqa: E402
 
+from app.config import get_settings  # noqa: E402
 from app.db import SessionLocal, engine  # noqa: E402
+from app.llm.provider import FakeProvider  # noqa: E402
 from app.main import app  # noqa: E402
+from app.services import extraction  # noqa: E402
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,3 +81,12 @@ def register_and_login(client: TestClient, email: str = "owner@example.com") -> 
 @pytest.fixture
 def auth_headers(client: TestClient) -> dict[str, str]:
     return register_and_login(client)
+
+
+@pytest.fixture
+def extraction_on(monkeypatch):
+    """Turn extraction on and route it to a FakeProvider the test controls."""
+    monkeypatch.setattr(get_settings(), "extraction_enabled", True)
+    provider = FakeProvider([], model="claude-opus-5-5")
+    monkeypatch.setattr(extraction, "get_provider", lambda: provider)
+    return provider

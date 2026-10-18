@@ -6,13 +6,10 @@ services:
     runtime: docker
     plan: free
     region: singapore           # keep close to the Neon database region
-    # No rootDir: with one set, Render reads the Docker paths relative to it.
-    # These paths are from the repo root.
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
-    buildFilter:
-      paths:
-        - backend/**            # only changes under backend/ trigger a redeploy
+    rootDir: backend            # only changes under backend/ trigger a redeploy
+    # Render resolves these two paths relative to rootDir, not the repo root.
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /api/v1/health
     envVars:
       - key: DATABASE_URL

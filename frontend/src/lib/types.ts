@@ -27,6 +27,22 @@ export type LineItem = {
   igst_amount: string | null
   line_total: string | null
   confidence: number | null
+  // HSN/SAC lookup (Phase 5)
+  suggested_hsn_code: string | null
+  suggested_gst_rate: string | null
+  hsn_confidence: number | null
+  hsn_reason: string | null
+  hsn_source: HsnCode | null
+}
+
+export type HsnCode = {
+  id: number
+  code: string
+  kind: 'HSN' | 'SAC'
+  description: string
+  heading: string | null
+  default_gst_rate: string | null
+  source_note: string
 }
 
 export type InvoiceDetail = {

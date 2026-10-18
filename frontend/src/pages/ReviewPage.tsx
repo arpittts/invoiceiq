@@ -245,6 +245,13 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
         </div>
       </section>
 
+      <HsnSuggestions
+        invoice={invoice}
+        editable={editable}
+        printedCodes={draft.line_items.map((line) => line.hsn_sac_code)}
+        onUse={(index, code) => setLine(index, 'hsn_sac_code', code)}
+      />
+
       {editable && (
         <div className="sticky bottom-0 flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
           <span className="mr-auto text-sm text-gray-600">
@@ -263,6 +270,74 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
         </div>
       )}
     </div>
+  )
+}
+
+/** '18%', or why there is no single rate (the ingest records the reason in source_note). */
+function rateLabel(source: { default_gst_rate: string | null; source_note: string }): string {
+  if (source.default_gst_rate !== null) return `${Number(source.default_gst_rate)}%`
+  if (source.source_note.includes('depends on the description')) return 'depends on the description (see source)'
+  if (source.source_note.includes('Services rates not loaded')) return 'not loaded for services'
+  return 'not in the rate schedule (may be exempt)'
+}
+
+function HsnSuggestions({ invoice, editable, printedCodes, onUse }: {
+  invoice: InvoiceDetail
+  editable: boolean
+  printedCodes: string[]
+  onUse: (index: number, code: string) => void
+}) {
+  const lines = invoice.line_items.filter((line) => line.hsn_confidence !== null)
+  if (!lines.length) return null
+  return (
+    <section className="rounded-xl border border-gray-200 bg-white p-4">
+      <h2 className="text-sm font-semibold">Suggested HSN/SAC codes</h2>
+      <p className="mt-0.5 text-xs text-gray-500">
+        From the official code list by hybrid search, chosen by AI. Default rates are indicative: some
+        codes have conditional rates, so verify before filing.
+      </p>
+      <ul className="mt-3 space-y-3">
+        {lines.map((line) => {
+          const index = line.position - 1
+          const source = line.hsn_source
+          const alreadyUsed = source && printedCodes[index]?.replace(/\D/g, '') === source.code
+          return (
+            <li key={line.position} className="rounded-md border border-gray-100 p-3 text-sm">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-gray-500">Line {line.position}</span>
+                <span className="font-medium">{line.description}</span>
+              </div>
+              {source ? (
+                <div className="mt-2 flex flex-wrap items-start gap-3">
+                  <div className="min-w-0 flex-1">
+                    <span className="rounded bg-gray-900 px-1.5 py-0.5 font-mono text-xs text-white">{source.code}</span>{' '}
+                    <span className="text-xs text-gray-500">{source.kind}</span>{' '}
+                    <span>{source.description}</span>
+                    {source.heading && <span className="block text-xs text-gray-500">Heading: {source.heading}</span>}
+                    <span className="mt-1 block text-xs text-gray-600">
+                      Default rate {rateLabel(source)}
+                      {' · '}confidence {Math.round((line.hsn_confidence ?? 0) * 100)}%{' · '}
+                      <span title={source.source_note} className="underline decoration-dotted">source</span>
+                    </span>
+                    {line.hsn_reason && <span className="mt-1 block text-xs italic text-gray-600">{line.hsn_reason}</span>}
+                  </div>
+                  {editable && !alreadyUsed && (
+                    <button type="button" onClick={() => onUse(index, source.code)}
+                      className="shrink-0 rounded-md border border-gray-300 px-2 py-1 text-xs">
+                      Use this code
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <p className="mt-1 text-xs text-amber-800">
+                  No confident match ({line.hsn_reason ?? 'no candidate fits'}). Please choose the code by hand.
+                </p>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </section>
   )
 }
 

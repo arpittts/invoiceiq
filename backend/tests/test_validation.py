@@ -29,12 +29,30 @@ def intra_state() -> InvoiceData:
         igst=None,
         total=D("4661.00"),
         lines=[
-            LineData(D("2"), D("1500.00"), None, D("3000.00"), D("18"),
-                     D("270.00"), D("270.00"), None, D("3540.00")),
-            LineData(D("10"), D("100.00"), D("50.00"), D("950.00"), D("18"),
-                     D("85.50"), D("85.50"), None, D("1121.00")),
+            LineData(
+                D("2"),
+                D("1500.00"),
+                None,
+                D("3000.00"),
+                D("18"),
+                D("270.00"),
+                D("270.00"),
+                None,
+                D("3540.00"),
+            ),
+            LineData(
+                D("10"),
+                D("100.00"),
+                D("50.00"),
+                D("950.00"),
+                D("18"),
+                D("85.50"),
+                D("85.50"),
+                None,
+                D("1121.00"),
+            ),
         ],
-    )  # fmt: skip
+    )
 
 
 def inter_state() -> InvoiceData:
@@ -50,9 +68,20 @@ def inter_state() -> InvoiceData:
         sgst=None,
         igst=D("180.00"),
         total=D("1180.00"),
-        lines=[LineData(D("4"), D("250.00"), None, D("1000.00"), D("18"),
-                        None, None, D("180.00"), D("1180.00"))],
-    )  # fmt: skip
+        lines=[
+            LineData(
+                D("4"),
+                D("250.00"),
+                None,
+                D("1000.00"),
+                D("18"),
+                None,
+                None,
+                D("180.00"),
+                D("1180.00"),
+            )
+        ],
+    )
 
 
 def codes(inv: InvoiceData, **kwargs) -> set[str]:
@@ -218,8 +247,9 @@ def test_old_date_is_a_warning():
 
 
 def test_duplicates_reported_with_the_earlier_invoice():
-    issues = validate(intra_state(), today=TODAY, max_age_days=730,
-                      same_file_ids=[7], same_number_ids=[7])  # fmt: skip
+    issues = validate(
+        intra_state(), today=TODAY, max_age_days=730, same_file_ids=[7], same_number_ids=[7]
+    )
     assert [(i.rule_code, i.field) for i in issues] == [
         ("DUPLICATE", "file"),
         ("DUPLICATE", "invoice_number"),
@@ -232,3 +262,40 @@ def test_duplicates_reported_with_the_earlier_invoice():
 
 def test_mostly_empty_invoice_only_reports_required_fields():
     assert codes(InvoiceData(lines=[LineData()])) == {"REQUIRED"}
+
+
+# --- HSN_MISMATCH and RATE_MISMATCH (Phase 5) ----------------------------------
+
+
+def test_printed_code_from_another_heading_is_a_warning():
+    inv = with_line(intra_state(), 0, hsn_sac_code="8708 30", suggested_hsn_code="87141090")
+    issues = validate(inv, today=TODAY, max_age_days=730)
+    assert [(i.rule_code, i.severity, i.field) for i in issues] == [
+        ("HSN_MISMATCH", "warning", "line_items[1].hsn_sac_code")
+    ]
+
+
+def test_same_heading_is_not_a_mismatch():
+    inv = with_line(intra_state(), 0, hsn_sac_code="8708", suggested_hsn_code="87083000")
+    assert codes(inv) == set()
+
+
+def test_rate_different_from_the_default_is_a_warning():
+    inv = with_line(intra_state(), 0, suggested_hsn_code="8714", suggested_gst_rate=D("5"))
+    issues = validate(inv, today=TODAY, max_age_days=730)
+    assert [(i.rule_code, i.severity) for i in issues] == [("RATE_MISMATCH", "warning")]
+    assert "verify" in issues[0].message
+
+
+def test_rate_mismatch_message_prints_plain_percentages():
+    inv = with_line(
+        inter_state(),
+        0,
+        gst_rate=D("40.00"),
+        suggested_gst_rate=D("18.00"),
+        suggested_hsn_code="2202",
+    )
+    [issue] = [
+        i for i in validate(inv, today=TODAY, max_age_days=730) if i.rule_code == "RATE_MISMATCH"
+    ]
+    assert "rate 40% differs from the default 18%" in issue.message

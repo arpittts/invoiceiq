@@ -23,6 +23,20 @@ class InvoiceUploadResponse(BaseModel):
     file: InvoiceFileResponse
 
 
+class HsnCodeResponse(BaseModel):
+    """An official HSN/SAC row, as cited by a suggestion or returned by search."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    code: str
+    kind: str
+    description: str
+    heading: str | None
+    default_gst_rate: Decimal | None
+    source_note: str
+
+
 class LineItemResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -40,6 +54,11 @@ class LineItemResponse(BaseModel):
     igst_amount: Decimal | None
     line_total: Decimal | None
     confidence: float | None
+    suggested_hsn_code: str | None = None
+    suggested_gst_rate: Decimal | None = None
+    hsn_confidence: float | None = None
+    hsn_reason: str | None = None
+    hsn_source: HsnCodeResponse | None = None
 
 
 class ValidationIssueResponse(BaseModel):

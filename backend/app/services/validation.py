@@ -40,6 +40,10 @@ class LineData:
     sgst_amount: Decimal | None = None
     igst_amount: Decimal | None = None
     line_total: Decimal | None = None
+    # Printed code and the HSN/SAC lookup's suggestion (Phase 5)
+    hsn_sac_code: str | None = None
+    suggested_hsn_code: str | None = None
+    suggested_gst_rate: Decimal | None = None
 
 
 @dataclass
@@ -71,8 +75,14 @@ class InvoiceData:
             header[name] = amount(header[name])
         if header["invoice_date"]:
             header["invoice_date"] = date.fromisoformat(header["invoice_date"])
+        text_fields = {"hsn_sac_code", "suggested_hsn_code"}
         lines = [
-            LineData(**{name: amount(item.get(name)) for name in LineData.__dataclass_fields__})
+            LineData(
+                **{
+                    name: item.get(name) if name in text_fields else amount(item.get(name))
+                    for name in LineData.__dataclass_fields__
+                }
+            )
             for item in data.get("line_items", [])
         ]
         return cls(**header, lines=lines)
@@ -101,6 +111,11 @@ class Issue:
 
 def _rupees(amount: Decimal) -> str:
     return f"₹{amount:,.2f}"
+
+
+def _percent(rate: Decimal) -> str:
+    """Decimal('40.00') -> '40'. (normalize() alone prints 40 as '4E+1'.)"""
+    return format(rate.normalize(), "f")
 
 
 def _sum(values: list[Decimal | None]) -> Decimal:
@@ -344,6 +359,44 @@ def check_total_math(inv: InvoiceData) -> list[Issue]:
     return issues
 
 
+def check_hsn(inv: InvoiceData) -> list[Issue]:
+    """Compare what the invoice prints with the HSN/SAC lookup's suggestion (Phase 5).
+
+    Warnings, not errors: the suggestion and its default rate are indicative, and
+    a person decides. Codes are compared at heading level (first 4 digits).
+    """
+    issues = []
+    for number, line in enumerate(inv.lines, start=1):
+        printed = "".join(ch for ch in (line.hsn_sac_code or "") if ch.isdigit())
+        suggested = line.suggested_hsn_code
+        if printed and suggested and printed[:4] != suggested[:4]:
+            issues.append(
+                Issue(
+                    "HSN_MISMATCH",
+                    f"line_items[{number}].hsn_sac_code",
+                    "warning",
+                    f"Line {number}: printed code {line.hsn_sac_code} differs from the "
+                    f"suggested code {suggested} (heading {suggested[:4]})",
+                )
+            )
+        if (
+            line.gst_rate is not None
+            and line.suggested_gst_rate is not None
+            and line.gst_rate != line.suggested_gst_rate
+        ):
+            issues.append(
+                Issue(
+                    "RATE_MISMATCH",
+                    f"line_items[{number}].gst_rate",
+                    "warning",
+                    f"Line {number}: rate {_percent(line.gst_rate)}% differs from the default "
+                    f"{_percent(line.suggested_gst_rate)}% for code {suggested} (verify: some "
+                    "codes have conditional rates)",
+                )
+            )
+    return issues
+
+
 def check_date_range(inv: InvoiceData, today: date, max_age_days: int) -> list[Issue]:
     if inv.invoice_date is None:
         return []
@@ -410,6 +463,7 @@ def validate(
         *check_line_math(inv),
         *check_tax_math(inv),
         *check_total_math(inv),
+        *check_hsn(inv),
         *check_date_range(inv, today, max_age_days),
         *check_duplicate(same_file_ids or [], same_number_ids or []),
     ]

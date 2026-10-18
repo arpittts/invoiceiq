@@ -14,10 +14,12 @@ from pathlib import Path
 
 from app.config import get_settings
 from app.db import SessionLocal
+from app.llm.embeddings import get_embedder
 from app.llm.pricing import cost_usd
 from app.llm.provider import AnthropicProvider, GeminiProvider, LLMProvider
 from app.models import ExtractionRun, Invoice, InvoiceStatus, LineItem
 from app.schemas.extraction import ExtractionOutput, InvoiceExtraction, to_invoice_extraction
+from app.services.classification import classify_invoice
 from app.services.pdf import PageImage, render_pages
 from app.services.storage import load_file
 from app.services.validation import india_today, save_validation
@@ -280,6 +282,12 @@ def process_invoice(invoice_id: int, provider: LLMProvider | None = None) -> Non
             invoice.status = InvoiceStatus.FAILED
         else:
             _apply_extraction(invoice, outcome.extraction)
+            if settings.classification_enabled:
+                # Suggest HSN/SAC codes (Phase 5). Never blocks the invoice if it fails.
+                try:
+                    classify_invoice(db, invoice, provider, get_embedder())
+                except Exception:
+                    logger.exception("HSN classification failed for invoice %s", invoice.id)
             # Check the extracted values with the deterministic rules (Phase 3).
             # Issues don't block anything yet: a human reviews every invoice.
             save_validation(

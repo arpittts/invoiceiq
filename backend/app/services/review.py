@@ -12,8 +12,11 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
+from app.llm.embeddings import get_embedder
 from app.models import Invoice, InvoiceStatus, LineItem, ReviewEvent, User
 from app.schemas.invoice import InvoiceUpdate
+from app.services.classification import classify_invoice
+from app.services.extraction import get_provider
 from app.services.validation import india_today, save_validation
 
 EDITABLE = {InvoiceStatus.NEEDS_REVIEW, InvoiceStatus.FAILED}
@@ -30,6 +33,15 @@ LINE_FIELDS = [
     "sgst_amount",
     "igst_amount",
     "line_total",
+]
+
+
+SUGGESTION_FIELDS = [
+    "hsn_source_id",
+    "suggested_hsn_code",
+    "suggested_gst_rate",
+    "hsn_confidence",
+    "hsn_reason",
 ]
 
 
@@ -66,6 +78,15 @@ def _event(db: Session, invoice: Invoice, user: User, field: str, old, new) -> N
     )
 
 
+def _classify_new_lines(db: Session, invoice: Invoice) -> None:
+    """Suggest codes for lines that were added or re-described (one LLM call, if any)."""
+    provider = get_provider()
+    if provider is None or not get_settings().classification_enabled:
+        return
+    db.flush()
+    classify_invoice(db, invoice, provider, get_embedder(), only_unclassified=True)
+
+
 def _revalidate(db: Session, invoice: Invoice) -> None:
     save_validation(
         db, invoice, today=india_today(), max_age_days=get_settings().max_invoice_age_days
@@ -91,7 +112,10 @@ def apply_update(db: Session, invoice: Invoice, user: User, update: InvoiceUpdat
             changes += 1
 
     if update.line_items is not None:
-        changes += _update_lines(db, invoice, user, update)
+        line_changes = _update_lines(db, invoice, user, update)
+        changes += line_changes
+        if line_changes:
+            _classify_new_lines(db, invoice)
 
     if changes:
         if invoice.status == InvoiceStatus.FAILED:
@@ -126,14 +150,20 @@ def _update_lines(db: Session, invoice: Invoice, user: User, update: InvoiceUpda
                     )
                     changes += 1
                     edited = True
-        rows.append(
-            LineItem(
-                position=position,
-                **{name: getattr(new, name) for name in LINE_FIELDS},
-                # The model's confidence no longer applies once a human edits the row.
-                confidence=None if edited else old.confidence,
-            )
+        row = LineItem(
+            position=position,
+            **{name: getattr(new, name) for name in LINE_FIELDS},
+            # The model's confidence no longer applies once a human edits the row.
+            confidence=None if edited else old.confidence,
         )
+        if old is not None and (old.description, old.hsn_sac_code) == (
+            new.description,
+            new.hsn_sac_code,
+        ):
+            # Same item: keep its HSN/SAC suggestion instead of asking the LLM again.
+            for name in SUGGESTION_FIELDS:
+                setattr(row, name, getattr(old, name))
+        rows.append(row)
     for position in range(len(new_lines) + 1, len(old_lines) + 1):
         _event(db, invoice, user, f"line_items[{position}]", "present", "removed")
         changes += 1

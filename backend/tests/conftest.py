@@ -30,6 +30,7 @@ from sqlalchemy import text  # noqa: E402
 
 from app.config import get_settings  # noqa: E402
 from app.db import SessionLocal, engine  # noqa: E402
+from app.llm.embeddings import HashingEmbedder  # noqa: E402
 from app.llm.provider import FakeProvider  # noqa: E402
 from app.main import app  # noqa: E402
 from app.services import extraction  # noqa: E402
@@ -53,7 +54,7 @@ def clean_tables():
         conn.execute(
             text(
                 "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs, "
-                "validation_issues "
+                "validation_issues, review_events, hsn_codes "
                 "RESTART IDENTITY CASCADE"
             )
         )
@@ -88,5 +89,20 @@ def extraction_on(monkeypatch):
     """Turn extraction on and route it to a FakeProvider the test controls."""
     monkeypatch.setattr(get_settings(), "extraction_enabled", True)
     provider = FakeProvider([], model="claude-opus-5-5")
-    monkeypatch.setattr(extraction, "get_provider", lambda: provider)
+    from app.services import review
+
+    for module in (extraction, review):  # both look the provider up by name
+        monkeypatch.setattr(module, "get_provider", lambda: provider)
     return provider
+
+
+@pytest.fixture(autouse=True)
+def hashing_embedder(monkeypatch):
+    """Never load the real 130 MB model in tests: use the word-hashing stand-in everywhere."""
+    from app.api import hsn
+    from app.services import review
+
+    embedder = HashingEmbedder()
+    for module in (extraction, review, hsn):
+        monkeypatch.setattr(module, "get_embedder", lambda: embedder)
+    return embedder

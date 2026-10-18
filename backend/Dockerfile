@@ -13,6 +13,11 @@ COPY pyproject.toml ./
 COPY app/__init__.py app/__init__.py
 RUN pip install .
 
+# Bake the embedding model (~130 MB) into the image, so a cold start on a host
+# with a wiped disk doesn't download it again.
+ENV EMBEDDING_CACHE_DIR=/app/models
+RUN python -c "from fastembed import TextEmbedding; TextEmbedding('BAAI/bge-small-en-v1.5', cache_dir='/app/models')"
+
 COPY app ./app
 COPY migrations ./migrations
 COPY alembic.ini ./

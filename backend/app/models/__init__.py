@@ -2,6 +2,7 @@
 
 from app.models.extraction_run import ExtractionRun
 from app.models.invoice import FileBlob, Invoice, InvoiceFile, InvoiceStatus, LineItem
+from app.models.review_event import ReviewEvent
 from app.models.user import User
 from app.models.validation_issue import ValidationIssue
 
@@ -12,6 +13,7 @@ __all__ = [
     "InvoiceFile",
     "InvoiceStatus",
     "LineItem",
+    "ReviewEvent",
     "User",
     "ValidationIssue",
 ]

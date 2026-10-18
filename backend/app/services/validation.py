@@ -457,11 +457,17 @@ def save_validation(
         same_file_ids=list(same_file_ids),
         same_number_ids=list(same_number_ids),
     )
-    invoice.validation_issues = [issue for issue in invoice.validation_issues if issue.resolved]
-    invoice.validation_issues.extend(
-        ValidationIssue(
-            field=i.field, rule_code=i.rule_code, severity=i.severity, message=i.message
-        )
-        for i in issues
-    )
+    # Rebuild the issue list from this run. A problem the reviewer dismissed stays
+    # dismissed while it still applies; once it is fixed it simply disappears.
+    dismissed = {
+        (row.rule_code, row.field): row for row in invoice.validation_issues if row.resolved
+    }
+    rows = []
+    for issue in issues:
+        row = dismissed.pop((issue.rule_code, issue.field), None)
+        if row is None:
+            row = ValidationIssue(field=issue.field, rule_code=issue.rule_code)
+        row.severity, row.message = issue.severity, issue.message
+        rows.append(row)
+    invoice.validation_issues = rows
     return issues

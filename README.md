@@ -2,7 +2,7 @@
 
 An AI agent that reads Indian GST invoices (photos or PDFs), extracts structured data, validates it, classifies line items with the right HSN/SAC code and GST rate, and lets a human approve the result and query the ledger in plain English.
 
-> Status: early development (Phase 5: HSN/SAC lookup). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
+> Status: early development (Phase 6: LangGraph agent). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
 > Disclaimer: output is an automation aid, not tax or legal advice. Rates and codes change, so always verify.
 
@@ -56,11 +56,46 @@ Test data: `make invoices` regenerates 20 synthetic invoices (4 layouts, PDF/sca
 
 The frontend (React + Vite + TypeScript + Tailwind + TanStack Query) has sign-in, an upload page (drag and drop, progress), an invoice list (filters, auto-refresh while extracting) and a review screen: the page image next to editable fields, validation issues highlighted on their fields, low-confidence fields marked "check", and Approve / Reject. Approve stays disabled until every error is fixed (validation re-runs on save) or dismissed. Every human change is stored in `review_events` as an audit trail. Run `npm test` in `frontend/` for the unit tests.
 
+## Agent (LangGraph)
+
+Processing an invoice is a LangGraph state graph (`backend/app/agent/`). This diagram is generated from the code:
+
+```mermaid
+graph TD;
+	__start__([<p>__start__</p>])
+	extract(extract)
+	validate(validate)
+	re_extract(re_extract)
+	save(save)
+	classify(classify)
+	final_check(final_check)
+	decide(decide)
+	finalize(finalize)
+	__end__([<p>__end__</p>])
+	__start__ --> extract;
+	classify --> final_check;
+	decide --> finalize;
+	extract -.-> finalize;
+	extract -.-> validate;
+	final_check --> decide;
+	re_extract --> validate;
+	save --> classify;
+	validate -.-> re_extract;
+	validate -.-> save;
+	finalize --> __end__;
+```
+
+- **validate → re_extract:** if the deterministic rules find errors, the model re-reads the page with the failing fields and rule messages named, and only those fields (and their line items) are merged into the first read, so correct fields can't get worse. At most 2 re-reads (`MAX_REEXTRACTIONS`), and only within the per-invoice token and cost budget.
+- **classify** runs once, after the numbers are settled, so re-reads don't repeat the HSN lookup.
+- **decide:** auto-approve is off by default (`AUTO_APPROVE_ENABLED`); when on, it needs no errors or warnings, overall confidence of at least 0.9 and a confident HSN/SAC code on every line. Everything else goes to human review.
+- **No infinite loops:** the re-read cap, the budget and LangGraph's recursion limit (25 steps; the longest legal path is 11). A test raises the cap to 1,000 and checks the recursion limit still stops the run.
+- Each run is one Langfuse trace whose output is the path taken, the decision and the reason.
+
 ## HSN/SAC lookup (RAG)
 
 Every line item gets a suggested HSN (goods) or SAC (services) code and an indicative GST rate, citing the official row it came from.
 
-- **Corpus:** the GST portal's HSN directory (21,928 HSN + 681 SAC codes), one row per code with its parent heading as context. Rates come from Notification 09/2025-Central Tax (Rate) as amended by 01/2026: each code takes the rate of its most specific schedule entry; 73% of HSN codes get a single rate, 24% depend on the description (e.g. T-shirts by price, motorcycles by engine size) and are left for a human. Rates are indicative and each row cites its schedule entry; services rates and amendment 19/2025 are not loaded.
+- **Corpus:** the GST portal's HSN directory (21,928 HSN + 681 SAC codes), one row per code with its parent heading as context. Rates come from Notification 09/2025-Central Tax (Rate) as amended by 01/2026: each code takes the rate of its most specific schedule entry; 73% of HSN codes get a single rate, 24% depend on the description (e.g. T-shirts by price, motorcycles by engine size) and are left for a human. Rates are indicative and each row cites its schedule entry; services rates, amendment 19/2025 and the exemption list (Notification 02/2017, nil-rated goods such as fresh vegetables) are not loaded, so an exempt item can show a 5% default. The `RATE_MISMATCH` warning flags exactly that case for a person to check, which is also why it blocks auto-approval.
 - **Retrieval:** pgvector (bge-small-en-v1.5, HNSW) + Postgres full-text + the code printed on the invoice, merged with reciprocal rank fusion (k=60).
 - **Selection:** one LLM call per invoice picks from each line's top 5 and must cite a candidate id; uncited or low-confidence picks are left for the reviewer.
 - **Checks:** `HSN_MISMATCH` and `RATE_MISMATCH` warnings when the printed code or rate disagrees with the suggestion.

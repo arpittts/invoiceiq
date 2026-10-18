@@ -88,6 +88,24 @@ class InvoiceData:
         return cls(**header, lines=lines)
 
     @classmethod
+    def from_extraction(cls, extraction) -> "InvoiceData":
+        """From an InvoiceExtraction (each field is {value, confidence}): the agent
+        validates a fresh read before anything is saved."""
+        line_fields = LineData.__dataclass_fields__
+        header = {
+            name: getattr(extraction, name).value
+            for name in cls.__dataclass_fields__
+            if name != "lines"
+        }
+        lines = [
+            LineData(
+                **{name: getattr(item, name).value for name in line_fields if hasattr(item, name)}
+            )
+            for item in extraction.line_items
+        ]
+        return cls(**header, lines=lines)
+
+    @classmethod
     def from_invoice(cls, invoice: Invoice) -> "InvoiceData":
         line_fields = LineData.__dataclass_fields__
         return cls(

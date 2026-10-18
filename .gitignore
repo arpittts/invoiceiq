@@ -1,0 +1,30 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Uploaded files and real invoices (never commit these)
+uploads/
+data/real/
+
+# Database dumps
+*.dump
+*.sql.gz
+
+# OS and editors
+.DS_Store
+.vscode/
+.idea/

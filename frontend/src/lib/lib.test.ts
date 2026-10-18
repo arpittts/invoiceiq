@@ -16,7 +16,8 @@ const invoice: InvoiceDetail = {
     position: 1, description: 'Brake pads', hsn_sac_code: '8708', quantity: '2.000', unit: 'Nos',
     unit_price: '1500.00', discount: null, taxable_value: '3000.00', gst_rate: '28.00',
     cgst_amount: '420.00', sgst_amount: '420.00', igst_amount: null, line_total: '3840.00',
-    confidence: 0.95,
+    confidence: 0.95, suggested_hsn_code: null, suggested_gst_rate: null, hsn_confidence: null,
+    hsn_reason: null, hsn_source: null,
   }],
   validation_issues: [], extraction: null, field_confidence: {},
 }

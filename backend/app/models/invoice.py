@@ -127,8 +127,15 @@ class LineItem(Base):
     taxable_value: Mapped[Decimal | None] = mapped_column(Money)
     gst_rate: Mapped[Decimal | None] = mapped_column(Numeric(5, 2))
     hsn_sac_code: Mapped[str | None] = mapped_column(String(10))
-    # Will point at hsn_codes.id once that table exists (Phase 5).
-    hsn_source_id: Mapped[int | None] = mapped_column(Integer)
+    # The HSN/SAC suggestion (Phase 5): the code the lookup picked, the official
+    # row it cites (hsn_source_id), its default rate, and how sure the model was.
+    hsn_source_id: Mapped[int | None] = mapped_column(
+        ForeignKey("hsn_codes.id", ondelete="SET NULL")
+    )
+    suggested_hsn_code: Mapped[str | None] = mapped_column(String(10))
+    suggested_gst_rate: Mapped[Decimal | None] = mapped_column(Numeric(5, 2))
+    hsn_confidence: Mapped[float | None] = mapped_column(Float)
+    hsn_reason: Mapped[str | None] = mapped_column(Text)
     cgst_amount: Mapped[Decimal | None] = mapped_column(Money)
     sgst_amount: Mapped[Decimal | None] = mapped_column(Money)
     igst_amount: Mapped[Decimal | None] = mapped_column(Money)
@@ -136,3 +143,4 @@ class LineItem(Base):
     confidence: Mapped[float | None] = mapped_column(Float)
 
     invoice: Mapped[Invoice] = relationship(back_populates="line_items")
+    hsn_source: Mapped["HsnCode | None"] = relationship()  # noqa: F821

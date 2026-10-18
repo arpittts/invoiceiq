@@ -2,7 +2,7 @@
 
 An AI agent that reads Indian GST invoices (photos or PDFs), extracts structured data, validates it, classifies line items with the right HSN/SAC code and GST rate, and lets a human approve the result and query the ledger in plain English.
 
-> Status: early development (Phase 4: review UI). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
+> Status: early development (Phase 5: HSN/SAC lookup). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
 > Disclaimer: output is an automation aid, not tax or legal advice. Rates and codes change, so always verify.
 
@@ -40,6 +40,7 @@ All routes are under `/api/v1`.
 | POST | `/invoices/{id}/issues/{issue_id}/dismiss` | yes | Mark a flagged issue as checked and acceptable (logged) |
 | POST | `/invoices/{id}/approve` | yes | Add to the ledger; blocked while errors are open or if the same vendor invoice is already approved |
 | POST | `/invoices/{id}/reject` | yes | Reject the invoice |
+| GET | `/hsn/search?q=&mode=` | yes | Official HSN/SAC codes for a description (`mode`: hybrid, vector or keyword) |
 
 Uploaded files are stored on disk in development (`STORAGE_BACKEND=local`) and in Postgres in production (`STORAGE_BACKEND=db`), because free hosts wipe their disks on restart.
 
@@ -54,6 +55,34 @@ Test data: `make invoices` regenerates 20 synthetic invoices (4 layouts, PDF/sca
 ## Review UI
 
 The frontend (React + Vite + TypeScript + Tailwind + TanStack Query) has sign-in, an upload page (drag and drop, progress), an invoice list (filters, auto-refresh while extracting) and a review screen: the page image next to editable fields, validation issues highlighted on their fields, low-confidence fields marked "check", and Approve / Reject. Approve stays disabled until every error is fixed (validation re-runs on save) or dismissed. Every human change is stored in `review_events` as an audit trail. Run `npm test` in `frontend/` for the unit tests.
+
+## HSN/SAC lookup (RAG)
+
+Every line item gets a suggested HSN (goods) or SAC (services) code and an indicative GST rate, citing the official row it came from.
+
+- **Corpus:** the GST portal's HSN directory (21,928 HSN + 681 SAC codes), one row per code with its parent heading as context. Rates come from Notification 09/2025-Central Tax (Rate) as amended by 01/2026: each code takes the rate of its most specific schedule entry; 73% of HSN codes get a single rate, 24% depend on the description (e.g. T-shirts by price, motorcycles by engine size) and are left for a human. Rates are indicative and each row cites its schedule entry; services rates and amendment 19/2025 are not loaded.
+- **Retrieval:** pgvector (bge-small-en-v1.5, HNSW) + Postgres full-text + the code printed on the invoice, merged with reciprocal rank fusion (k=60).
+- **Selection:** one LLM call per invoice picks from each line's top 5 and must cite a candidate id; uncited or low-confidence picks are left for the reviewer.
+- **Checks:** `HSN_MISMATCH` and `RATE_MISMATCH` warnings when the printed code or rate disagrees with the suggestion.
+
+### Retrieval results
+
+181 labelled invoice-style descriptions (written by an LLM from codes sampled across 98 chapters, filtered to avoid copying official wording, spot-checked). Heading = first 4 digits, which usually decides the rate. `make eval-retrieval` reproduces the final row set.
+
+| Mode | Heading recall@1 | Heading recall@5 | Heading MRR | Code recall@5 |
+| --- | --- | --- | --- | --- |
+| Vector only | 53.6% | 71.8% | 0.599 | 50.3% |
+| Keyword only | 53.0% | 66.3% | 0.579 | 53.0% |
+| **Hybrid (RRF)** | **68.0%** | **81.8%** | **0.730** | **67.4%** |
+
+What changed along the way (all measured on the same set):
+
+1. **Baseline:** hybrid barely beat vector (heading recall@5 70.2% vs 68.5%) and was worse at rank 1, because keyword search was weak (24% @1): the word "bag" in "Basmati rice 25kg bag" returned handbags.
+2. **Query cleanup + better keyword ranking:** dropping quantities and packing words, excluding 2-digit chapter rows, and ranking keyword hits by how many query words they contain lifted keyword @1 from 24% to 53% and hybrid @5 to 79.6%.
+3. **A measurement bug, not a model bug:** after re-embedding rows, vector recall dropped 10 points. Cause: 13,633 dead rows behind pgvector's HNSW index. `VACUUM` + `REINDEX` restored it; the ingest script now does this after every load.
+4. **Heading-first text for "OTHER" rows** (18% of the list): first judged a regression on the dirty index, then re-tested fairly: hybrid rank-1 heading recall 63.0% -> 68.0%. Kept.
+
+Caveat: the descriptions are LLM-written from known codes, so these numbers measure realistic phrasing, not real customer invoices; code-level labels carry some noise (e.g. one "maple syrup" item labelled with the solid maple sugar code).
 
 ## Validation rules
 

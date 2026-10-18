@@ -44,6 +44,13 @@ class Settings(BaseSettings):
     # Validation: warn when an invoice is older than this (GST input-credit window)
     max_invoice_age_days: int = 730
 
+    # HSN/SAC lookup (Phase 5)
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
+    embedding_cache_dir: str | None = None  # the Docker image sets this to its bundled copy
+    classification_enabled: bool = True
+    # Below this, the suggested code is not trusted: the line is left for a human.
+    hsn_min_confidence: float = 0.6
+
     # Tracing (optional; tracing is skipped when the keys are empty)
     langfuse_public_key: str = ""
     langfuse_secret_key: str = ""

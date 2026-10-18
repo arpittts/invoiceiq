@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19DUJUQ9325Y3ZO",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": "19RYQAT5701L5ZX",
+  "invoice_number": "3027",
+  "invoice_date": "2026-07-31",
+  "place_of_supply": "West Bengal (State Code: 19)",
+  "line_items": [
+    {
+      "description": "Cement 50kg bag",
+      "hsn_sac_code": "2523",
+      "quantity": "4",
+      "unit": "Bag",
+      "unit_price": "427.97",
+      "discount": null,
+      "taxable_value": "1711.88",
+      "gst_rate": "18",
+      "cgst_amount": "154.07",
+      "sgst_amount": "154.07",
+      "igst_amount": null,
+      "line_total": "2020.02"
+    },
+    {
+      "description": "Annual Maintenance Service",
+      "hsn_sac_code": "998719",
+      "quantity": "11",
+      "unit": "Job",
+      "unit_price": "3669.70",
+      "discount": "807.33",
+      "taxable_value": "39559.37",
+      "gst_rate": "18",
+      "cgst_amount": "3560.34",
+      "sgst_amount": "3560.34",
+      "igst_amount": null,
+      "line_total": "46680.05"
+    },
+    {
+      "description": "Basmati Rice 25kg bag",
+      "hsn_sac_code": "1006",
+      "quantity": "15",
+      "unit": "Bag",
+      "unit_price": "1404.25",
+      "discount": null,
+      "taxable_value": "21063.75",
+      "gst_rate": "5",
+      "cgst_amount": "526.59",
+      "sgst_amount": "526.59",
+      "igst_amount": null,
+      "line_total": "22116.93"
+    }
+  ],
+  "subtotal": "62335.00",
+  "cgst": "4241.00",
+  "sgst": "4241.00",
+  "igst": null,
+  "total": "70817"
+}

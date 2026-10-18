@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Deccan Office Supplies",
+  "vendor_gstin": "36NNKRO6036M1ZZ",
+  "buyer_name": "Iyer Engineering Works",
+  "buyer_gstin": null,
+  "invoice_number": "DEC/26-27/0711",
+  "invoice_date": "2026-05-06",
+  "place_of_supply": "36-Telangana",
+  "line_items": [
+    {
+      "description": "Ghee 1 kg tin",
+      "hsn_sac_code": "0405",
+      "quantity": "11",
+      "unit": "Nos",
+      "unit_price": "696.99",
+      "discount": null,
+      "taxable_value": "7666.89",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "LED Bulb 9W",
+      "hsn_sac_code": "8539",
+      "quantity": "3",
+      "unit": "Nos",
+      "unit_price": "77.67",
+      "discount": null,
+      "taxable_value": "233.01",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "5",
+      "unit": "Box",
+      "unit_price": "953.11",
+      "discount": null,
+      "taxable_value": "4765.55",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "12665.45",
+  "cgst": "641.54",
+  "sgst": "641.54",
+  "igst": null,
+  "total": "13948.53"
+}

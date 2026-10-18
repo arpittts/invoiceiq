@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Sharma Auto Parts",
+  "vendor_gstin": "27LSREN2045Z1ZS",
+  "buyer_name": "Mehta Motors Pvt Ltd",
+  "buyer_gstin": null,
+  "invoice_number": "SHA/2026-27/0968",
+  "invoice_date": "2026-07-01",
+  "place_of_supply": "27-Maharashtra",
+  "line_items": [
+    {
+      "description": "Cotton T-Shirt",
+      "hsn_sac_code": "6109",
+      "quantity": "18",
+      "unit": "Nos",
+      "unit_price": "642.46",
+      "discount": null,
+      "taxable_value": "11564.28",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Steel Almirah",
+      "hsn_sac_code": "9403",
+      "quantity": "14",
+      "unit": "Nos",
+      "unit_price": "13681.53",
+      "discount": null,
+      "taxable_value": "191541.42",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Two-wheeler Tyre",
+      "hsn_sac_code": "4011",
+      "quantity": "1",
+      "unit": "Nos",
+      "unit_price": "1246.63",
+      "discount": null,
+      "taxable_value": "1246.63",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "204352.33",
+  "cgst": "17640.04",
+  "sgst": "17640.04",
+  "igst": null,
+  "total": "239632.41"
+}

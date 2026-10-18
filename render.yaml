@@ -22,3 +22,13 @@ services:
         value: db               # Render's free disk is wiped on every restart
       - key: MAX_UPLOAD_MB
         value: "5"              # Neon's free tier has limited storage
+      - key: LLM_PROVIDER
+        value: gemini           # free tier; demo invoices only
+      - key: LLM_API_KEY
+        sync: false             # Gemini key from aistudio.google.com, set in the dashboard
+      - key: LANGFUSE_PUBLIC_KEY
+        sync: false
+      - key: LANGFUSE_SECRET_KEY
+        sync: false
+      - key: LANGFUSE_HOST
+        sync: false             # e.g. https://cloud.langfuse.com or https://us.cloud.langfuse.com

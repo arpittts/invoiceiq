@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Patel Hardware & Paints",
+  "vendor_gstin": "24IDDXR2449G6ZT",
+  "buyer_name": "Kapoor Retail",
+  "buyer_gstin": "07GVUIQ7401U7ZG",
+  "invoice_number": "PAT/26-27/0955",
+  "invoice_date": "2026-07-22",
+  "place_of_supply": "Delhi (07)",
+  "line_items": [
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "6",
+      "unit": "Box",
+      "unit_price": "1224.33",
+      "discount": null,
+      "taxable_value": "7345.98",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1322.28",
+      "line_total": "8668.26"
+    },
+    {
+      "description": "LED Bulb 9W",
+      "hsn_sac_code": "8539",
+      "quantity": "10",
+      "unit": "Nos",
+      "unit_price": "56.28",
+      "discount": null,
+      "taxable_value": "562.80",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "101.30",
+      "line_total": "664.10"
+    }
+  ],
+  "subtotal": "7908.78",
+  "cgst": null,
+  "sgst": null,
+  "igst": "1423.58",
+  "total": "9332.36"
+}

@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Patel Hardware & Paints",
+  "vendor_gstin": "24FBIPD1671S1Z7",
+  "buyer_name": "Kapoor Retail",
+  "buyer_gstin": "07EEZSJ1318Y7ZV",
+  "invoice_number": "INV-72746",
+  "invoice_date": "2026-08-04",
+  "place_of_supply": "Delhi",
+  "line_items": [
+    {
+      "description": "Annual Maintenance Service",
+      "hsn_sac_code": "998719",
+      "quantity": "1",
+      "unit": "Job",
+      "unit_price": "8519.49",
+      "discount": null,
+      "taxable_value": "8519.49",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "8519.49",
+  "cgst": null,
+  "sgst": null,
+  "igst": "1533.51",
+  "total": "10053.00"
+}

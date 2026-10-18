@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Deccan Office Supplies",
+  "vendor_gstin": "36HYJCH1647U6Z2",
+  "buyer_name": "Joshi Cafe",
+  "buyer_gstin": "36FLLGV4192R4Z8",
+  "invoice_number": "850",
+  "invoice_date": "2026-08-20",
+  "place_of_supply": "36-Telangana",
+  "line_items": [
+    {
+      "description": "Cement 50kg bag",
+      "hsn_sac_code": "2523",
+      "quantity": "10",
+      "unit": "Bag",
+      "unit_price": "399.25",
+      "discount": null,
+      "taxable_value": "3992.50",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "3992.50",
+  "cgst": "359.33",
+  "sgst": "359.33",
+  "igst": null,
+  "total": "4711.16"
+}

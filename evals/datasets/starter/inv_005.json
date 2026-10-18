@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Sharma Auto Parts",
+  "vendor_gstin": "27FIQTN3834M6Z2",
+  "buyer_name": "Iyer Engineering Works",
+  "buyer_gstin": "33OQODH3150S9ZH",
+  "invoice_number": "7887",
+  "invoice_date": "2026-08-03",
+  "place_of_supply": "Tamil Nadu (33)",
+  "line_items": [
+    {
+      "description": "Steel Almirah",
+      "hsn_sac_code": "9403",
+      "quantity": "16",
+      "unit": "Nos",
+      "unit_price": "8525.74",
+      "discount": null,
+      "taxable_value": "136411.84",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "24554.13",
+      "line_total": "160965.97"
+    }
+  ],
+  "subtotal": "136411.84",
+  "cgst": null,
+  "sgst": null,
+  "igst": "24554.13",
+  "total": "160965.97"
+}

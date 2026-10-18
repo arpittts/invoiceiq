@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Sharma Auto Parts",
+  "vendor_gstin": "27PGREX9973Z8Z5",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": null,
+  "invoice_number": "4662",
+  "invoice_date": "2026-06-18",
+  "place_of_supply": "29-Karnataka",
+  "line_items": [
+    {
+      "description": "Plumbing Repair Service",
+      "hsn_sac_code": "995461",
+      "quantity": "2",
+      "unit": "Hrs",
+      "unit_price": "566.54",
+      "discount": null,
+      "taxable_value": "1133.08",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "1133.08",
+  "cgst": null,
+  "sgst": null,
+  "igst": "203.95",
+  "total": "1337.03"
+}

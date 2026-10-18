@@ -24,6 +24,28 @@ class Settings(BaseSettings):
     max_upload_mb: int = 10
     max_pages: int = 10
 
+    # LLM. The key is optional so the app (and tests) run without one;
+    # extraction marks the invoice "failed" with a clear message instead.
+    # "gemini" (free tier, default) or "anthropic". LLM_API_KEY is that vendor's key.
+    llm_provider: Literal["gemini", "anthropic"] = "gemini"
+    llm_api_key: str = ""
+    # Flash-Lite: the free tier allows only ~20 requests/day on gemini-3.8-flash.
+    llm_model_extract: str = "gemini-3.5-flash-lite"
+    llm_model_fast: str = "gemini-3.5-flash-lite"
+    # Claude only: reasoning effort for extraction.
+    llm_effort_extract: Literal["low", "medium", "high", "xhigh", "max"] = "medium"
+    # Global kill switch for all LLM work (blueprint section 10).
+    extraction_enabled: bool = True
+    # Schema-validation retries after the first attempt.
+    extraction_max_retries: int = 2
+    # Longest side of a page image sent to the model, in pixels.
+    render_max_edge: int = 2000
+
+    # Tracing (optional; tracing is skipped when the keys are empty)
+    langfuse_public_key: str = ""
+    langfuse_secret_key: str = ""
+    langfuse_host: str = "https://cloud.langfuse.com"
+
     @field_validator("database_url")
     @classmethod
     def use_psycopg_driver(cls, url: str) -> str:

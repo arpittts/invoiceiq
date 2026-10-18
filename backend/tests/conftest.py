@@ -14,6 +14,12 @@ TEST_DATABASE_URL = os.environ.get(
 os.environ["DATABASE_URL"] = TEST_DATABASE_URL
 os.environ["JWT_SECRET"] = "test-secret-that-is-long-enough-for-hs256-signing"
 os.environ["STORAGE_BACKEND"] = "local"
+# No real LLM calls or traces from tests. Extraction tests switch extraction on
+# and inject a FakeProvider themselves.
+os.environ["EXTRACTION_ENABLED"] = "false"
+os.environ["LLM_API_KEY"] = ""
+os.environ["LANGFUSE_PUBLIC_KEY"] = ""
+os.environ["LANGFUSE_SECRET_KEY"] = ""
 os.environ["UPLOAD_DIR"] = tempfile.mkdtemp(prefix="invoiceiq-test-uploads-")
 
 import pytest  # noqa: E402
@@ -43,7 +49,7 @@ def clean_tables():
     with engine.begin() as conn:
         conn.execute(
             text(
-                "TRUNCATE users, invoice_files, file_blobs, invoices, line_items "
+                "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs "
                 "RESTART IDENTITY CASCADE"
             )
         )

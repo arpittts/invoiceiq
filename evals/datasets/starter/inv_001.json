@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Lakshmi Traders",
+  "vendor_gstin": "29HOSIZ0265I3Z8",
+  "buyer_name": "Mehta Motors Pvt Ltd",
+  "buyer_gstin": "27GYKDC6155T5Z2",
+  "invoice_number": "INV-36062",
+  "invoice_date": "2026-09-19",
+  "place_of_supply": "Maharashtra (27)",
+  "line_items": [
+    {
+      "description": "Steel Almirah",
+      "hsn_sac_code": "9403",
+      "quantity": "18",
+      "unit": "Nos",
+      "unit_price": "8711.61",
+      "discount": null,
+      "taxable_value": "156808.98",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "28225.62",
+      "line_total": "185034.60"
+    },
+    {
+      "description": "Fresh Vegetables (assorted)",
+      "hsn_sac_code": "0709",
+      "quantity": "16",
+      "unit": "Kg",
+      "unit_price": "49.05",
+      "discount": null,
+      "taxable_value": "784.80",
+      "gst_rate": "0",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "0.00",
+      "line_total": "784.80"
+    }
+  ],
+  "subtotal": "157593.78",
+  "cgst": null,
+  "sgst": null,
+  "igst": "28225.62",
+  "total": "185819.40"
+}

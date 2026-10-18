@@ -1,12 +1,14 @@
 import hashlib
 
 import pymupdf
-from fastapi import APIRouter, HTTPException, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, UploadFile, status
+from sqlalchemy import select
 
 from app.config import get_settings
 from app.deps import CurrentUser, DbSession
-from app.models import Invoice, InvoiceFile, InvoiceStatus
-from app.schemas.invoice import InvoiceUploadResponse
+from app.models import ExtractionRun, Invoice, InvoiceFile, InvoiceStatus
+from app.schemas.invoice import ExtractionSummary, InvoiceDetailResponse, InvoiceUploadResponse
+from app.services.extraction import process_invoice
 from app.services.storage import save_file
 
 router = APIRouter(prefix="/invoices", tags=["invoices"])
@@ -38,7 +40,9 @@ def count_pages(content: bytes, mime_type: str) -> int:
 
 
 @router.post("", response_model=InvoiceUploadResponse, status_code=status.HTTP_201_CREATED)
-async def upload_invoice(file: UploadFile, user: CurrentUser, db: DbSession) -> Invoice:
+async def upload_invoice(
+    file: UploadFile, user: CurrentUser, db: DbSession, background_tasks: BackgroundTasks
+) -> Invoice:
     settings = get_settings()
     max_bytes = settings.max_upload_mb * 1024 * 1024
 
@@ -80,4 +84,32 @@ async def upload_invoice(file: UploadFile, user: CurrentUser, db: DbSession) -> 
     invoice = Invoice(user_id=user.id, file=invoice_file, status=InvoiceStatus.PROCESSING)
     db.add(invoice)
     db.commit()
+
+    # Extraction takes seconds, so it runs after the response is sent.
+    # The client polls GET /invoices/{id} until the status leaves "processing".
+    background_tasks.add_task(process_invoice, invoice.id)
     return invoice
+
+
+@router.get("/{invoice_id}", response_model=InvoiceDetailResponse)
+def get_invoice(invoice_id: int, user: CurrentUser, db: DbSession) -> InvoiceDetailResponse:
+    invoice = db.get(Invoice, invoice_id)
+    # Someone else's invoice gets the same 404 as a missing one, so ids can't be probed.
+    if invoice is None or invoice.user_id != user.id:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Invoice not found")
+
+    runs = db.scalars(
+        select(ExtractionRun)
+        .where(ExtractionRun.invoice_id == invoice.id)
+        .order_by(ExtractionRun.id)
+    ).all()
+    response = InvoiceDetailResponse.model_validate(invoice)
+    if runs:
+        costs = [run.cost_usd for run in runs]
+        response.extraction = ExtractionSummary(
+            attempts=len(runs),
+            total_cost_usd=None if None in costs else sum(costs),
+            total_latency_ms=sum(run.latency_ms for run in runs),
+            issues=runs[-1].issues_json,
+        )
+    return response

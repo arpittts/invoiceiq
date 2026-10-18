@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Sri Murugan Stores",
+  "vendor_gstin": "33FIOHC7810U9ZS",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": "33ACYHF6773M1Z9",
+  "invoice_number": "INV-68800",
+  "invoice_date": "2026-08-19",
+  "place_of_supply": "Tamil Nadu",
+  "line_items": [
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "4",
+      "unit": "Ltr",
+      "unit_price": "299.86",
+      "discount": null,
+      "taxable_value": "1199.44",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Two-wheeler Tyre",
+      "hsn_sac_code": "4011",
+      "quantity": "13",
+      "unit": "Nos",
+      "unit_price": "2054.48",
+      "discount": null,
+      "taxable_value": "26708.24",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Steel Almirah",
+      "hsn_sac_code": "9403",
+      "quantity": "11",
+      "unit": "Nos",
+      "unit_price": "8945.76",
+      "discount": null,
+      "taxable_value": "98403.36",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Basmati Rice 25kg bag",
+      "hsn_sac_code": "1006",
+      "quantity": "8",
+      "unit": "Bag",
+      "unit_price": "1651.12",
+      "discount": null,
+      "taxable_value": "13208.96",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "139520.00",
+  "cgst": "11698.21",
+  "sgst": "11698.21",
+  "igst": null,
+  "total": "162916.42"
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "inv_001",
+    "file": "data/sample_invoices/inv_001.pdf",
+    "truth": "evals/datasets/starter/inv_001.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 2
+  },
+  {
+    "id": "inv_002",
+    "file": "data/sample_invoices/inv_002.pdf",
+    "truth": "evals/datasets/starter/inv_002.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 1
+  },
+  {
+    "id": "inv_003",
+    "file": "data/sample_invoices/inv_003.pdf",
+    "truth": "evals/datasets/starter/inv_003.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 6
+  },
+  {
+    "id": "inv_004",
+    "file": "data/sample_invoices/inv_004.png",
+    "truth": "evals/datasets/starter/inv_004.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 3
+  },
+  {
+    "id": "inv_005",
+    "file": "data/sample_invoices/inv_005.jpg",
+    "truth": "evals/datasets/starter/inv_005.json",
+    "layout": "classic",
+    "format": "jpg",
+    "tax_type": "inter",
+    "line_items": 1
+  },
+  {
+    "id": "inv_006",
+    "file": "data/sample_invoices/inv_006.pdf",
+    "truth": "evals/datasets/starter/inv_006.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 1
+  },
+  {
+    "id": "inv_007",
+    "file": "data/sample_invoices/inv_007.pdf",
+    "truth": "evals/datasets/starter/inv_007.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 4
+  },
+  {
+    "id": "inv_008",
+    "file": "data/sample_invoices/inv_008.pdf",
+    "truth": "evals/datasets/starter/inv_008.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 7
+  },
+  {
+    "id": "inv_009",
+    "file": "data/sample_invoices/inv_009.png",
+    "truth": "evals/datasets/starter/inv_009.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 2
+  },
+  {
+    "id": "inv_010",
+    "file": "data/sample_invoices/inv_010.jpg",
+    "truth": "evals/datasets/starter/inv_010.json",
+    "layout": "modern",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 3
+  },
+  {
+    "id": "inv_011",
+    "file": "data/sample_invoices/inv_011.pdf",
+    "truth": "evals/datasets/starter/inv_011.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 7
+  },
+  {
+    "id": "inv_012",
+    "file": "data/sample_invoices/inv_012.pdf",
+    "truth": "evals/datasets/starter/inv_012.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 6
+  },
+  {
+    "id": "inv_013",
+    "file": "data/sample_invoices/inv_013.pdf",
+    "truth": "evals/datasets/starter/inv_013.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 6
+  },
+  {
+    "id": "inv_014",
+    "file": "data/sample_invoices/inv_014.png",
+    "truth": "evals/datasets/starter/inv_014.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 3
+  },
+  {
+    "id": "inv_015",
+    "file": "data/sample_invoices/inv_015.jpg",
+    "truth": "evals/datasets/starter/inv_015.json",
+    "layout": "compact",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 7
+  },
+  {
+    "id": "inv_016",
+    "file": "data/sample_invoices/inv_016.pdf",
+    "truth": "evals/datasets/starter/inv_016.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 6
+  },
+  {
+    "id": "inv_017",
+    "file": "data/sample_invoices/inv_017.pdf",
+    "truth": "evals/datasets/starter/inv_017.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 6
+  },
+  {
+    "id": "inv_018",
+    "file": "data/sample_invoices/inv_018.pdf",
+    "truth": "evals/datasets/starter/inv_018.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 6
+  },
+  {
+    "id": "inv_019",
+    "file": "data/sample_invoices/inv_019.png",
+    "truth": "evals/datasets/starter/inv_019.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 1
+  },
+  {
+    "id": "inv_020",
+    "file": "data/sample_invoices/inv_020.jpg",
+    "truth": "evals/datasets/starter/inv_020.json",
+    "layout": "letterhead",
+    "format": "jpg",
+    "tax_type": "inter",
+    "line_items": 5
+  }
+]

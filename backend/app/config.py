@@ -3,6 +3,7 @@
 from functools import lru_cache
 from typing import Literal
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -22,6 +23,16 @@ class Settings(BaseSettings):
     upload_dir: str = "uploads"
     max_upload_mb: int = 10
     max_pages: int = 10
+
+    @field_validator("database_url")
+    @classmethod
+    def use_psycopg_driver(cls, url: str) -> str:
+        # Hosts like Neon hand out "postgresql://..." or "postgres://..." URLs.
+        # SQLAlchemy needs the driver named explicitly, so add "+psycopg".
+        for prefix in ("postgresql://", "postgres://"):
+            if url.startswith(prefix):
+                return "postgresql+psycopg://" + url.removeprefix(prefix)
+        return url
 
     @property
     def allowed_origins_list(self) -> list[str]:

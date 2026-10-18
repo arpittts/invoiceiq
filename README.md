@@ -36,6 +36,16 @@ All routes are under `/api/v1`.
 
 Uploaded files are stored on disk in development (`STORAGE_BACKEND=local`) and in Postgres in production (`STORAGE_BACKEND=db`), because free hosts wipe their disks on restart.
 
+## Deployment (all free tiers)
+
+| Part | Host | Notes |
+| --- | --- | --- |
+| Frontend | Vercel | Root directory `frontend`, env `VITE_API_URL` = backend URL |
+| Backend | Render free web service | Defined in [render.yaml](render.yaml); runs migrations on start; sleeps after 15 minutes idle, so the first request can take about a minute |
+| Database | Neon free plan | Postgres 16 with pgvector; scales to zero when idle and wakes on the next query |
+
+Free tiers change, so check each provider's current limits before relying on them.
+
 ## License
 
 MIT

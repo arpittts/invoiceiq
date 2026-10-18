@@ -4,6 +4,7 @@ Project blueprint and build specification. Author: Arpit Singh (GitHub: arpittts
 
 Revision notes:
 - 2026-10-18: Frontend uses React 19 (the current Vite `react-ts` template) instead of React 18.
+- 2026-10-18: Hosting is fully free: backend on Render's free web service (Docker, `render.yaml`), Postgres + pgvector on Neon's free plan, frontend on Vercel. Railway was dropped because it has no free plan. Uploaded files are stored as DB blobs in production (`file_blobs` table, `STORAGE_BACKEND=db`).
 
 ## 0. How to use this document (instructions for the AI builder)
 

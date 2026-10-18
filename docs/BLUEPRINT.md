@@ -9,6 +9,7 @@ Revision notes:
 - 2026-10-18: The unique index on (user_id, vendor_gstin, invoice_number) applies only to approved invoices (partial index). Duplicate uploads are saved and flagged by the DUPLICATE rule for a human to reject; the ledger itself stays duplicate-free. DATE_RANGE warns after `MAX_INVOICE_AGE_DAYS=730`.
 - 2026-10-18: Review flow: approval is blocked until each validation error is fixed or explicitly dismissed (both logged in `review_events`). Added endpoints beyond section 12: `GET /invoices/{id}/pages/{n}` (page images for the viewer) and `POST /invoices/{id}/issues/{issue_id}/dismiss`.
 - 2026-10-18: HSN/SAC (Phase 5): `hsn_codes` adds a `heading` column (parent context for embedding). Retrieval fuses three lists (vector, keyword, printed code). Selection is one LLM call per invoice. Rates are indicative from 09/2025 + 01/2026 (19/2025 and services rates not loaded). New warning rules `HSN_MISMATCH` and `RATE_MISMATCH`. Embedding model is baked into the Docker image and loaded lazily (measured 339 MB on Linux).
+- 2026-10-18: Agent (Phase 6): node order is extract → validate ⇄ re_extract (max 2, within budget) → save → classify → final_check → decide → finalize. Classification runs once after the re-read loop instead of on every pass (saves an LLM call per loop). Re-reads merge only the fields named by failing rules. Auto-approve (off by default) requires zero issues, overall confidence ≥ 0.9 and a confident HSN code on every line.
 
 ## 0. How to use this document (instructions for the AI builder)
 

@@ -44,8 +44,7 @@ CORPUS = [
 ]
 
 
-@pytest.fixture
-def corpus(db) -> dict[str, int]:
+def seed_corpus(db) -> dict[str, int]:
     """Seed the corpus with stand-in embeddings. Returns code -> id."""
     embedder = HashingEmbedder()
     rows = []
@@ -66,6 +65,11 @@ def corpus(db) -> dict[str, int]:
     db.add_all(rows)
     db.commit()
     return {row.code: row.id for row in rows}
+
+
+@pytest.fixture
+def corpus(db) -> dict[str, int]:
+    return seed_corpus(db)
 
 
 def codes_of(db, ids):

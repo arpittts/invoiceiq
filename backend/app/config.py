@@ -51,6 +51,14 @@ class Settings(BaseSettings):
     # Below this, the suggested code is not trusted: the line is left for a human.
     hsn_min_confidence: float = 0.6
 
+    # Agent (Phase 6, blueprint section 10)
+    max_reextractions: int = 2  # targeted re-reads after validation errors
+    max_tokens_per_invoice: int = 60_000  # budget across all LLM calls for one invoice
+    max_cost_per_invoice_usd: float = 0.25  # same, in dollars (free tier costs $0)
+    auto_approve_enabled: bool = False  # off by default: a human confirms every invoice
+    auto_approve_min_confidence: float = 0.9
+    auto_approve_min_hsn_confidence: float = 0.8
+
     # Tracing (optional; tracing is skipped when the keys are empty)
     langfuse_public_key: str = ""
     langfuse_secret_key: str = ""

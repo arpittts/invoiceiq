@@ -19,10 +19,8 @@ from app.llm.pricing import cost_usd
 from app.llm.provider import AnthropicProvider, GeminiProvider, LLMProvider
 from app.models import ExtractionRun, Invoice, InvoiceStatus, LineItem
 from app.schemas.extraction import ExtractionOutput, InvoiceExtraction, to_invoice_extraction
-from app.services.classification import classify_invoice
 from app.services.pdf import PageImage, render_pages
 from app.services.storage import load_file
-from app.services.validation import india_today, save_validation
 from app.tracing import trace_generation, trace_span
 
 logger = logging.getLogger(__name__)
@@ -88,13 +86,20 @@ def extract_from_pages(
     effort: str,
     max_retries: int,
     trace_metadata: dict,
+    focus: str | None = None,
+    first_attempt: int = 1,
 ) -> ExtractionOutcome:
-    """Call the model, validate, and retry with feedback when validation fails."""
+    """Call the model, validate, and retry with feedback when validation fails.
+
+    `focus` adds instructions for a targeted re-read (the agent's re_extract step);
+    `first_attempt` continues the attempt numbering across those re-reads.
+    """
     outcome = ExtractionOutcome(extraction=None)
-    instruction = INSTRUCTION
+    base_instruction = f"{INSTRUCTION}\n\n{focus}" if focus else INSTRUCTION
+    instruction = base_instruction
 
     with trace_span("extract_invoice", metadata={**trace_metadata, "pages": len(pages)}):
-        for number in range(1, max_retries + 2):
+        for number in range(first_attempt, first_attempt + max_retries + 1):
             with trace_generation(
                 f"extraction attempt {number}", model, metadata={"attempt": number}
             ) as generation:
@@ -161,7 +166,7 @@ def extract_from_pages(
                 break  # a refusal or truncation won't be fixed by asking again
             # Ask again, telling the model exactly what was wrong.
             instruction = (
-                f"{INSTRUCTION}\n\nA previous answer for this invoice was rejected by our "
+                f"{base_instruction}\n\nA previous answer for this invoice was rejected by our "
                 f"validator: {issues[0]['message']}\n"
                 "Read the pages again and return corrected JSON."
             )
@@ -183,7 +188,7 @@ def _fit(value: str | None, length: int) -> str | None:
     return value[:length] if value is not None else None
 
 
-def _apply_extraction(invoice: Invoice, extraction: InvoiceExtraction) -> None:
+def apply_extraction(invoice: Invoice, extraction: InvoiceExtraction) -> None:
     invoice.vendor_name = _fit(extraction.vendor_name.value, 255)
     invoice.vendor_gstin = _fit(extraction.vendor_gstin.value, 15)
     invoice.buyer_name = _fit(extraction.buyer_name.value, 255)
@@ -218,8 +223,31 @@ def _apply_extraction(invoice: Invoice, extraction: InvoiceExtraction) -> None:
     ]
 
 
+def save_runs(db, invoice_id: int, attempts: list[Attempt]) -> None:
+    """One extraction_runs row per LLM attempt, including rejected ones."""
+    db.add_all(
+        ExtractionRun(
+            invoice_id=invoice_id,
+            attempt=a.number,
+            model=a.model,
+            raw_json=a.raw_json,
+            issues_json=a.issues or None,
+            input_tokens=a.input_tokens,
+            output_tokens=a.output_tokens,
+            cost_usd=a.cost_usd,
+            latency_ms=a.latency_ms,
+            trace_id=a.trace_id,
+        )
+        for a in attempts
+    )
+
+
 def process_invoice(invoice_id: int, provider: LLMProvider | None = None) -> None:
-    """Extract one uploaded invoice and save the result. Safe to call from a background task."""
+    """Process one uploaded invoice with the agent graph. Safe to call from a background task."""
+    # Imported here, not at the top: the agent's nodes import helpers from this module.
+    from app.agent.graph import run_agent
+    from app.agent.state import AgentDeps
+
     settings = get_settings()
     if not settings.extraction_enabled:
         logger.info("Extraction disabled; invoice %s stays in processing", invoice_id)
@@ -252,48 +280,26 @@ def process_invoice(invoice_id: int, provider: LLMProvider | None = None) -> Non
         pages = render_pages(
             load_file(db, invoice.file), invoice.file.mime_type, settings.render_max_edge
         )
-        outcome = extract_from_pages(
-            pages,
-            provider,
-            model=settings.llm_model_extract,
-            effort=settings.llm_effort_extract,
-            max_retries=settings.extraction_max_retries,
-            trace_metadata={"invoice_id": invoice.id},
+        deps = AgentDeps(db=db, provider=provider, embedder=get_embedder())
+        with trace_span("process_invoice", metadata={"invoice_id": invoice.id}) as span:
+            result = run_agent(deps, invoice.id, pages)
+            # The trace shows the route the agent took and why (no invoice contents).
+            span.update(
+                output={
+                    "path": result.get("path"),
+                    "decision": result.get("decision"),
+                    "reason": result.get("reason"),
+                    "re_extractions": result.get("re_extractions", 0),
+                    "tokens": result.get("tokens_used", 0),
+                }
+            )
+        logger.info(
+            "Invoice %s: %s (%s) via %s",
+            invoice.id,
+            result.get("decision"),
+            result.get("reason"),
+            " > ".join(result["path"]),
         )
-
-        runs = [
-            ExtractionRun(
-                invoice_id=invoice.id,
-                attempt=a.number,
-                model=a.model,
-                raw_json=a.raw_json,
-                issues_json=a.issues or None,
-                input_tokens=a.input_tokens,
-                output_tokens=a.output_tokens,
-                cost_usd=a.cost_usd,
-                latency_ms=a.latency_ms,
-                trace_id=a.trace_id,
-            )
-            for a in outcome.attempts
-        ]
-        db.add_all(runs)
-
-        if outcome.extraction is None:
-            invoice.status = InvoiceStatus.FAILED
-        else:
-            _apply_extraction(invoice, outcome.extraction)
-            if settings.classification_enabled:
-                # Suggest HSN/SAC codes (Phase 5). Never blocks the invoice if it fails.
-                try:
-                    classify_invoice(db, invoice, provider, get_embedder())
-                except Exception:
-                    logger.exception("HSN classification failed for invoice %s", invoice.id)
-            # Check the extracted values with the deterministic rules (Phase 3).
-            # Issues don't block anything yet: a human reviews every invoice.
-            save_validation(
-                db, invoice, today=india_today(), max_age_days=settings.max_invoice_age_days
-            )
-            invoice.status = InvoiceStatus.NEEDS_REVIEW
         db.commit()
     except Exception:
         logger.exception("Processing invoice %s failed", invoice_id)

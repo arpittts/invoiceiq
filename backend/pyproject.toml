@@ -19,6 +19,7 @@ dependencies = [
     "langgraph==1.2.16",
     "sqlglot==30.23.0",
     "langfuse==5.0.2",
+    "email-validator==2.3.0",
 ]
 
 [project.optional-dependencies]
@@ -48,3 +49,7 @@ select = ["E", "F", "I", "B", "UP"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+filterwarnings = [
+    # Noise from PyMuPDF's SWIG bindings, not from our code.
+    "ignore:builtin type (SwigPyPacked|SwigPyObject|swigvarlink) has no __module__ attribute:DeprecationWarning",
+]

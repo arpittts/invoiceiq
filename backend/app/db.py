@@ -1,15 +1,19 @@
-"""Database engine and session factory."""
+"""Database engine, session factory, and the declarative base for models."""
 
 from collections.abc import Iterator
 
 from sqlalchemy import create_engine, text
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.config import get_settings
 
 # pool_pre_ping checks a connection is alive before using it (helps after DB restarts).
 engine = create_engine(get_settings().database_url, pool_pre_ping=True)
-SessionLocal = sessionmaker(bind=engine, autoflush=False)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
+
+
+class Base(DeclarativeBase):
+    """Parent class for every SQLAlchemy model."""
 
 
 def get_db() -> Iterator[Session]:

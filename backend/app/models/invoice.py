@@ -17,6 +17,7 @@ from sqlalchemy import (
     String,
     Text,
     func,
+    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -64,14 +65,16 @@ class Invoice(Base):
             "status IN ('processing', 'needs_review', 'approved', 'rejected', 'failed')",
             name="ck_invoices_status",
         ),
-        # One invoice number per vendor per user. NULLs don't clash in Postgres,
-        # so invoices still being processed (no GSTIN yet) are fine.
+        # The ledger may hold each vendor invoice number once per user. Only approved
+        # invoices count, so a duplicate upload can still be saved and flagged by the
+        # DUPLICATE rule for a human to reject.
         Index(
             "uq_invoices_user_vendor_number",
             "user_id",
             "vendor_gstin",
             "invoice_number",
             unique=True,
+            postgresql_where=text("status = 'approved'"),
         ),
     )
 
@@ -102,6 +105,9 @@ class Invoice(Base):
     file: Mapped[InvoiceFile] = relationship()
     line_items: Mapped[list["LineItem"]] = relationship(
         back_populates="invoice", order_by="LineItem.position", cascade="all, delete-orphan"
+    )
+    validation_issues: Mapped[list["ValidationIssue"]] = relationship(  # noqa: F821
+        order_by="ValidationIssue.id", cascade="all, delete-orphan"
     )
 
 

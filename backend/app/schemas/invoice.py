@@ -42,6 +42,16 @@ class LineItemResponse(BaseModel):
     confidence: float | None
 
 
+class ValidationIssueResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    rule_code: str
+    field: str
+    severity: str
+    message: str
+    resolved: bool
+
+
 class ExtractionSummary(BaseModel):
     """How extraction went, without the raw model output."""
 
@@ -73,4 +83,5 @@ class InvoiceDetailResponse(BaseModel):
     currency: str
     overall_confidence: float | None
     line_items: list[LineItemResponse]
+    validation_issues: list[ValidationIssueResponse]
     extraction: ExtractionSummary | None = None

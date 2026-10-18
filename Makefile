@@ -1,4 +1,4 @@
-.PHONY: db db-down migrate dev test lint web invoices check-extraction
+.PHONY: db db-down migrate dev test lint web invoices check-extraction check-validation
 
 db:
 	docker compose up -d --wait db
@@ -26,3 +26,6 @@ invoices:
 
 check-extraction:
 	backend/.venv/bin/python scripts/check_extraction.py
+
+check-validation:
+	backend/.venv/bin/python scripts/check_validation.py

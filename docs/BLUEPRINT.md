@@ -6,6 +6,7 @@ Revision notes:
 - 2026-10-18: Frontend uses React 19 (the current Vite `react-ts` template) instead of React 18.
 - 2026-10-18: Hosting is fully free: backend on Render's free web service (Docker, `render.yaml`), Postgres + pgvector on Neon's free plan, frontend on Vercel. Railway was dropped because it has no free plan. Uploaded files are stored as DB blobs in production (`file_blobs` table, `STORAGE_BACKEND=db`).
 - 2026-10-18: LLM provider is configurable (`LLM_PROVIDER`). Default is **Google Gemini's free tier** with `gemini-3.5-flash-lite` for extraction and as the fast model (`gemini-3.8-flash` was tried first, but its free tier allows only about 20 requests a day; Flash-Lite matched its accuracy on the starter set and was 2.5x faster) because the owner chose not to pay for an API key; the Anthropic provider stays available (`claude-opus-5-5` / `claude-haiku-5-5`). Only synthetic or demo invoices go to the free tier, since Google may use free-tier inputs to improve its products. PyMuPDF is kept despite its AGPL license; the README explains the implication.
+- 2026-10-18: The unique index on (user_id, vendor_gstin, invoice_number) applies only to approved invoices (partial index). Duplicate uploads are saved and flagged by the DUPLICATE rule for a human to reject; the ledger itself stays duplicate-free. DATE_RANGE warns after `MAX_INVOICE_AGE_DAYS=730`.
 
 ## 0. How to use this document (instructions for the AI builder)
 

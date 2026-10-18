@@ -49,7 +49,8 @@ def clean_tables():
     with engine.begin() as conn:
         conn.execute(
             text(
-                "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs "
+                "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs, "
+                "validation_issues "
                 "RESTART IDENTITY CASCADE"
             )
         )

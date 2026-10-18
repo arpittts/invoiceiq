@@ -1,0 +1,108 @@
+{
+  "run_at": "2026-10-18T15:26:57+00:00",
+  "invoices": 20,
+  "false_alarm_invoices": {},
+  "injected": 632,
+  "catch_rate_any_error": 0.9794303797468354,
+  "catch_rate_expected_rule": 0.9794303797468354,
+  "by_injection": {
+    "misread GSTIN character": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "GSTIN_FORMAT"
+    },
+    "invalid state code": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "STATE_CODE"
+    },
+    "transposed digits in a taxable value": {
+      "tried": 60,
+      "caught_by_rule": 47,
+      "caught_any": 47,
+      "missed": [
+        "inv_001",
+        "inv_003",
+        "inv_003",
+        "inv_006",
+        "inv_006",
+        "inv_008",
+        "inv_012",
+        "inv_013",
+        "inv_014",
+        "inv_016",
+        "inv_018",
+        "inv_019",
+        "inv_020"
+      ],
+      "rule": "LINE_MATH"
+    },
+    "misread quantity": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "LINE_MATH"
+    },
+    "one digit off in the total": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "TOTAL_MATH"
+    },
+    "wrong GST rate on a line": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "TAX_MATH"
+    },
+    "IGST and CGST/SGST swapped": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "TAX_TYPE"
+    },
+    "CGST and SGST differ": {
+      "tried": 24,
+      "caught_by_rule": 24,
+      "caught_any": 24,
+      "missed": [],
+      "rule": "TAX_MATH"
+    },
+    "future invoice date": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "DATE_RANGE"
+    },
+    "required field missing": {
+      "tried": 60,
+      "caught_by_rule": 60,
+      "caught_any": 60,
+      "missed": [],
+      "rule": "REQUIRED"
+    },
+    "a line item was skipped": {
+      "tried": 48,
+      "caught_by_rule": 48,
+      "caught_any": 48,
+      "missed": [],
+      "rule": "TOTAL_MATH"
+    },
+    "same invoice uploaded twice": {
+      "tried": 20,
+      "caught_by_rule": 20,
+      "caught_any": 20,
+      "missed": [],
+      "rule": "DUPLICATE"
+    }
+  }
+}

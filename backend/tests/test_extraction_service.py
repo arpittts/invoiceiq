@@ -112,9 +112,10 @@ def extraction_on(monkeypatch):
     return provider
 
 
-def upload(client, headers):
+def upload(client, headers, content: bytes | None = None):
+    content = content or make_pdf()  # each make_pdf() has a unique id, so a unique hash
     response = client.post(
-        "/api/v1/invoices", headers=headers, files={"file": ("inv.pdf", make_pdf())}
+        "/api/v1/invoices", headers=headers, files={"file": ("inv.pdf", content)}
     )
     assert response.status_code == 201
     return response.json()["id"]
@@ -167,18 +168,21 @@ def test_kill_switch_leaves_invoice_processing(client, auth_headers):
     assert body["extraction"] is None
 
 
-def test_same_vendor_and_invoice_number_is_flagged_as_duplicate(
-    client, auth_headers, extraction_on
-):
+def test_duplicate_upload_is_saved_and_flagged_for_review(client, auth_headers, extraction_on):
     extraction_on.replies = [valid_reply(), valid_reply()]
-    first = upload(client, auth_headers)
-    second = upload(client, auth_headers)
-    assert client.get(f"/api/v1/invoices/{first}", headers=auth_headers).json()["status"] == (
-        "needs_review"
-    )
+    same_file = make_pdf()
+    first = upload(client, auth_headers, same_file)
+    second = upload(client, auth_headers, same_file)
+
+    first_body = client.get(f"/api/v1/invoices/{first}", headers=auth_headers).json()
+    assert not [i for i in first_body["validation_issues"] if i["rule_code"] == "DUPLICATE"]
+
     body = client.get(f"/api/v1/invoices/{second}", headers=auth_headers).json()
-    assert body["status"] == "failed"
-    assert body["extraction"]["issues"][0]["code"] == "DUPLICATE"
+    assert body["status"] == "needs_review"  # saved, so a human can see and reject it
+    assert body["invoice_number"] == "SAP/2026/0042"
+    duplicates = [i for i in body["validation_issues"] if i["rule_code"] == "DUPLICATE"]
+    assert {i["field"] for i in duplicates} == {"file", "invoice_number"}
+    assert all(f"invoice {first}" in i["message"] for i in duplicates)
 
 
 def test_other_users_cannot_read_an_invoice(client):

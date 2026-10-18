@@ -12,8 +12,6 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from pathlib import Path
 
-from sqlalchemy import select
-
 from app.config import get_settings
 from app.db import SessionLocal
 from app.llm.pricing import cost_usd
@@ -22,6 +20,7 @@ from app.models import ExtractionRun, Invoice, InvoiceStatus, LineItem
 from app.schemas.extraction import ExtractionOutput, InvoiceExtraction, to_invoice_extraction
 from app.services.pdf import PageImage, render_pages
 from app.services.storage import load_file
+from app.services.validation import india_today, save_validation
 from app.tracing import trace_generation, trace_span
 
 logger = logging.getLogger(__name__)
@@ -182,20 +181,6 @@ def _fit(value: str | None, length: int) -> str | None:
     return value[:length] if value is not None else None
 
 
-def _find_duplicate(db, invoice: Invoice, extraction: InvoiceExtraction) -> Invoice | None:
-    gstin, number = extraction.vendor_gstin.value, extraction.invoice_number.value
-    if not (gstin and number):
-        return None
-    return db.scalar(
-        select(Invoice).where(
-            Invoice.user_id == invoice.user_id,
-            Invoice.vendor_gstin == _fit(gstin, 15),
-            Invoice.invoice_number == _fit(number, 100),
-            Invoice.id != invoice.id,
-        )
-    )
-
-
 def _apply_extraction(invoice: Invoice, extraction: InvoiceExtraction) -> None:
     invoice.vendor_name = _fit(extraction.vendor_name.value, 255)
     invoice.vendor_gstin = _fit(extraction.vendor_gstin.value, 15)
@@ -293,18 +278,13 @@ def process_invoice(invoice_id: int, provider: LLMProvider | None = None) -> Non
 
         if outcome.extraction is None:
             invoice.status = InvoiceStatus.FAILED
-        elif duplicate := _find_duplicate(db, invoice, outcome.extraction):
-            # Proper duplicate handling is the DUPLICATE validation rule (Phase 3).
-            # Until then, flag it instead of breaking the unique index.
-            runs[-1].issues_json = [
-                {
-                    "code": "DUPLICATE",
-                    "message": f"Same vendor GSTIN and invoice number as invoice {duplicate.id}",
-                }
-            ]
-            invoice.status = InvoiceStatus.FAILED
         else:
             _apply_extraction(invoice, outcome.extraction)
+            # Check the extracted values with the deterministic rules (Phase 3).
+            # Issues don't block anything yet: a human reviews every invoice.
+            save_validation(
+                db, invoice, today=india_today(), max_age_days=settings.max_invoice_age_days
+            )
             invoice.status = InvoiceStatus.NEEDS_REVIEW
         db.commit()
     except Exception:

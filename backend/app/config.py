@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     # Longest side of a page image sent to the model, in pixels.
     render_max_edge: int = 2000
 
+    # Validation: warn when an invoice is older than this (GST input-credit window)
+    max_invoice_age_days: int = 730
+
     # Tracing (optional; tracing is skipped when the keys are empty)
     langfuse_public_key: str = ""
     langfuse_secret_key: str = ""

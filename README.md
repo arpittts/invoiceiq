@@ -2,7 +2,7 @@
 
 An AI agent that reads Indian GST invoices (photos or PDFs), extracts structured data, validates it, classifies line items with the right HSN/SAC code and GST rate, and lets a human approve the result and query the ledger in plain English.
 
-> Status: early development (Phase 2: extraction pipeline). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
+> Status: early development (Phase 3: validation engine). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
 > Disclaimer: output is an automation aid, not tax or legal advice. Rates and codes change, so always verify.
 
@@ -33,7 +33,7 @@ All routes are under `/api/v1`.
 | POST | `/auth/login` | no | Get a JWT access token |
 | GET | `/auth/me` | yes | The logged-in user |
 | POST | `/invoices` | yes | Upload a PDF, PNG or JPEG (max 10 MB, 10 pages); creates an invoice with status `processing` and starts extraction in the background |
-| GET | `/invoices/{id}` | yes | Status, extracted fields, line items and an extraction summary (attempts, cost, issues) |
+| GET | `/invoices/{id}` | yes | Status, extracted fields, line items, validation issues and an extraction summary (attempts, cost) |
 
 Uploaded files are stored on disk in development (`STORAGE_BACKEND=local`) and in Postgres in production (`STORAGE_BACKEND=db`), because free hosts wipe their disks on restart.
 
@@ -44,6 +44,12 @@ After upload, a background task renders each page to an image and sends it to a 
 Safety: the extraction call has no tools, our instructions live in the system prompt, and invoice text is treated as untrusted data.
 
 Test data: `make invoices` regenerates 20 synthetic invoices (4 layouts, PDF/scan/photo, CGST+SGST and IGST) with exact ground truth in `evals/datasets/starter/`. `make check-extraction` runs real extraction on them and reports the valid-schema rate, cost and latency (it asks before calling the API).
+
+## Validation rules
+
+After extraction, deterministic rules check what the model read (no AI involved): GSTIN format and mod-36 checksum, state codes, CGST+SGST vs IGST for the place of supply, line math, tax math, totals (each within ₹1), date range, duplicates and required fields. Problems are stored as issues with a rule code, field, severity and message, and returned with the invoice.
+
+`make check-validation` injects 12 kinds of realistic misreads into the 20 correct starter invoices. Latest run: **0 false alarms, 97.9% of 632 injected errors caught**. Every miss was a digit swap in the paise (largest ₹0.72), which is inside the ₹1 rounding tolerance and cannot be detected by arithmetic.
 
 ## Deployment (all free tiers)
 

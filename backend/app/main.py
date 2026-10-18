@@ -2,10 +2,9 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
+from app.api import auth, health, invoices
 from app.config import get_settings
-from app.db import check_database
 
 app = FastAPI(title="InvoiceIQ API", version="0.1.0")
 
@@ -17,10 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.get("/api/v1/health")
-def health() -> JSONResponse:
-    """Liveness check used by Docker, the host platform, and the frontend."""
-    db_ok = check_database()
-    body = {"status": "ok" if db_ok else "degraded", "database": "ok" if db_ok else "unreachable"}
-    return JSONResponse(body, status_code=200 if db_ok else 503)
+API_PREFIX = "/api/v1"
+app.include_router(health.router, prefix=API_PREFIX)
+app.include_router(auth.router, prefix=API_PREFIX)
+app.include_router(invoices.router, prefix=API_PREFIX)

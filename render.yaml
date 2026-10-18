@@ -1,0 +1,23 @@
+# Render Blueprint: creates the backend as a free Docker web service.
+# The database lives on Neon (free tier, pgvector included); paste its URL when Render asks.
+services:
+  - type: web
+    name: invoiceiq-api
+    runtime: docker
+    plan: free
+    region: singapore           # keep close to the Neon database region
+    rootDir: backend            # only changes under backend/ trigger a redeploy
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false             # Render asks for this once: the Neon connection string
+      - key: ALLOWED_ORIGINS
+        sync: false             # the Vercel URL of the frontend
+      - key: JWT_SECRET
+        generateValue: true     # Render creates a random 256-bit secret
+      - key: STORAGE_BACKEND
+        value: db               # Render's free disk is wiped on every restart
+      - key: MAX_UPLOAD_MB
+        value: "5"              # Neon's free tier has limited storage

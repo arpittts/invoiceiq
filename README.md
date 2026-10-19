@@ -59,7 +59,7 @@ flowchart LR
 - **Extraction** with per-field confidence and schema retries; every attempt stored with tokens, cost and latency.
 - **Validation**: 10 deterministic GST rules, issues pinned to fields.
 - **HSN/SAC suggestions** with the official source row and indicative rate.
-- **Review**: page image beside an editable form, issues highlighted, low-confidence fields marked, approve/reject/read again, full audit trail.
+- **Review**: page image beside an editable form, issues highlighted, low-confidence fields marked, approve/reject/read again, move an approved or rejected invoice back to review, in-page confirmations, full audit trail.
 - **Ledger Q&A**: an answer, the SQL that produced it and the rows.
 - **Dashboard** (spend, GST, counts, recent invoices, AI usage), **Settings** (auto-approve and its thresholds per user), **CSV export** of approved invoices (formula-injection safe).
 - **Try demo invoices**: six bundled synthetic invoices, read instantly by replaying recorded model replies, so the demo works even when the daily AI cap is reached.
@@ -296,6 +296,7 @@ All routes are under `/api/v1`.
 | POST | `/ask` | yes | A plain-English question about your approved invoices: answer, SQL and rows |
 | POST | `/invoices/demo` | yes | Add the six demo invoices to your account and read them (replayed, instant) |
 | POST | `/invoices/{id}/reprocess` | yes | Read a failed or unreviewed invoice again from scratch |
+| POST | `/invoices/{id}/reopen` | yes | Move an approved or rejected invoice back to review (an approved one leaves the ledger; both decisions stay in the history) |
 | GET | `/invoices/export.csv` | yes | Approved invoices as CSV (`status` to choose another status) |
 | GET | `/dashboard` | yes | Counts by status, approved spend and GST, recent invoices, AI usage |
 | GET, PUT | `/settings` | yes | Your auto-approve switch and thresholds |

@@ -345,6 +345,14 @@ def reject_invoice(invoice_id: int, user: CurrentUser, db: DbSession) -> Invoice
     return _detail(db, invoice)
 
 
+@router.post("/{invoice_id}/reopen", response_model=InvoiceDetailResponse)
+def reopen_invoice(invoice_id: int, user: CurrentUser, db: DbSession) -> InvoiceDetailResponse:
+    """Move an approved or rejected invoice back to review (it leaves the ledger)."""
+    invoice = _get_own_invoice(db, user, invoice_id)
+    _run_review(db, lambda: review.reopen(db, invoice, user))
+    return _detail(db, invoice)
+
+
 @router.post(
     "/{invoice_id}/reprocess",
     response_model=InvoiceDetailResponse,

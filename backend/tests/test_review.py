@@ -168,6 +168,65 @@ def test_approved_and_rejected_invoices_are_final(client, auth_headers, extracti
     assert client.post(f"{API}/{rejected}/approve", headers=auth_headers).status_code == 409
 
 
+def test_an_approved_invoice_can_be_moved_back_to_review(client, auth_headers, db, extraction_on):
+    from app.services.ledger_qa import run_readonly
+
+    invoice_id = new_invoice(client, auth_headers, extraction_on)
+    client.post(f"{API}/{invoice_id}/approve", headers=auth_headers)
+    user_id = client.get("/api/v1/auth/me", headers=auth_headers).json()["id"]
+    assert run_readonly("SELECT COUNT(*) FROM v_invoices", user_id)[1] == [[1]]
+
+    body = client.post(f"{API}/{invoice_id}/reopen", headers=auth_headers).json()
+    assert body["status"] == "needs_review" and body["approved_at"] is None
+    assert run_readonly("SELECT COUNT(*) FROM v_invoices", user_id)[1] == [[0]]  # out of ledger
+    # Editable again, and both decisions are in the audit trail.
+    assert (
+        client.patch(
+            f"{API}/{invoice_id}", headers=auth_headers, json={"buyer_name": "Fixed Ltd"}
+        ).status_code
+        == 200
+    )
+    events = db.scalars(
+        select(ReviewEvent).where(ReviewEvent.field == "status").order_by(ReviewEvent.id)
+    ).all()
+    assert [(e.old_value, e.new_value) for e in events] == [
+        ("needs_review", "approved"),
+        ("approved", "needs_review"),
+    ]
+
+
+def test_a_rejected_invoice_can_be_moved_back_to_review(client, auth_headers, extraction_on):
+    invoice_id = new_invoice(client, auth_headers, extraction_on)
+    client.post(f"{API}/{invoice_id}/reject", headers=auth_headers)
+    body = client.post(f"{API}/{invoice_id}/reopen", headers=auth_headers).json()
+    assert body["status"] == "needs_review"
+    assert client.post(f"{API}/{invoice_id}/approve", headers=auth_headers).status_code == 200
+
+
+def test_reopening_rechecks_for_duplicates(client, auth_headers, extraction_on):
+    """While A was rejected, its twin B was approved: reopening A flags the duplicate."""
+    first = new_invoice(client, auth_headers, extraction_on)
+    client.post(f"{API}/{first}/reject", headers=auth_headers)
+    second = new_invoice(client, auth_headers, extraction_on)  # same GSTIN and number
+    client.post(f"{API}/{second}/approve", headers=auth_headers)
+    body = client.post(f"{API}/{first}/reopen", headers=auth_headers).json()
+    assert "DUPLICATE" in rule_codes(body)
+    assert client.post(f"{API}/{first}/approve", headers=auth_headers).status_code == 409
+
+
+def test_only_finished_invoices_can_be_reopened(client, auth_headers, extraction_on):
+    invoice_id = new_invoice(client, auth_headers, extraction_on)  # needs_review
+    response = client.post(f"{API}/{invoice_id}/reopen", headers=auth_headers)
+    assert response.status_code == 409 and "already open" in response.json()["detail"]
+
+
+def test_someone_elses_invoice_cannot_be_reopened(client, auth_headers, extraction_on):
+    invoice_id = new_invoice(client, auth_headers, extraction_on)
+    client.post(f"{API}/{invoice_id}/approve", headers=auth_headers)
+    stranger = register_and_login(client, "stranger@example.com")
+    assert client.post(f"{API}/{invoice_id}/reopen", headers=stranger).status_code == 404
+
+
 def test_the_ledger_never_gets_the_same_invoice_twice(client, auth_headers, extraction_on):
     first = new_invoice(client, auth_headers, extraction_on)
     second = new_invoice(client, auth_headers, extraction_on)  # same GSTIN and number

@@ -96,6 +96,7 @@ export const api = {
   reject: (id: number) => request<InvoiceDetail>(`/invoices/${id}/reject`, { method: 'POST' }),
   ask: (question: string) => request<AskResult>('/ask', { method: 'POST', json: { question } }),
   reprocess: (id: number) => request<InvoiceDetail>(`/invoices/${id}/reprocess`, { method: 'POST' }),
+  reopen: (id: number) => request<InvoiceDetail>(`/invoices/${id}/reopen`, { method: 'POST' }),
   loadDemo: () => request<DemoResult>('/invoices/demo', { method: 'POST' }),
   dashboard: () => request<Dashboard>('/dashboard'),
   getSettings: () => request<SettingsResponse>('/settings'),

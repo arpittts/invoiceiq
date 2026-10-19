@@ -1,4 +1,4 @@
-"""Human review: corrections, dismissing issues, approving and rejecting.
+"""Human review: corrections, dismissing issues, approving, rejecting and reopening.
 
 Every change is written to review_events (who changed what, from what, to what),
 and corrections re-run validation so fixed problems disappear right away.
@@ -20,6 +20,7 @@ from app.services.extraction import get_provider
 from app.services.validation import india_today, save_validation
 
 EDITABLE = {InvoiceStatus.NEEDS_REVIEW, InvoiceStatus.FAILED}
+REOPENABLE = {InvoiceStatus.APPROVED, InvoiceStatus.REJECTED}
 LINE_FIELDS = [
     "description",
     "hsn_sac_code",
@@ -210,3 +211,20 @@ def reject(db: Session, invoice: Invoice, user: User) -> None:
         raise ReviewError(f"An invoice that is {invoice.status} can't be rejected")
     _event(db, invoice, user, "status", invoice.status, InvoiceStatus.REJECTED)
     invoice.status = InvoiceStatus.REJECTED
+
+
+def reopen(db: Session, invoice: Invoice, user: User) -> None:
+    """Move an approved or rejected invoice back to review (a decision can be a mistake).
+
+    An approved invoice leaves the ledger (the ledger views show approved invoices
+    only). Both the original decision and this reversal stay in review_events.
+    Validation runs again, so problems that appeared since (e.g. a duplicate
+    approved in the meantime) show up. The caller commits.
+    """
+    if invoice.status not in REOPENABLE:
+        raise ReviewError(f"An invoice that is {invoice.status} is already open for review")
+    _event(db, invoice, user, "status", invoice.status, InvoiceStatus.NEEDS_REVIEW)
+    invoice.status = InvoiceStatus.NEEDS_REVIEW
+    invoice.approved_at = None
+    db.flush()
+    _revalidate(db, invoice)

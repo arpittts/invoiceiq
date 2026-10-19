@@ -6,6 +6,7 @@ Each test feeds scripted model replies and checks the route the graph took
 
 import json
 
+import pymupdf
 import pytest
 from langgraph.errors import GraphRecursionError
 from sqlalchemy import select
@@ -15,13 +16,19 @@ from app.agent.state import AgentDeps
 from app.config import get_settings
 from app.llm.embeddings import HashingEmbedder
 from app.llm.provider import FakeProvider
-from app.models import ExtractionRun, Invoice, ReviewEvent
+from app.models import ExtractionRun, Invoice, ReviewEvent, ValidationIssue
 from app.services.pdf import PageImage
 from tests.test_classification import seed_corpus
 from tests.test_extraction_schema import make_output, printed
 from tests.test_extraction_service import upload, valid_reply
 
-PAGE = PageImage(b"png", "image/png", 10, 10)
+# A real (blank) 10x10 PNG: the second read re-renders the page's pixels.
+PAGE = PageImage(
+    pymupdf.Pixmap(pymupdf.csRGB, pymupdf.IRect(0, 0, 10, 10), False).tobytes("png"),
+    "image/png",
+    10,
+    10,
+)
 BAD_TOTAL = {"total": printed("4,000.00")}  # line totals add up to 3,840.00
 
 
@@ -68,7 +75,9 @@ def test_graph_has_the_designed_shape():
         ("save", "classify"),
         ("classify", "final_check"),
         ("final_check", "decide"),
+        ("decide", "verify"),
         ("decide", "finalize"),
+        ("verify", "finalize"),
         ("finalize", "__end__"),
     } == edges
 
@@ -207,13 +216,68 @@ def spotless_reply() -> str:
 def test_spotless_confident_invoice_is_auto_approved(client, auth_headers, db, auto_approve):
     codes = seed_corpus(db)
     invoice_id = new_invoice(client, auth_headers)
-    state, _ = run(db, invoice_id, [spotless_reply(), choose(codes["87083000"])])
+    # First read, HSN choice, then the second read, which agrees.
+    state, provider = run(
+        db, invoice_id, [spotless_reply(), choose(codes["87083000"]), spotless_reply()]
+    )
 
     assert state["decision"] == "auto_approve", state["reason"]
+    assert "second read agreed" in state["reason"]
+    assert state["path"][-2:] == ["verify", "finalize"]
+    second = provider.calls[2]
+    assert second["images"][0].media_type == "image/jpeg"  # rendered differently
+    assert "independent second reading" in second["instruction"]
     invoice = db.get(Invoice, invoice_id)
     assert invoice.status == "approved" and invoice.approved_at is not None
     event = db.scalars(select(ReviewEvent)).one()
     assert event.new_value == "approved_by_agent"
+
+
+def test_reads_that_disagree_go_to_a_person(client, auth_headers, db, auto_approve):
+    """The case no rule catches: one read fills in a line total, the other leaves it out."""
+    codes = seed_corpus(db)
+    invoice_id = new_invoice(client, auth_headers)
+    second = json.loads(spotless_reply())
+    second["line_items"][0]["line_total"]["value"] = None
+    state, _ = run(
+        db, invoice_id, [spotless_reply(), choose(codes["87083000"]), json.dumps(second)]
+    )
+
+    assert state["decision"] == "review"
+    assert state["reason"] == "Two reads disagree on line_items[1].line_total"
+    invoice = db.get(Invoice, invoice_id)
+    assert invoice.status == "needs_review"
+    [issue] = db.scalars(
+        select(ValidationIssue).where(
+            ValidationIssue.invoice_id == invoice_id, ValidationIssue.rule_code == "READS_DISAGREE"
+        )
+    ).all()
+    assert issue.field == "line_items[1].line_total" and issue.severity == "warning"
+
+
+def test_a_failed_second_read_confirms_nothing(client, auth_headers, db, auto_approve):
+    codes = seed_corpus(db)
+    invoice_id = new_invoice(client, auth_headers)
+    replies = [spotless_reply(), choose(codes["87083000"])] + ["not json"] * 3
+    state, _ = run(db, invoice_id, replies)
+    assert state["decision"] == "review" and "second read failed" in state["reason"]
+
+
+def test_the_agreement_check_can_be_switched_off(
+    client, auth_headers, db, auto_approve, monkeypatch
+):
+    monkeypatch.setattr(get_settings(), "auto_approve_require_agreement", False)
+    codes = seed_corpus(db)
+    invoice_id = new_invoice(client, auth_headers)
+    state, provider = run(db, invoice_id, [spotless_reply(), choose(codes["87083000"])])
+    assert state["decision"] == "auto_approve" and "verify" not in state["path"]
+    assert len(provider.calls) == 2
+
+
+def test_review_decisions_never_pay_for_a_second_read(client, auth_headers, db):
+    invoice_id = new_invoice(client, auth_headers)  # auto-approve is off by default
+    state, provider = run(db, invoice_id, [valid_reply()])
+    assert "verify" not in state["path"] and len(provider.calls) == 1
 
 
 def test_a_user_who_switched_auto_approve_off_is_respected(client, auth_headers, db, auto_approve):

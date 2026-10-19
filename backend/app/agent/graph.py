@@ -7,7 +7,10 @@
        │  ▲                                                           │
        │  └───────────────────────────────────────────────────────────┘
        ▼ (clean, or out of re-reads/budget)
-    save ► classify ► final_check ► decide ► finalize
+    save ► classify ► final_check ► decide ─(auto-approve)─► verify ► finalize
+                                              └─(review)───────────────► finalize
+
+verify: a second, differently rendered read must agree on every field (v1.2).
 
 The loop is bounded twice: max_reextractions (2) and LangGraph's own recursion limit.
 """
@@ -19,7 +22,7 @@ from langgraph.graph import END, START, StateGraph
 from app.agent import nodes
 from app.agent.state import AgentDeps, AgentState
 
-# Far above the longest legal path (extract + 3 validates + 2 re-reads + 5 = 11 steps);
+# Far above the longest legal path (extract + 3 validates + 2 re-reads + 6 = 12 steps);
 # if this is ever hit, it's a bug and LangGraph raises instead of looping forever.
 RECURSION_LIMIT = 25
 
@@ -34,6 +37,7 @@ def build_graph(deps: AgentDeps):
         ("classify", nodes.classify),
         ("final_check", nodes.final_check),
         ("decide", nodes.decide),
+        ("verify", nodes.verify),
         ("finalize", nodes.finalize),
     ]:
         graph.add_node(name, partial(node, deps=deps))
@@ -45,7 +49,8 @@ def build_graph(deps: AgentDeps):
     graph.add_edge("save", "classify")
     graph.add_edge("classify", "final_check")
     graph.add_edge("final_check", "decide")
-    graph.add_edge("decide", "finalize")
+    graph.add_conditional_edges("decide", nodes.after_decide, ["verify", "finalize"])
+    graph.add_edge("verify", "finalize")
     graph.add_edge("finalize", END)
     return graph.compile()
 

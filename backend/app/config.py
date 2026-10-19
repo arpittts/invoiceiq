@@ -58,6 +58,9 @@ class Settings(BaseSettings):
     auto_approve_enabled: bool = False  # off by default: a human confirms every invoice
     auto_approve_min_confidence: float = 0.9
     auto_approve_min_hsn_confidence: float = 0.8
+    # v1.2: before auto-approving, a second, differently rendered read must agree
+    # on every field. Only runs for invoices about to be auto-approved.
+    auto_approve_require_agreement: bool = True
 
     # Demo safety (blueprint section 18). Daily cap on real model calls and spend,
     # reset at midnight India time. On Gemini's free tier calls cost $0, so the call

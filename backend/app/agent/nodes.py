@@ -12,11 +12,13 @@ from decimal import Decimal
 
 from app.agent.state import AgentDeps, AgentState
 from app.config import get_settings
-from app.models import Invoice, InvoiceStatus, ReviewEvent, User
+from app.models import Invoice, InvoiceStatus, ReviewEvent, User, ValidationIssue
 from app.schemas.extraction import InvoiceExtraction
 from app.services import user_settings
+from app.services.agreement import SECOND_LOOK, disagreements
 from app.services.classification import classify_invoice
 from app.services.extraction import apply_extraction, extract_from_pages, save_runs
+from app.services.pdf import second_look
 from app.services.validation import InvoiceData, india_today, save_validation, validate
 
 logger = logging.getLogger(__name__)
@@ -196,6 +198,54 @@ def decide(state: AgentState, deps: AgentDeps) -> dict:
     return {"decision": decision, "reason": reason, "path": _ran(state, "decide")}
 
 
+def verify(state: AgentState, deps: AgentDeps) -> dict:
+    """Before auto-approving: a second, differently rendered read must agree on every field.
+
+    Runs only when decide chose auto-approve. Any difference sends the invoice to a
+    person, with a READS_DISAGREE warning on each field that differs.
+    """
+    settings = get_settings()
+    update = {"path": _ran(state, "verify")}
+    if not within_budget(state):
+        update.update(
+            decision="review", reason="Over the per-invoice budget, so no second read was made"
+        )
+        return update
+    outcome = extract_from_pages(
+        second_look(state["pages"]),
+        deps.provider,
+        model=settings.llm_model_extract,
+        effort=settings.llm_effort_extract,
+        max_retries=settings.extraction_max_retries,
+        trace_metadata={"invoice_id": state["invoice_id"], "second_look": True},
+        focus=SECOND_LOOK,
+        first_attempt=len(state.get("attempts", [])) + 1,
+    )
+    update.update(_spend(state, outcome.attempts))
+    if outcome.extraction is None:
+        update.update(decision="review", reason="The second read failed, so nothing was confirmed")
+        return update
+    fields = disagreements(state["extraction"], outcome.extraction)
+    if not fields:
+        update["reason"] = f"{state.get('reason')}; a second read agreed on every field"
+        return update
+    for field in fields:
+        what = "the number of line items" if field == "line_items" else field
+        deps.db.add(
+            ValidationIssue(
+                invoice_id=state["invoice_id"],
+                field=field,
+                rule_code="READS_DISAGREE",
+                severity="warning",
+                message=f"A second, independent read gave a different value for {what}: "
+                "check it on the page",
+            )
+        )
+    shown = ", ".join(fields[:3]) + ("…" if len(fields) > 3 else "")
+    update.update(decision="review", reason=f"Two reads disagree on {shown}")
+    return update
+
+
 def finalize(state: AgentState, deps: AgentDeps) -> dict:
     """Save every LLM attempt and set the final status."""
     db = deps.db
@@ -228,6 +278,13 @@ def finalize(state: AgentState, deps: AgentDeps) -> dict:
 
 def after_extract(state: AgentState) -> str:
     return "finalize" if state.get("extraction") is None else "validate"
+
+
+def after_decide(state: AgentState) -> str:
+    """Double-check only what is about to be approved without a person."""
+    if state.get("decision") == "auto_approve" and get_settings().auto_approve_require_agreement:
+        return "verify"
+    return "finalize"
 
 
 def after_validate(state: AgentState) -> str:

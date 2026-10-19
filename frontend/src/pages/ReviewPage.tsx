@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router'
+import ConfirmDialog, { type ConfirmRequest } from '../components/ConfirmDialog'
 import StatusBadge from '../components/StatusBadge'
 import { api } from '../lib/api'
 import { buildUpdate, emptyLine, toDraft } from '../lib/form'
@@ -90,6 +91,7 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
   const original = toDraft(invoice)
   const [draft, setDraft] = useState<Draft>(original)
   const [error, setError] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState<ConfirmRequest | null>(null)
 
   const editable = invoice.status === 'needs_review' || invoice.status === 'failed'
   const changes = buildUpdate(original, draft)
@@ -136,8 +138,13 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
               disabled={act.isPending}
               title="Ask the AI to read the invoice again from scratch"
               onClick={() =>
-                confirm('Read this invoice again from scratch? Your unsaved and saved corrections are replaced.') &&
-                act.mutate(() => api.reprocess(invoice.id))
+                setConfirming({
+                  title: 'Read this invoice again?',
+                  message:
+                    'The AI reads it from scratch. Your corrections, saved or not, are replaced by the new reading.',
+                  confirmLabel: 'Read again',
+                  onConfirm: () => act.mutate(() => api.reprocess(invoice.id)),
+                })
               }
               className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
             >
@@ -146,7 +153,15 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
             <button
               type="button"
               disabled={act.isPending}
-              onClick={() => confirm('Reject this invoice? It will not enter the ledger.') && act.mutate(() => api.reject(invoice.id))}
+              onClick={() =>
+                setConfirming({
+                  title: 'Reject this invoice?',
+                  message: 'It will not enter the ledger. You can move it back to review later.',
+                  confirmLabel: 'Reject',
+                  danger: true,
+                  onConfirm: () => act.mutate(() => api.reject(invoice.id)),
+                })
+              }
               className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
             >
               Reject
@@ -165,7 +180,28 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
             </button>
           </>
         )}
+        {(invoice.status === 'approved' || invoice.status === 'rejected') && (
+          <button
+            type="button"
+            disabled={act.isPending}
+            onClick={() =>
+              setConfirming({
+                title: 'Move this invoice back to review?',
+                message:
+                  invoice.status === 'approved'
+                    ? 'It leaves the ledger until you approve it again. The approval and this change both stay in the history.'
+                    : 'You can then correct it and approve it. The rejection and this change both stay in the history.',
+                confirmLabel: 'Move back to review',
+                onConfirm: () => act.mutate(() => api.reopen(invoice.id)),
+              })
+            }
+            className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
+          >
+            Move back to review
+          </button>
+        )}
       </div>
+      <ConfirmDialog request={confirming} onClose={() => setConfirming(null)} />
 
       {error && <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
 

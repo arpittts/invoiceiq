@@ -23,8 +23,7 @@ from app.schemas.invoice import (
     InvoiceUpdate,
     InvoiceUploadResponse,
 )
-from app.services import budget, demo, review
-from app.services.extraction import process_invoice
+from app.services import budget, demo, jobs, review
 from app.services.pdf import render_pages
 from app.services.storage import load_file, save_file
 from app.services.validation import india_today
@@ -116,11 +115,14 @@ async def upload_invoice(
 
     invoice = Invoice(user_id=user.id, file=invoice_file, status=InvoiceStatus.PROCESSING)
     db.add(invoice)
+    db.flush()
+    job = jobs.enqueue(db, invoice.id)  # durable: survives a restart before it runs
     db.commit()
 
-    # Extraction takes seconds, so it runs after the response is sent.
-    # The client polls GET /invoices/{id} until the status leaves "processing".
-    background_tasks.add_task(process_invoice, invoice.id)
+    # Reading takes seconds, so it starts after the response is sent; if the server
+    # restarts first, the queue's worker picks the job up. The client polls
+    # GET /invoices/{id} until the status leaves "processing".
+    background_tasks.add_task(jobs.run_now, job.id)
     return invoice
 
 
@@ -181,8 +183,8 @@ def load_demo_invoices(
 ) -> DemoResponse:
     """Add the bundled demo invoices to your account and read them (replayed, so instant)."""
     created, skipped = demo.create_demo_invoices(db, user)
-    for invoice_id, calls in created:
-        background_tasks.add_task(demo.process_demo_invoice, invoice_id, calls)
+    for _, job_id in created:
+        background_tasks.add_task(jobs.run_now, job_id)
     return DemoResponse(created=len(created), skipped=skipped, invoice_ids=[i for i, _ in created])
 
 
@@ -273,6 +275,7 @@ def _detail(db, invoice: Invoice) -> InvoiceDetailResponse:
             issues=runs[-1].issues_json,
         )
         response.field_confidence = _field_confidence(list(runs))
+    response.queue_note = jobs.note_for(db, invoice.id)
     return response
 
 
@@ -378,6 +381,7 @@ def reprocess_invoice(
         )
     )
     invoice.status = InvoiceStatus.PROCESSING
+    job = jobs.enqueue(db, invoice.id)
     db.commit()
-    background_tasks.add_task(process_invoice, invoice.id)
+    background_tasks.add_task(jobs.run_now, job.id)
     return _detail(db, invoice)

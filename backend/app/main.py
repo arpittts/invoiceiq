@@ -1,12 +1,33 @@
 """FastAPI entry point."""
 
+import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import ask, auth, dashboard, health, hsn, invoices, settings
 from app.config import get_settings
 
-app = FastAPI(title="InvoiceIQ API", version="1.0.0")
+# Our own messages (reads finished, retries, recovered jobs) at INFO, so they show up
+# in the host's logs; libraries stay at WARNING to keep the logs readable.
+logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s: %(message)s")
+logging.getLogger("app").setLevel(logging.INFO)
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    """Start the job worker with the app (it also recovers reads a restart cut off)."""
+    from app.services.jobs import worker
+
+    if get_settings().worker_enabled:
+        worker.start()
+    yield
+    worker.stop()
+
+
+app = FastAPI(title="InvoiceIQ API", version="1.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

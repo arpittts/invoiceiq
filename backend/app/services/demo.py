@@ -41,12 +41,14 @@ def _page_count(content: bytes, mime_type: str) -> int:
         return doc.page_count
 
 
-def create_demo_invoices(db: Session, user: User) -> tuple[list[tuple[int, list]], int]:
-    """Add the demo invoices this user doesn't have yet.
+def create_demo_invoices(db: Session, user: User) -> tuple[list[tuple[int, int]], int]:
+    """Add the demo invoices this user doesn't have yet, each with a queued job.
 
-    Returns ([(invoice id, recorded calls)], number skipped). The caller commits
-    nothing: this function commits, so background processing can see the rows.
+    Returns ([(invoice id, job id)], number skipped). This function commits, so the
+    background run can see the rows.
     """
+    from app.services import jobs
+
     created, skipped = [], 0
     for item in bundle():
         path = DEMO_DIR / item["file"]
@@ -79,7 +81,8 @@ def create_demo_invoices(db: Session, user: User) -> tuple[list[tuple[int, list]
         invoice = Invoice(user_id=user.id, file=file, status=InvoiceStatus.PROCESSING)
         db.add(invoice)
         db.flush()
-        created.append((invoice.id, item["calls"]))
+        job = jobs.enqueue(db, invoice.id, kind="demo", payload={"demo_file": item["file"]})
+        created.append((invoice.id, job.id))
     db.commit()
     return created, skipped
 
@@ -91,7 +94,7 @@ class _NoModel:
         raise RuntimeError("No LLM API key is set; only recorded demo replies are available.")
 
 
-def process_demo_invoice(invoice_id: int, calls: list[dict]) -> None:
-    """Background task: run the normal agent, replaying the recorded replies first."""
-    real = extraction.get_provider() or _NoModel()
-    extraction.process_invoice(invoice_id, provider=RecordingProvider(real, reuse=calls))
+def replay_provider(demo_file: str) -> RecordingProvider:
+    """The provider for a demo job: recorded replies first, the real model after."""
+    calls = next((item["calls"] for item in bundle() if item["file"] == demo_file), [])
+    return RecordingProvider(extraction.get_provider() or _NoModel(), reuse=calls)

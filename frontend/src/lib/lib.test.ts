@@ -6,7 +6,7 @@ import { flagFor, isLowConfidence, openErrorCount, openIssuesByField } from './i
 import type { InvoiceDetail, ValidationIssue } from './types'
 
 const invoice: InvoiceDetail = {
-  id: 1, status: 'needs_review', created_at: '2026-10-18T10:00:00Z', approved_at: null,
+  id: 1, status: 'needs_review', created_at: '2026-10-18T10:00:00Z', approved_at: null, queue_note: null,
   file: { id: 1, original_name: 'inv.pdf', mime_type: 'application/pdf', page_count: 1 },
   vendor_name: 'Sharma Auto Parts', vendor_gstin: '27AAPFU0939F1ZV', buyer_name: null,
   buyer_gstin: null, invoice_number: 'A-1', invoice_date: '2026-10-12',

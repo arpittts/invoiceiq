@@ -113,13 +113,22 @@ def extract_from_pages(
                         effort=effort,
                     )
                 except Exception as error:  # network/API errors after the SDK's own retries
-                    logger.exception("LLM call failed")
+                    from app.services.budget import DailyCapReached
+
+                    capped = isinstance(error, DailyCapReached)
+                    if not capped:
+                        logger.exception("LLM call failed")
                     outcome.attempts.append(
                         Attempt(
                             number=number,
                             model=model,
                             raw_json=None,
-                            issues=[{"code": "API_ERROR", "message": str(error)[:500]}],
+                            issues=[
+                                {
+                                    "code": "DAILY_CAP" if capped else "API_ERROR",
+                                    "message": str(error)[:500],
+                                }
+                            ],
                             input_tokens=0,
                             output_tokens=0,
                             cost_usd=Decimal(0),
@@ -244,8 +253,14 @@ def save_runs(db, invoice_id: int, attempts: list[Attempt]) -> None:
     )
 
 
-def process_invoice(invoice_id: int, provider: LLMProvider | None = None) -> None:
-    """Process one uploaded invoice with the agent graph. Safe to call from a background task."""
+def process_invoice(
+    invoice_id: int, provider: LLMProvider | None = None, *, raise_errors: bool = False
+) -> dict | None:
+    """Process one uploaded invoice with the agent graph. Returns the agent's final state.
+
+    By default an unexpected error marks the invoice failed. The job queue passes
+    raise_errors=True instead: it rolls back and re-raises, so the queue can retry.
+    """
     # Imported here, not at the top: the agent's nodes import helpers from this module.
     from app.agent.graph import run_agent
     from app.agent.state import AgentDeps
@@ -303,9 +318,12 @@ def process_invoice(invoice_id: int, provider: LLMProvider | None = None) -> Non
             " > ".join(result["path"]),
         )
         db.commit()
+        return result
     except Exception:
         logger.exception("Processing invoice %s failed", invoice_id)
         db.rollback()
+        if raise_errors:
+            raise
         invoice = db.get(Invoice, invoice_id)
         if invoice is not None:
             invoice.status = InvoiceStatus.FAILED

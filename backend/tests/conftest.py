@@ -17,6 +17,9 @@ os.environ["STORAGE_BACKEND"] = "local"
 # No real LLM calls or traces from tests. Extraction tests switch extraction on
 # and inject a FakeProvider themselves.
 os.environ["EXTRACTION_ENABLED"] = "false"
+# No background worker thread in tests: jobs run through FastAPI's background
+# tasks (synchronous in the TestClient) or are run explicitly by the tests.
+os.environ["WORKER_ENABLED"] = "false"
 os.environ["LLM_API_KEY"] = ""
 os.environ["LANGFUSE_PUBLIC_KEY"] = ""
 os.environ["LANGFUSE_SECRET_KEY"] = ""
@@ -58,7 +61,7 @@ def clean_tables():
             text(
                 "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs, "
                 "validation_issues, review_events, hsn_codes, ledger_query_context, "
-                "llm_usage_daily "
+                "llm_usage_daily, jobs "
                 "RESTART IDENTITY CASCADE"
             )
         )

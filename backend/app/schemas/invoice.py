@@ -109,6 +109,8 @@ class InvoiceDetailResponse(BaseModel):
     # How sure the model was about each field, e.g. {"total": 0.95,
     # "line_items[1].quantity": 0.8}. Taken from the last valid extraction.
     field_confidence: dict[str, float] = {}
+    # From the job queue: why a read is waiting or why it gave up (None when fine).
+    queue_note: str | None = None
 
 
 class InvoiceSummary(BaseModel):

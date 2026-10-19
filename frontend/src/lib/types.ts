@@ -108,3 +108,12 @@ export type LineField = (typeof LINE_FIELDS)[number]
 // What the form edits: every value as a string ('' means empty).
 export type DraftLine = Record<LineField, string>
 export type Draft = Record<HeaderField, string> & { line_items: DraftLine[] }
+
+export type AskResult = {
+  question: string
+  answer: string | null
+  sql: string | null
+  columns: string[]
+  rows: (string | number | boolean | null)[][]
+  error: string | null
+}

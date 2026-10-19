@@ -32,6 +32,9 @@ export default function Layout() {
           <NavLink to="/invoices" className={navClass}>
             Invoices
           </NavLink>
+          <NavLink to="/ask" className={navClass}>
+            Ask
+          </NavLink>
           <span className="ml-auto text-xs text-gray-500">{apiText}</span>
           <button
             type="button"

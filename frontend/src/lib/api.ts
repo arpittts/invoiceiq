@@ -1,4 +1,4 @@
-import type { InvoiceDetail, InvoiceList } from './types'
+import type { AskResult, InvoiceDetail, InvoiceList } from './types'
 
 // Base URL of the backend, set per environment through VITE_API_URL.
 export const API_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:8000').replace(/\/$/, '')
@@ -86,6 +86,7 @@ export const api = {
     request<InvoiceDetail>(`/invoices/${id}/issues/${issueId}/dismiss`, { method: 'POST' }),
   approve: (id: number) => request<InvoiceDetail>(`/invoices/${id}/approve`, { method: 'POST' }),
   reject: (id: number) => request<InvoiceDetail>(`/invoices/${id}/reject`, { method: 'POST' }),
+  ask: (question: string) => request<AskResult>('/ask', { method: 'POST', json: { question } }),
 
   /** A page image as a blob URL. <img src> can't send the token header, so we fetch it. */
   async pageImageUrl(id: number, page: number): Promise<string> {

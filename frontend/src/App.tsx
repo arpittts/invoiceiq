@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import Layout from './components/Layout'
 import { useAuth } from './lib/auth-context'
+import AskPage from './pages/AskPage'
 import AuthPage from './pages/AuthPage'
 import InvoicesPage from './pages/InvoicesPage'
 import ReviewPage from './pages/ReviewPage'
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/upload" element={<UploadPage />} />
         <Route path="/invoices" element={<InvoicesPage />} />
         <Route path="/invoices/:id" element={<ReviewPage />} />
+        <Route path="/ask" element={<AskPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/invoices" replace />} />
     </Routes>

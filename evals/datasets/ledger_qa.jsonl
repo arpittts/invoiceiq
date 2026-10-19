@@ -1,0 +1,30 @@
+{"id": "q01", "question": "How much did I spend in total?", "reference_sql": "SELECT ROUND(SUM(total), 2) FROM v_invoices", "ordered": false}
+{"id": "q02", "question": "How many invoices are in my ledger?", "reference_sql": "SELECT COUNT(*) FROM v_invoices", "ordered": false}
+{"id": "q03", "question": "What is the total GST I have paid?", "reference_sql": "SELECT ROUND(SUM(total_gst), 2) FROM v_invoices", "ordered": false}
+{"id": "q04", "question": "How much IGST did I pay in total?", "reference_sql": "SELECT ROUND(SUM(igst), 2) FROM v_invoices", "ordered": false}
+{"id": "q05", "question": "How much CGST did I pay?", "reference_sql": "SELECT ROUND(SUM(cgst), 2) FROM v_invoices", "ordered": false}
+{"id": "q06", "question": "How much GST did I pay to each vendor?", "reference_sql": "SELECT vendor_name, ROUND(SUM(total_gst), 2) FROM v_invoices GROUP BY vendor_name", "ordered": false}
+{"id": "q07", "question": "Which vendor did I spend the most with?", "reference_sql": "SELECT vendor_name FROM v_invoices GROUP BY vendor_name ORDER BY SUM(total) DESC LIMIT 1", "ordered": false}
+{"id": "q08", "question": "How many invoices do I have from Sharma Auto Parts?", "reference_sql": "SELECT COUNT(*) FROM v_invoices WHERE vendor_name ILIKE '%sharma auto parts%'", "ordered": false}
+{"id": "q09", "question": "How much did I spend with Lakshmi Traders?", "reference_sql": "SELECT ROUND(SUM(total), 2) FROM v_invoices WHERE vendor_name ILIKE '%lakshmi traders%'", "ordered": false}
+{"id": "q10", "question": "What is my average invoice amount?", "reference_sql": "SELECT ROUND(AVG(total), 2) FROM v_invoices", "ordered": false}
+{"id": "q11", "question": "What is the largest invoice total?", "reference_sql": "SELECT MAX(total) FROM v_invoices", "ordered": false}
+{"id": "q12", "question": "What is the smallest invoice total?", "reference_sql": "SELECT MIN(total) FROM v_invoices", "ordered": false}
+{"id": "q13", "question": "How much did I spend last quarter?", "reference_sql": "SELECT ROUND(SUM(total), 2) FROM v_invoices WHERE invoice_date >= DATE '2026-07-01' AND invoice_date < DATE '2026-10-01'", "ordered": false}
+{"id": "q14", "question": "How much GST did I pay last quarter?", "reference_sql": "SELECT ROUND(SUM(total_gst), 2) FROM v_invoices WHERE invoice_date >= DATE '2026-07-01' AND invoice_date < DATE '2026-10-01'", "ordered": false}
+{"id": "q15", "question": "How many invoices did I get each month?", "reference_sql": "SELECT DATE_TRUNC('month', invoice_date)::date, COUNT(*) FROM v_invoices GROUP BY 1 ORDER BY 1", "ordered": true}
+{"id": "q16", "question": "What was my total spending in each month?", "reference_sql": "SELECT DATE_TRUNC('month', invoice_date)::date, ROUND(SUM(total), 2) FROM v_invoices GROUP BY 1 ORDER BY 1", "ordered": true}
+{"id": "q17", "question": "Which items did I buy at 18% GST?", "reference_sql": "SELECT DISTINCT description FROM v_line_items WHERE gst_rate = 18", "ordered": false}
+{"id": "q18", "question": "How many line items have a 5% GST rate?", "reference_sql": "SELECT COUNT(*) FROM v_line_items WHERE gst_rate = 5", "ordered": false}
+{"id": "q19", "question": "What is the total taxable value of all my line items?", "reference_sql": "SELECT ROUND(SUM(taxable_value), 2) FROM v_line_items", "ordered": false}
+{"id": "q20", "question": "Which items did I buy from Gupta Electricals?", "reference_sql": "SELECT DISTINCT description FROM v_line_items WHERE vendor_name ILIKE '%gupta electricals%'", "ordered": false}
+{"id": "q21", "question": "How many different vendors do I buy from?", "reference_sql": "SELECT COUNT(DISTINCT vendor_name) FROM v_invoices", "ordered": false}
+{"id": "q22", "question": "List all my vendors.", "reference_sql": "SELECT DISTINCT vendor_name FROM v_invoices", "ordered": false}
+{"id": "q23", "question": "How many invoices had IGST charged?", "reference_sql": "SELECT COUNT(*) FROM v_invoices WHERE igst > 0", "ordered": false}
+{"id": "q24", "question": "How many invoices had CGST and SGST charged?", "reference_sql": "SELECT COUNT(*) FROM v_invoices WHERE cgst > 0", "ordered": false}
+{"id": "q25", "question": "What is the total GST for each place of supply?", "reference_sql": "SELECT place_of_supply, ROUND(SUM(total_gst), 2) FROM v_invoices GROUP BY place_of_supply", "ordered": false}
+{"id": "q26", "question": "How much did I spend in August 2026?", "reference_sql": "SELECT ROUND(SUM(total), 2) FROM v_invoices WHERE invoice_date >= DATE '2026-08-01' AND invoice_date < DATE '2026-09-01'", "ordered": false}
+{"id": "q27", "question": "What are the invoice numbers from Kolkata Paper House?", "reference_sql": "SELECT invoice_number FROM v_invoices WHERE vendor_name ILIKE '%kolkata paper house%'", "ordered": false}
+{"id": "q28", "question": "How many bags of cement did I buy in total?", "reference_sql": "SELECT SUM(quantity) FROM v_line_items WHERE description ILIKE '%cement%'", "ordered": false}
+{"id": "q29", "question": "What is the total taxable value of items taxed at 40%?", "reference_sql": "SELECT ROUND(SUM(taxable_value), 2) FROM v_line_items WHERE gst_rate = 40", "ordered": false}
+{"id": "q30", "question": "How much have I spent this financial year?", "reference_sql": "SELECT ROUND(SUM(total), 2) FROM v_invoices WHERE invoice_date >= DATE '2026-04-01' AND invoice_date < DATE '2027-04-01'", "ordered": false}

@@ -216,6 +216,24 @@ def test_spotless_confident_invoice_is_auto_approved(client, auth_headers, db, a
     assert event.new_value == "approved_by_agent"
 
 
+def test_a_user_who_switched_auto_approve_off_is_respected(client, auth_headers, db, auto_approve):
+    """The server default is on here, but this user's own setting wins."""
+    codes = seed_corpus(db)
+    invoice_id = new_invoice(client, auth_headers)
+    client.put(
+        "/api/v1/settings",
+        headers=auth_headers,
+        json={
+            "auto_approve_enabled": False,
+            "auto_approve_min_confidence": 0.9,
+            "auto_approve_min_hsn_confidence": 0.8,
+        },
+    )
+    db.expire_all()
+    state, _ = run(db, invoice_id, [spotless_reply(), choose(codes["87083000"])])
+    assert state["decision"] == "review" and "off" in state["reason"]
+
+
 def test_a_warning_blocks_auto_approve(client, auth_headers, db, auto_approve):
     codes = seed_corpus(db)
     invoice_id = new_invoice(client, auth_headers)

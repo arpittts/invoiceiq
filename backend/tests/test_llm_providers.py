@@ -144,6 +144,7 @@ def test_get_provider_follows_settings(monkeypatch):
     assert get_provider() is None
     monkeypatch.setattr(settings, "llm_api_key", "some-key")
     monkeypatch.setattr(settings, "llm_provider", "gemini")
-    assert isinstance(get_provider(), GeminiProvider)
+    # Real providers always come wrapped in the daily cap.
+    assert isinstance(get_provider().inner, GeminiProvider)
     monkeypatch.setattr(settings, "llm_provider", "anthropic")
-    assert isinstance(get_provider(), AnthropicProvider)
+    assert isinstance(get_provider().inner, AnthropicProvider)

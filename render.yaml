@@ -26,6 +26,8 @@ services:
         value: gemini           # free tier; demo invoices only
       - key: LLM_API_KEY
         sync: false             # Gemini key from aistudio.google.com, set in the dashboard
+      - key: DAILY_LLM_CALL_LIMIT
+        value: "300"            # daily cap on real model calls (the free quota's safety margin)
       - key: LANGFUSE_PUBLIC_KEY
         sync: false
       - key: LANGFUSE_SECRET_KEY

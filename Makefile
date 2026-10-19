@@ -1,4 +1,4 @@
-.PHONY: db db-down migrate dev test lint web invoices invoices-test check-extraction check-validation ingest-hsn eval-retrieval eval-ledger eval eval-record
+.PHONY: db db-down migrate dev test lint web invoices invoices-test check-extraction check-validation ingest-hsn eval-retrieval eval-ledger eval eval-record demo-bundle mcp
 
 db:
 	docker compose up -d --wait db
@@ -52,3 +52,11 @@ eval:
 
 eval-record:
 	backend/.venv/bin/python -m evals.run --split test --record
+
+# Refresh the "Try demo invoices" files and their recorded replies from evals/recordings/test.json.
+demo-bundle:
+	backend/.venv/bin/python scripts/make_demo_bundle.py
+
+# The local MCP server over stdio (set MCP_USER_EMAIL for query_ledger). Install: pip install -e "backend[mcp]"
+mcp:
+	cd backend && .venv/bin/python -m app.mcp_server

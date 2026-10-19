@@ -178,3 +178,9 @@ class InvoiceUpdate(BaseModel):
         if len(cleaned) > 15:
             raise ValueError("A GSTIN has 15 characters")
         return cleaned or None
+
+
+class DemoResponse(BaseModel):
+    created: int
+    skipped: int  # already in your account
+    invoice_ids: list[int]

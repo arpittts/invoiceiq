@@ -134,6 +134,18 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
             <button
               type="button"
               disabled={act.isPending}
+              title="Ask the AI to read the invoice again from scratch"
+              onClick={() =>
+                confirm('Read this invoice again from scratch? Your unsaved and saved corrections are replaced.') &&
+                act.mutate(() => api.reprocess(invoice.id))
+              }
+              className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
+            >
+              Read again
+            </button>
+            <button
+              type="button"
+              disabled={act.isPending}
               onClick={() => confirm('Reject this invoice? It will not enter the ledger.') && act.mutate(() => api.reject(invoice.id))}
               className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
             >

@@ -1,4 +1,12 @@
-import type { AskResult, InvoiceDetail, InvoiceList } from './types'
+import type {
+  AskResult,
+  AutoApproveSettings,
+  Dashboard,
+  DemoResult,
+  InvoiceDetail,
+  InvoiceList,
+  SettingsResponse,
+} from './types'
 
 // Base URL of the backend, set per environment through VITE_API_URL.
 export const API_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:8000').replace(/\/$/, '')
@@ -87,6 +95,26 @@ export const api = {
   approve: (id: number) => request<InvoiceDetail>(`/invoices/${id}/approve`, { method: 'POST' }),
   reject: (id: number) => request<InvoiceDetail>(`/invoices/${id}/reject`, { method: 'POST' }),
   ask: (question: string) => request<AskResult>('/ask', { method: 'POST', json: { question } }),
+  reprocess: (id: number) => request<InvoiceDetail>(`/invoices/${id}/reprocess`, { method: 'POST' }),
+  loadDemo: () => request<DemoResult>('/invoices/demo', { method: 'POST' }),
+  dashboard: () => request<Dashboard>('/dashboard'),
+  getSettings: () => request<SettingsResponse>('/settings'),
+  saveSettings: (settings: AutoApproveSettings) =>
+    request<SettingsResponse>('/settings', { method: 'PUT', json: settings }),
+
+  /** Download approved invoices as CSV (fetched with the token, then saved by the browser). */
+  async exportCsv(): Promise<void> {
+    const response = await fetch(`${V1}/invoices/export.csv`, { headers: authHeaders() })
+    if (!response.ok) throw await errorFrom(response)
+    const disposition = response.headers.get('Content-Disposition') ?? ''
+    const name = /filename="([^"]+)"/.exec(disposition)?.[1] ?? 'invoiceiq-approved.csv'
+    const url = URL.createObjectURL(await response.blob())
+    const link = document.createElement('a')
+    link.href = url
+    link.download = name
+    link.click()
+    URL.revokeObjectURL(url)
+  },
 
   /** A page image as a blob URL. <img src> can't send the token header, so we fetch it. */
   async pageImageUrl(id: number, page: number): Promise<string> {

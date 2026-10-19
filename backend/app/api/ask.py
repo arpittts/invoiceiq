@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
 from app.deps import CurrentUser
+from app.ratelimit import limit_user
 from app.services import ledger_qa
 from app.services.extraction import get_provider
 
@@ -21,7 +22,7 @@ class AskResponse(BaseModel):
     error: str | None
 
 
-@router.post("/ask", response_model=AskResponse)
+@router.post("/ask", response_model=AskResponse, dependencies=[limit_user("ask")])
 def ask_ledger(body: AskRequest, user: CurrentUser) -> AskResponse:
     """Ask a plain-English question about your approved invoices."""
     provider = get_provider()

@@ -18,6 +18,7 @@ from pydantic import BaseModel, Field
 from app.config import get_settings
 from app.db import engine
 from app.llm.provider import LLMProvider
+from app.services.budget import DailyCapReached
 from app.services.sql_guard import MAX_ROWS, UnsafeSQL, check_sql
 from app.services.validation import india_today
 from app.tracing import trace_generation
@@ -144,6 +145,9 @@ def ask(provider: LLMProvider, question: str, user_id: int, phrase: bool = True)
     for _ in range(2):  # one repair attempt if the database rejects the query
         try:
             written = _write_sql(provider, question, feedback)
+        except DailyCapReached as error:
+            result.error = str(error)
+            return result
         except Exception:
             logger.exception("text-to-SQL call failed")
             result.error = "The AI service is unavailable. Please try again."

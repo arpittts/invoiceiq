@@ -117,3 +117,28 @@ export type AskResult = {
   rows: (string | number | boolean | null)[][]
   error: string | null
 }
+
+export type Dashboard = {
+  counts: Record<InvoiceStatus, number>
+  approved_total: string
+  approved_gst: string
+  approved_this_month: string
+  recent: InvoiceSummary[]
+  ai: {
+    extraction_calls: number
+    cost_usd: string
+    calls_today: number
+    call_limit: number
+    cap_reached: boolean
+  }
+}
+
+export type AutoApproveSettings = {
+  auto_approve_enabled: boolean
+  auto_approve_min_confidence: number
+  auto_approve_min_hsn_confidence: number
+}
+
+export type SettingsResponse = AutoApproveSettings & { defaults: AutoApproveSettings }
+
+export type DemoResult = { created: number; skipped: number; invoice_ids: number[] }

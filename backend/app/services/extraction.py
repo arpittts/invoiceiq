@@ -178,9 +178,11 @@ def get_provider() -> LLMProvider | None:
     settings = get_settings()
     if not settings.llm_api_key:
         return None
+    from app.services.budget import BudgetedProvider  # avoids a circular import
+
     if settings.llm_provider == "anthropic":
-        return AnthropicProvider(settings.llm_api_key)
-    return GeminiProvider(settings.llm_api_key)
+        return BudgetedProvider(AnthropicProvider(settings.llm_api_key))
+    return BudgetedProvider(GeminiProvider(settings.llm_api_key))
 
 
 def _fit(value: str | None, length: int) -> str | None:

@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useRef, useState, type DragEvent } from 'react'
 import { Link } from 'react-router'
+import DemoButton from '../components/DemoButton'
 import { api } from '../lib/api'
 
 type Upload = { name: string; progress: number; invoiceId?: number; error?: string }
@@ -104,6 +105,14 @@ export default function UploadPage() {
           ))}
         </ul>
       )}
+
+      <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 text-sm">
+        <span className="min-w-0 flex-1 text-gray-600">
+          No invoices to hand? Load six synthetic ones, including a blurred photo and a
+          two-page bill.
+        </span>
+        <DemoButton />
+      </div>
 
       <p className="mt-6 text-xs text-gray-500">
         Demo note: the free AI tier may use uploaded content to improve its models. Use sample or

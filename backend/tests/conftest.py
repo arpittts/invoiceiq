@@ -49,12 +49,16 @@ def migrated_database():
 
 @pytest.fixture(autouse=True)
 def clean_tables():
+    from app.ratelimit import limiter
+
+    limiter.reset()
     yield
     with engine.begin() as conn:
         conn.execute(
             text(
                 "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs, "
-                "validation_issues, review_events, hsn_codes, ledger_query_context "
+                "validation_issues, review_events, hsn_codes, ledger_query_context, "
+                "llm_usage_daily "
                 "RESTART IDENTITY CASCADE"
             )
         )

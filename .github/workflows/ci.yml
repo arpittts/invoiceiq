@@ -45,7 +45,7 @@ jobs:
           cache-dependency-path: backend/pyproject.toml
 
       - name: Install backend
-        run: pip install -e "backend[dev]"
+        run: pip install -e "backend[dev,mcp]"
 
       - name: Lint
         run: |

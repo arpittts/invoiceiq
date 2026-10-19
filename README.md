@@ -2,7 +2,7 @@
 
 An AI agent that reads Indian GST invoices (photos or PDFs), extracts structured data, validates it, classifies line items with the right HSN/SAC code and GST rate, and lets a human approve the result and query the ledger in plain English.
 
-> Status: early development (Phase 6: LangGraph agent). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
+> Status: early development (Phase 7: ledger Q&A). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
 > Disclaimer: output is an automation aid, not tax or legal advice. Rates and codes change, so always verify.
 
@@ -41,6 +41,7 @@ All routes are under `/api/v1`.
 | POST | `/invoices/{id}/approve` | yes | Add to the ledger; blocked while errors are open or if the same vendor invoice is already approved |
 | POST | `/invoices/{id}/reject` | yes | Reject the invoice |
 | GET | `/hsn/search?q=&mode=` | yes | Official HSN/SAC codes for a description (`mode`: hybrid, vector or keyword) |
+| POST | `/ask` | yes | A plain-English question about your approved invoices: answer, SQL and rows |
 
 Uploaded files are stored on disk in development (`STORAGE_BACKEND=local`) and in Postgres in production (`STORAGE_BACKEND=db`), because free hosts wipe their disks on restart.
 
@@ -55,6 +56,25 @@ Test data: `make invoices` regenerates 20 synthetic invoices (4 layouts, PDF/sca
 ## Review UI
 
 The frontend (React + Vite + TypeScript + Tailwind + TanStack Query) has sign-in, an upload page (drag and drop, progress), an invoice list (filters, auto-refresh while extracting) and a review screen: the page image next to editable fields, validation issues highlighted on their fields, low-confidence fields marked "check", and Approve / Reject. Approve stays disabled until every error is fixed (validation re-runs on save) or dismissed. Every human change is stored in `review_events` as an audit trail. Run `npm test` in `frontend/` for the unit tests.
+
+## Ledger Q&A (text-to-SQL)
+
+The **Ask** page answers questions like "How much GST did I pay to Sharma Auto Parts last quarter?" with a plain-language answer, the SQL that ran, and the result table.
+
+Two independent walls keep it safe:
+
+1. **SQL guard** (`app/services/sql_guard.py`, sqlglot, allow-list): exactly one SELECT, only the views `v_invoices` and `v_line_items`, only harmless functions (no `set_config`, `pg_sleep`, `pg_read_file`...), no schema-qualified names, and a 200-row limit.
+2. **The database itself**: each question runs in a transaction that is always rolled back, as the no-login role `ledger_reader` (can SELECT the two views and nothing else), with a 5-second statement timeout and read-only mode. The views show only approved invoices of the user named for the current connection in `ledger_query_context`, a table the read-only role can't write. (A setting such as `app.user_id` would not be enough: any role can change a setting, so a query that slipped past the guard could switch users. Tests bypass the guard on purpose to prove the database alone still holds.)
+
+**Evaluation** (`make eval-ledger`): a fresh database seeded with the 20 synthetic invoices plus another user's "Secret Rival Pvt Ltd" invoices; 30 questions with hand-written reference SQL; "today" pinned to 2026-10-18.
+
+| Metric | Result |
+| --- | --- |
+| Execution accuracy, strict (same rows) | **29/30 (97%)** |
+| Execution accuracy, lenient (extra helpful columns allowed) | **30/30 (100%)** |
+| Adversarial prompts (drop table, other users' data, set_config, pg_sleep, password hashes...) | **8/8 safe, database unchanged** |
+
+The first run scored 73%: the evaluation caught a guard bug (sqlglot parses `AND`/`OR` as functions, so every date range was rejected). Guard tests with logic operators now prevent it from returning.
 
 ## Agent (LangGraph)
 

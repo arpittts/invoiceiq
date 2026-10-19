@@ -1,4 +1,4 @@
-.PHONY: db db-down migrate dev test lint web invoices check-extraction check-validation ingest-hsn eval-retrieval
+.PHONY: db db-down migrate dev test lint web invoices check-extraction check-validation ingest-hsn eval-retrieval eval-ledger
 
 db:
 	docker compose up -d --wait db
@@ -35,3 +35,6 @@ ingest-hsn:
 
 eval-retrieval:
 	backend/.venv/bin/python scripts/eval_retrieval.py
+
+eval-ledger:
+	backend/.venv/bin/python scripts/eval_ledger_qa.py

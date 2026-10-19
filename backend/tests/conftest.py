@@ -54,7 +54,7 @@ def clean_tables():
         conn.execute(
             text(
                 "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs, "
-                "validation_issues, review_events, hsn_codes "
+                "validation_issues, review_events, hsn_codes, ledger_query_context "
                 "RESTART IDENTITY CASCADE"
             )
         )

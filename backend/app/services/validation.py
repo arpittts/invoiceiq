@@ -377,6 +377,35 @@ def check_total_math(inv: InvoiceData) -> list[Issue]:
     return issues
 
 
+def check_line_total_missing(inv: InvoiceData) -> list[Issue]:
+    """A line that shows its tax amounts but no line total was probably misread.
+
+    Layouts that print per-line tax print the line total too, so a blank total next
+    to filled tax amounts usually means the model skipped a column. A warning, not an
+    error: it only stops auto-approval and asks a person to look.
+
+    Added in v1.1 after the test-split evaluation showed two misread line totals
+    being auto-approved once the corrected rates removed the (false) rate warnings
+    that had been blocking them; see README "Evaluation".
+    """
+    issues = []
+    for number, line in enumerate(inv.lines, start=1):
+        has_tax = any(
+            amount is not None for amount in (line.cgst_amount, line.sgst_amount, line.igst_amount)
+        )
+        if has_tax and line.line_total is None:
+            issues.append(
+                Issue(
+                    "LINE_TOTAL_MISSING",
+                    f"line_items[{number}].line_total",
+                    "warning",
+                    f"Line {number} shows its tax amounts but no line total: check whether "
+                    "a total is printed for this line",
+                )
+            )
+    return issues
+
+
 def check_hsn(inv: InvoiceData) -> list[Issue]:
     """Compare what the invoice prints with the HSN/SAC lookup's suggestion (Phase 5).
 
@@ -479,6 +508,7 @@ def validate(
         *check_state_code(inv),
         *check_tax_type(inv),
         *check_line_math(inv),
+        *check_line_total_missing(inv),
         *check_tax_math(inv),
         *check_total_math(inv),
         *check_hsn(inv),

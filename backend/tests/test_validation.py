@@ -222,7 +222,7 @@ def test_round_off_within_a_rupee_is_accepted():
 
 def test_total_without_line_totals_uses_subtotal_plus_tax():
     inv = with_line(inter_state(), 0, line_total=None)
-    assert codes(inv) == set()
+    assert codes(inv) == {"LINE_TOTAL_MISSING"}  # a warning only: the math still checks out
     assert "TOTAL_MATH" in codes(replace(inv, total=D("1280.00")))
 
 
@@ -262,6 +262,24 @@ def test_duplicates_reported_with_the_earlier_invoice():
 
 def test_mostly_empty_invoice_only_reports_required_fields():
     assert codes(InvoiceData(lines=[LineData()])) == {"REQUIRED"}
+
+
+# --- LINE_TOTAL_MISSING (v1.1) -------------------------------------------------
+
+
+def test_tax_amounts_without_a_line_total_is_a_warning():
+    inv = with_line(intra_state(), 0, line_total=None)
+    issues = validate(inv, today=TODAY, max_age_days=730)
+    assert [(i.rule_code, i.severity, i.field) for i in issues] == [
+        ("LINE_TOTAL_MISSING", "warning", "line_items[1].line_total")
+    ]
+
+
+def test_a_layout_without_line_tax_needs_no_line_total():
+    inv = with_line(
+        intra_state(), 0, cgst_amount=None, sgst_amount=None, igst_amount=None, line_total=None
+    )
+    assert "LINE_TOTAL_MISSING" not in codes(inv)
 
 
 # --- HSN_MISMATCH and RATE_MISMATCH (Phase 5) ----------------------------------

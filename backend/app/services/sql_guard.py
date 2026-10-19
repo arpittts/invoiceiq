@@ -46,6 +46,11 @@ ALLOWED_FUNCTIONS = {
     "current_date",
     "current_timestamp",
     "to_char",
+    "time_to_str",  # sqlglot's name for TO_CHAR(date, format); the line above never matched
+    "make_date",  # MAKE_DATE(2026, 4, 1): e.g. the start of a financial year
+    "to_date",
+    "str_to_date",  # sqlglot's name for TO_DATE(text, format)
+    "date_part",
     "date",
     "cast",
     "try_cast",

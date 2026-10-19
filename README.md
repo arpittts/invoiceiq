@@ -6,7 +6,7 @@ An AI agent that reads Indian GST invoices (photos, scans or PDFs), extracts and
 
 **Live demo:** https://invoiceiq-teal.vercel.app (sign up, then click **Try demo invoices**; the free backend sleeps when idle, so the first request can take about a minute)  
 **Demo video (60 s):** attached to the [v1.0.0 release](https://github.com/arpittts/invoiceiq/releases/tag/v1.0.0)  
-**Release:** v1.0.0. The full build plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
+**Release:** v1.1.0 (since v1.0.0: correct goods and tobacco rates, safer SQL date functions, a durable job queue, and moving invoices back to review). The full build plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
 > Disclaimer: output is an automation aid, not tax or legal advice. Rates and codes change, so always verify.
 
@@ -38,7 +38,8 @@ flowchart LR
     FE -->|REST /api/v1, JWT| API[FastAPI<br/>Render]
     MCPC([MCP client]) -->|stdio| MCP[MCP server<br/>local]
     API --> RL{{Rate limits<br/>+ daily AI cap}}
-    RL --> AG[LangGraph agent]
+    RL --> Q[[Job queue<br/>Postgres, retries]]
+    Q --> AG[LangGraph agent]
     MCP --> SVC
     AG --> SVC[Services:<br/>extraction · validation ·<br/>HSN RAG · ledger Q&A]
     SVC -->|structured JSON| LLM[(Gemini free tier<br/>or Claude)]
@@ -49,7 +50,7 @@ flowchart LR
 ```
 
 - **Frontend** (React 19, Vite, TypeScript, Tailwind): dashboard, upload, invoice list, review, Ask and Settings pages.
-- **API** (FastAPI): auth, uploads (type sniffing, size and page limits), review actions, CSV export, dashboard, settings; processing runs as a background task.
+- **API** (FastAPI): auth, uploads (type sniffing, size and page limits), review actions, CSV export, dashboard, settings; every invoice read is a job in a Postgres queue (see [Design decisions](#design-decisions-and-what-failed)).
 - **Agent** (LangGraph): extract → validate ⇄ targeted re-read → save → classify → final check → decide (see [the agent](#the-agent-langgraph)).
 - **Database** (Postgres + pgvector): invoices, line items, every LLM attempt, validation issues, an audit trail of human edits, 22,609 official HSN/SAC codes with embeddings, and read-only ledger views. Files are stored as database blobs in production, because the free host's disk is wiped on restart.
 
@@ -86,7 +87,7 @@ flowchart LR
 
 ### Extraction
 
-After upload, a background task renders each page to an image and sends it to a vision LLM with a strict JSON schema (structured outputs). The provider is a setting: **Google Gemini's free tier** by default (`LLM_PROVIDER=gemini`, model `gemini-3.5-flash-lite`), or Anthropic Claude (`LLM_PROVIDER=anthropic`, paid). Gemini's free tier may use inputs to improve Google's products, so only synthetic or demo invoices are sent to it. The model copies every value exactly as printed, with a confidence from 0 to 1; our own code then parses amounts into `Decimal`, dates (day-first, as on Indian invoices) and rates. If that validation fails, the model is asked again with the error (up to 2 retries). Every attempt is stored in `extraction_runs` with tokens, cost and latency, and traced in Langfuse without any invoice contents.
+After upload, a queued job renders each page to an image and sends it to a vision LLM with a strict JSON schema (structured outputs). The provider is a setting: **Google Gemini's free tier** by default (`LLM_PROVIDER=gemini`, model `gemini-3.5-flash-lite`), or Anthropic Claude (`LLM_PROVIDER=anthropic`, paid). Gemini's free tier may use inputs to improve Google's products, so only synthetic or demo invoices are sent to it. The model copies every value exactly as printed, with a confidence from 0 to 1; our own code then parses amounts into `Decimal`, dates (day-first, as on Indian invoices) and rates. If that validation fails, the model is asked again with the error (up to 2 retries). Every attempt is stored in `extraction_runs` with tokens, cost and latency, and traced in Langfuse without any invoice contents.
 
 Safety: the extraction call has no tools, our instructions live in the system prompt, and invoice text is treated as untrusted data.
 
@@ -232,6 +233,7 @@ A second naming bug of the same kind surfaced in the v1.0 test-split recording: 
 - **The evaluation caught a guard bug.** Ledger accuracy first measured 73%: sqlglot parses `AND`/`OR` as functions, so every date range was blocked. Fixed, with regression tests.
 - **Free tiers shaped the design.** A paid API and a paid host were ruled out: Gemini's free tier for the LLM, Render + Neon + Vercel for hosting, files as database blobs, the embedding model baked into the image, a daily call cap (on the free tier every call costs $0, so a dollar cap alone would never trigger), and recorded replies for CI and the demo.
 - **A wrong rate is worse than no rate.** v1.0 gave every fresh vegetable 5%: a Schedule I entry listed under Chapter 07 meant only dried herbs ("jaribooti"), but the ingest treated it as a catch-all for the chapter. v1.1 never takes a single rate from a chapter-wide entry, loads the exemption list, and leaves conditional rates to a person: fewer codes get a rate (73% to 65%), but the ones that do are right. The same caution kept services out: no current consolidated notification existed, so only fully restated headings were loaded.
+- **A restart used to strand invoices.** Reads ran as in-memory background tasks, so a deploy or a free-tier restart mid-read left the invoice "processing" forever, and one passing API error failed it for good. v1.1 puts every read in a Postgres `jobs` table: claimed with `FOR UPDATE SKIP LOCKED` and a lease, retried with backoff (3 attempts), retaken when its server died, deferred (not failed) when the daily AI cap is hit, and still started immediately after the request, so it isn't slower. Tested by killing the API mid-read: after the restart the invoice finished on its own.
 - **Model confidence isn't a safety net.** Gemini reports 0.95-1.0 confidence even on misreads, so auto-approve leans on validation and HSN confidence, and stays off by default.
 
 ## Run locally
@@ -268,6 +270,7 @@ All settings are in [.env.example](.env.example), with comments. The important o
 | `MAX_TOKENS_PER_INVOICE`, `MAX_COST_PER_INVOICE_USD` | Per-invoice agent budget |
 | `DAILY_LLM_CALL_LIMIT`, `DAILY_BUDGET_USD` | Daily cap on real model calls and spend (resets at midnight IST) |
 | `RATE_LIMITS_ENABLED` | Per-user and per-IP rate limits |
+| `WORKER_ENABLED`, `JOB_MAX_ATTEMPTS`, `JOB_LEASE_SECONDS`, `WORKER_POLL_SECONDS` | The job queue's worker thread, retries and lease |
 | `AUTO_APPROVE_ENABLED` (+ thresholds) | Server default for auto-approve; users override it on the Settings page |
 | `EMBEDDING_MODEL` | fastembed model for HSN/SAC retrieval |
 | `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_HOST` | Optional tracing (metadata only) |
@@ -361,12 +364,11 @@ Free tiers change, so check each provider's current limits before relying on the
 - **Model confidence is uninformative** on the free model (0.95-1.0 even when wrong).
 - **Ledger Q&A varies between runs** (27-29 of 30 questions with the same model), and the strict scorer compares values exactly, so a differently formatted but equal answer counts as a miss.
 - **Free hosting.** The API sleeps after 15 idle minutes (first request about a minute); in-memory rate limits reset on restart (the daily cap does not); the free Gemini tier may use inputs to improve Google's products, so only synthetic invoices belong in the demo.
-- **One process.** Processing runs as a FastAPI background task, not a queue.
+- **One process.** The job queue's worker runs inside the API process (one read at a time), which fits the free host but not heavy traffic; the queue itself would let separate workers run unchanged.
 
 ## Roadmap
 
 - Load all services rates once an up-to-date consolidated 11/2017 is available; show each rate's effective date.
-- A job queue (e.g. Postgres-backed) for processing, with retries and progress.
 - Calibrate confidence (e.g. agreement between two reads) so auto-approve can rely on it.
 - GSTR-2B reconciliation: match approved invoices against the government's supplier data.
 - Evaluate on a small set of consented, anonymised real invoices.

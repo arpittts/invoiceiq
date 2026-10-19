@@ -39,7 +39,12 @@ export default function ReviewPage() {
         {data.status === 'processing' ? (
           <div className="rounded-xl border border-gray-200 bg-white p-6 text-sm">
             <StatusBadge status="processing" />
-            <p className="mt-3 text-gray-700">The AI is reading this invoice. This usually takes about 10 seconds…</p>
+            <p className="mt-3 text-gray-700">
+              {data.queue_note ?? 'The AI is reading this invoice. This usually takes about 10 seconds…'}
+            </p>
+            {data.queue_note && (
+              <p className="mt-2 text-xs text-gray-500">It will continue on its own; you can leave this page.</p>
+            )}
           </div>
         ) : (
           // A fresh editor whenever the saved invoice changes, so the form always starts from the server's values.
@@ -208,6 +213,7 @@ function ReviewEditor({ invoice }: { invoice: InvoiceDetail }) {
       {invoice.status === 'failed' && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
           <p className="font-medium">The AI couldn't read this invoice.</p>
+          {invoice.queue_note && <p className="mt-1">{invoice.queue_note}</p>}
           {invoice.extraction?.issues?.map((issue, i) => (
             <p key={i} className="mt-1">{issue.message}</p>
           ))}

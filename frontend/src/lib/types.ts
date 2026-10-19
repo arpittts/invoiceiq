@@ -50,6 +50,7 @@ export type InvoiceDetail = {
   status: InvoiceStatus
   created_at: string
   approved_at: string | null
+  queue_note: string | null
   file: { id: number; original_name: string; mime_type: string; page_count: number }
   vendor_name: string | null
   vendor_gstin: string | null

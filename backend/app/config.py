@@ -67,6 +67,14 @@ class Settings(BaseSettings):
     # Rate limits per user and per IP address, as "count/seconds".
     rate_limits_enabled: bool = True
 
+    # Job queue (app/services/jobs.py). The worker thread runs inside the API process.
+    worker_enabled: bool = True
+    worker_poll_seconds: float = 5.0
+    job_max_attempts: int = 3
+    # A read normally takes under a minute; a job still "running" after this is
+    # assumed dead (its server restarted) and is taken again.
+    job_lease_seconds: int = 300
+
     # Tracing (optional; tracing is skipped when the keys are empty)
     langfuse_public_key: str = ""
     langfuse_secret_key: str = ""

@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Patel Hardware & Paints",
+  "vendor_gstin": "24GPZZR7760J1Z6",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": "29LJFJM8542I3ZQ",
+  "invoice_number": "PAT/2026-27/0750",
+  "invoice_date": "2026-06-08",
+  "place_of_supply": "29-Karnataka",
+  "line_items": [
+    {
+      "description": "Pan Masala 100g",
+      "hsn_sac_code": "2106",
+      "quantity": "17",
+      "unit": "Pkt",
+      "unit_price": "245.97",
+      "discount": null,
+      "taxable_value": "4181.49",
+      "gst_rate": "40",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "3",
+      "unit": "Ltr",
+      "unit_price": "402.86",
+      "discount": null,
+      "taxable_value": "1208.58",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "5390.07",
+  "cgst": null,
+  "sgst": null,
+  "igst": "1890.14",
+  "total": "7280.21"
+}

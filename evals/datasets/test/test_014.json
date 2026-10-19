@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Verma Wholesale Mart",
+  "vendor_gstin": "09FQJBX9342N3ZC",
+  "buyer_name": "Kapoor Retail",
+  "buyer_gstin": "07OMUPV0940Z9ZX",
+  "invoice_number": "INV-81162",
+  "invoice_date": "2026-07-06",
+  "place_of_supply": "07-Delhi",
+  "line_items": [
+    {
+      "description": "Emulsion Paint 20L",
+      "hsn_sac_code": "3209",
+      "quantity": "18",
+      "unit": "Bkt",
+      "unit_price": "5268.87",
+      "discount": null,
+      "taxable_value": "94839.66",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Mobile Phone Charger",
+      "hsn_sac_code": "8504",
+      "quantity": "7",
+      "unit": "Nos",
+      "unit_price": "653.97",
+      "discount": null,
+      "taxable_value": "4577.79",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "99417.45",
+  "cgst": null,
+  "sgst": null,
+  "igst": "17895.14",
+  "total": "117312.59"
+}

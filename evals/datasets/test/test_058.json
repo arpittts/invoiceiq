@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Gupta Electricals",
+  "vendor_gstin": "07SFNFP0117P5Z1",
+  "buyer_name": "Iyer Engineering Works",
+  "buyer_gstin": null,
+  "invoice_number": "GUP/26-27/0432",
+  "invoice_date": "2026-07-28",
+  "place_of_supply": "07-Delhi",
+  "line_items": [
+    {
+      "description": "Printer Paper A4 (500 sheets)",
+      "hsn_sac_code": "4802",
+      "quantity": "15",
+      "unit": "Ream",
+      "unit_price": "350.27",
+      "discount": null,
+      "taxable_value": "5254.05",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Cotton T-Shirt",
+      "hsn_sac_code": "6109",
+      "quantity": "8",
+      "unit": "Nos",
+      "unit_price": "415.36",
+      "discount": null,
+      "taxable_value": "3322.88",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Bathing Soap (pack of 4)",
+      "hsn_sac_code": "3401",
+      "quantity": "20",
+      "unit": "Pkt",
+      "unit_price": "147.66",
+      "discount": null,
+      "taxable_value": "2953.20",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "11530.13",
+  "cgst": "629.76",
+  "sgst": "629.76",
+  "igst": null,
+  "total": "12789.65"
+}

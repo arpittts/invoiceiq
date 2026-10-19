@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Deccan Office Supplies",
+  "vendor_gstin": "36OLRZQ8144B2ZU",
+  "buyer_name": "Desai Builders",
+  "buyer_gstin": "24SBCQO9169O8Z7",
+  "invoice_number": "DEC/26-27/0387",
+  "invoice_date": "2026-05-15",
+  "place_of_supply": "Gujarat",
+  "line_items": [
+    {
+      "description": "Ghee 1 kg tin",
+      "hsn_sac_code": "0405",
+      "quantity": "5",
+      "unit": "Nos",
+      "unit_price": "703.38",
+      "discount": null,
+      "taxable_value": "3516.90",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Pan Masala 100g",
+      "hsn_sac_code": "2106",
+      "quantity": "8",
+      "unit": "Pkt",
+      "unit_price": "238.81",
+      "discount": null,
+      "taxable_value": "1910.48",
+      "gst_rate": "40",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "5427.38",
+  "cgst": null,
+  "sgst": null,
+  "igst": "940.04",
+  "total": "6367.42"
+}

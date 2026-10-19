@@ -55,6 +55,8 @@ def test_parse_rate():
         ("3rd April 2026", date(2026, 4, 3)),
         ("03-Apr-2026", date(2026, 4, 3)),
         ("April 3, 2026", date(2026, 4, 3)),
+        ("03 Apr 26", date(2026, 4, 3)),  # 2-digit year after a month name
+        ("03-Apr-26", date(2026, 4, 3)),
     ],
 )
 def test_parse_date(printed, expected):

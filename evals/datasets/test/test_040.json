@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Sri Murugan Stores",
+  "vendor_gstin": "33FOOHE6445F8Z5",
+  "buyer_name": "Reddy Software Labs",
+  "buyer_gstin": null,
+  "invoice_number": "SRI/26-27/0037",
+  "invoice_date": "2026-07-17",
+  "place_of_supply": "Telangana (State Code: 36)",
+  "line_items": [
+    {
+      "description": "LED Television 43 inch",
+      "hsn_sac_code": "8528",
+      "quantity": "18",
+      "unit": "Nos",
+      "unit_price": "22872.45",
+      "discount": null,
+      "taxable_value": "411704.10",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "74106.74",
+      "line_total": "485810.84"
+    },
+    {
+      "description": "Pan Masala 100g",
+      "hsn_sac_code": "2106",
+      "quantity": "16",
+      "unit": "Pkt",
+      "unit_price": "233.41",
+      "discount": null,
+      "taxable_value": "3734.56",
+      "gst_rate": "40",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1493.82",
+      "line_total": "5228.38"
+    }
+  ],
+  "subtotal": "415438.66",
+  "cgst": null,
+  "sgst": null,
+  "igst": "75600.56",
+  "total": "491039"
+}

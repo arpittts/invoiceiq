@@ -89,3 +89,35 @@ def test_same_seed_gives_identical_invoices():
     first = gen.ground_truth(gen.build_invoice(0, random.Random(7)))
     second = gen.ground_truth(gen.build_invoice(0, random.Random(7)))
     assert first == second
+
+
+def test_hard_invoices_print_every_value_even_across_pages():
+    rng = random.Random(2026)
+    for index in range(8):
+        inv = gen.build_invoice(index, rng, hard=True, long=index < 4)
+        doc = pymupdf.open(stream=gen.render_pdf(inv), filetype="pdf")
+        raw = " ".join(page.get_text() for page in doc)
+        text = " ".join(unicodedata.normalize("NFKC", raw).split())
+        truth = gen.ground_truth(inv)
+        assert truth["vendor_gstin"] in text and truth["invoice_number"] in text
+        assert gen.fmt_amount(inv["total"], inv["style"]["amount"]) in text, inv["id"]
+        for item in truth["line_items"]:
+            assert item["hsn_sac_code"] in text
+        if index < 4:
+            assert len(truth["line_items"]) >= 30  # long bills
+
+
+def test_hard_mode_leaves_the_dev_split_unchanged():
+    """--hard draws extra random numbers only when it is on."""
+    plain = gen.ground_truth(gen.build_invoice(3, random.Random(42)))
+    again = gen.ground_truth(gen.build_invoice(3, random.Random(42), hard=False))
+    assert plain == again
+
+
+def test_degraded_images_open_and_have_one_page():
+    rng = random.Random(5)
+    inv = gen.build_invoice(1, rng, hard=True)
+    for kind in ("scan", "photo", "photocopy"):
+        data, extension, done = gen.degrade(gen.render_pdf(inv), kind, rng)
+        assert pymupdf.Pixmap(data).width > 500 and done
+        assert extension == ("jpg" if kind == "photo" else "png")

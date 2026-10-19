@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Sharma Auto Parts",
+  "vendor_gstin": "27OOMGV8869C9Z1",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": "19AJXZW4186C4ZQ",
+  "invoice_number": "3733",
+  "invoice_date": "2026-07-28",
+  "place_of_supply": "West Bengal",
+  "line_items": [
+    {
+      "description": "PVC Pipe 4 inch x 3m",
+      "hsn_sac_code": "3917",
+      "quantity": "4",
+      "unit": "Nos",
+      "unit_price": "843.72",
+      "discount": null,
+      "taxable_value": "3374.88",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Aerated Soft Drink 2L",
+      "hsn_sac_code": "2202",
+      "quantity": "10",
+      "unit": "Btl",
+      "unit_price": "106.89",
+      "discount": null,
+      "taxable_value": "1068.90",
+      "gst_rate": "40",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Emulsion Paint 20L",
+      "hsn_sac_code": "3209",
+      "quantity": "7",
+      "unit": "Bkt",
+      "unit_price": "4490.53",
+      "discount": null,
+      "taxable_value": "31433.71",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Split Air Conditioner 1.5 Ton",
+      "hsn_sac_code": "8415",
+      "quantity": "3",
+      "unit": "Nos",
+      "unit_price": "37777.53",
+      "discount": null,
+      "taxable_value": "113332.59",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "149210.08",
+  "cgst": null,
+  "sgst": null,
+  "igst": "27092.98",
+  "total": "176303.06"
+}

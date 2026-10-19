@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Verma Wholesale Mart",
+  "vendor_gstin": "09ZKIQW6080U3Z0",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": null,
+  "invoice_number": "VER/2026-27/0474",
+  "invoice_date": "2026-08-17",
+  "place_of_supply": "Uttar Pradesh",
+  "line_items": [
+    {
+      "description": "Steel Almirah",
+      "hsn_sac_code": "9403",
+      "quantity": "16",
+      "unit": "Nos",
+      "unit_price": "14351.27",
+      "discount": null,
+      "taxable_value": "229620.32",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Sugar 50kg bag",
+      "hsn_sac_code": "1701",
+      "quantity": "2",
+      "unit": "Bag",
+      "unit_price": "2244.61",
+      "discount": null,
+      "taxable_value": "4489.22",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "234109.54",
+  "cgst": "20778.06",
+  "sgst": "20778.06",
+  "igst": null,
+  "total": "275665.66"
+}

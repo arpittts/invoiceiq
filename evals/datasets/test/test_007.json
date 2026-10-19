@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Lakshmi Traders",
+  "vendor_gstin": "29IBUPE0754Y8Z0",
+  "buyer_name": "Mehta Motors Pvt Ltd",
+  "buyer_gstin": "29GLIQX6439B7ZA",
+  "invoice_number": "5307",
+  "invoice_date": "2026-09-14",
+  "place_of_supply": "Karnataka",
+  "line_items": [
+    {
+      "description": "Split Air Conditioner 1.5 Ton",
+      "hsn_sac_code": "8415",
+      "quantity": "17",
+      "unit": "Nos",
+      "unit_price": "32851.84",
+      "discount": null,
+      "taxable_value": "558481.28",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Sugar 50kg bag",
+      "hsn_sac_code": "1701",
+      "quantity": "16",
+      "unit": "Bag",
+      "unit_price": "2331.15",
+      "discount": null,
+      "taxable_value": "37298.40",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "595779.68",
+  "cgst": "51195.78",
+  "sgst": "51195.78",
+  "igst": null,
+  "total": "698171.24"
+}

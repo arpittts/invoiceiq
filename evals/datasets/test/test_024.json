@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Sharma Auto Parts",
+  "vendor_gstin": "27UDFDG8560O1Z5",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": "27AFEGR6969K4Z1",
+  "invoice_number": "INV-28378",
+  "invoice_date": "2026-07-26",
+  "place_of_supply": "Maharashtra (State Code: 27)",
+  "line_items": [
+    {
+      "description": "Mobile Phone Charger",
+      "hsn_sac_code": "8504",
+      "quantity": "13",
+      "unit": "Nos",
+      "unit_price": "637.64",
+      "discount": null,
+      "taxable_value": "8289.32",
+      "gst_rate": "18",
+      "cgst_amount": "746.04",
+      "sgst_amount": "746.04",
+      "igst_amount": null,
+      "line_total": "9781.40"
+    },
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "14",
+      "unit": "Box",
+      "unit_price": "905.05",
+      "discount": null,
+      "taxable_value": "12670.70",
+      "gst_rate": "18",
+      "cgst_amount": "1140.36",
+      "sgst_amount": "1140.36",
+      "igst_amount": null,
+      "line_total": "14951.42"
+    }
+  ],
+  "subtotal": "20960.02",
+  "cgst": "1886.40",
+  "sgst": "1886.40",
+  "igst": null,
+  "total": "24733"
+}

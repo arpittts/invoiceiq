@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19MEVYW0011A9ZK",
+  "buyer_name": "Joshi Cafe",
+  "buyer_gstin": null,
+  "invoice_number": "INV-69512",
+  "invoice_date": "2026-06-09",
+  "place_of_supply": "West Bengal",
+  "line_items": [
+    {
+      "description": "Printer Paper A4 (500 sheets)",
+      "hsn_sac_code": "4802",
+      "quantity": "15",
+      "unit": "Ream",
+      "unit_price": "302.57",
+      "discount": null,
+      "taxable_value": "4538.55",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Fresh Vegetables (assorted)",
+      "hsn_sac_code": "0709",
+      "quantity": "10.5",
+      "unit": "Kg",
+      "unit_price": "54.50",
+      "discount": null,
+      "taxable_value": "572.25",
+      "gst_rate": "0",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "5110.80",
+  "cgst": "408.47",
+  "sgst": "408.47",
+  "igst": null,
+  "total": "5927.74"
+}

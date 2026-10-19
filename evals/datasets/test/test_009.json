@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Patel Hardware & Paints",
+  "vendor_gstin": "24KEWQB7001L5Z0",
+  "buyer_name": "Joshi Cafe",
+  "buyer_gstin": null,
+  "invoice_number": "INV-38958",
+  "invoice_date": "2026-07-08",
+  "place_of_supply": "Maharashtra (27)",
+  "line_items": [
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "2",
+      "unit": "Box",
+      "unit_price": "893.31",
+      "discount": null,
+      "taxable_value": "1786.62",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "321.59",
+      "line_total": "2108.21"
+    },
+    {
+      "description": "Wheat Atta 10kg",
+      "hsn_sac_code": "1101",
+      "quantity": "14",
+      "unit": "Bag",
+      "unit_price": "540.47",
+      "discount": null,
+      "taxable_value": "7566.58",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "378.33",
+      "line_total": "7944.91"
+    }
+  ],
+  "subtotal": "9353.20",
+  "cgst": null,
+  "sgst": null,
+  "igst": "699.92",
+  "total": "10053.12"
+}

@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Verma Wholesale Mart",
+  "vendor_gstin": "09DCFVD1684J6ZY",
+  "buyer_name": "Iyer Engineering Works",
+  "buyer_gstin": "09LRUWI1957B9ZN",
+  "invoice_number": "INV-24015",
+  "invoice_date": "2026-08-13",
+  "place_of_supply": "Uttar Pradesh (09)",
+  "line_items": [
+    {
+      "description": "LED Bulb 9W",
+      "hsn_sac_code": "8539",
+      "quantity": "4",
+      "unit": "Nos",
+      "unit_price": "68.49",
+      "discount": null,
+      "taxable_value": "273.96",
+      "gst_rate": "18",
+      "cgst_amount": "24.66",
+      "sgst_amount": "24.66",
+      "igst_amount": null,
+      "line_total": "323.28"
+    },
+    {
+      "description": "Ghee 1 kg tin",
+      "hsn_sac_code": "0405",
+      "quantity": "14",
+      "unit": "Nos",
+      "unit_price": "687.02",
+      "discount": null,
+      "taxable_value": "9618.28",
+      "gst_rate": "5",
+      "cgst_amount": "240.46",
+      "sgst_amount": "240.46",
+      "igst_amount": null,
+      "line_total": "10099.20"
+    },
+    {
+      "description": "PVC Pipe 4 inch x 3m",
+      "hsn_sac_code": "3917",
+      "quantity": "5",
+      "unit": "Nos",
+      "unit_price": "781.53",
+      "discount": null,
+      "taxable_value": "3907.65",
+      "gst_rate": "18",
+      "cgst_amount": "351.69",
+      "sgst_amount": "351.69",
+      "igst_amount": null,
+      "line_total": "4611.03"
+    }
+  ],
+  "subtotal": "13799.89",
+  "cgst": "616.81",
+  "sgst": "616.81",
+  "igst": null,
+  "total": "15033.51"
+}

@@ -7,6 +7,14 @@ Each invoice varies in layout (4 templates), font, tax type (CGST+SGST inside
 a state, IGST across states), number of line items, date and amount formatting,
 and file type (vector PDF, scanned PNG, slightly rotated JPEG "photo").
 
+Two splits (blueprint section 12):
+- dev: the 20 starter invoices (seed 42). Used while building; frozen.
+- test: 60 harder invoices (--hard, seed 2026), frozen and only used to report
+  results. On top of the above they add long invoices that run onto a second
+  PDF page, more products, fonts and sizes, 2-digit years and "Rs." amounts,
+  low-resolution scans, blurred and more rotated phone photos, and faint
+  low-contrast "photocopies".
+
 The ground truth lists what is *printed*. A value the layout does not print
 (e.g. per-line tax in the "modern" layout) is null, because the extractor must
 never invent it.
@@ -14,10 +22,13 @@ never invent it.
 GST rates here are illustrative test data, not tax advice.
 
 Usage (from the repo root):
-    backend/.venv/bin/python scripts/make_synthetic_invoices.py --count 20 --seed 42
+    backend/.venv/bin/python scripts/make_synthetic_invoices.py            # dev split
+    backend/.venv/bin/python scripts/make_synthetic_invoices.py --hard --count 60 --seed 2026 \
+        --prefix test --out data/sample_invoices/test --truth evals/datasets/test
 """
 
 import argparse
+import io
 import json
 import random
 from dataclasses import dataclass
@@ -69,6 +80,20 @@ PRODUCTS = [
     ("Aerated Soft Drink 2L", "2202", "Btl", (80, 110), 40),
     ("Annual Maintenance Service", "998719", "Job", (2500, 12000), 18),
     ("Plumbing Repair Service", "995461", "Hrs", (350, 900), 18),
+]
+# Only used by --hard, so the dev split stays exactly reproducible.
+EXTRA_PRODUCTS = [
+    ("Toothpaste 150g", "3306", "Nos", (85, 160), 5),
+    ("Bathing Soap (pack of 4)", "3401", "Pkt", (120, 240), 5),
+    ("Split Air Conditioner 1.5 Ton", "8415", "Nos", (28000, 42000), 18),
+    ("LED Television 43 inch", "8528", "Nos", (19000, 31000), 18),
+    ("Emulsion Paint 20L", "3209", "Bkt", (3200, 6400), 18),
+    ("PVC Pipe 4 inch x 3m", "3917", "Nos", (420, 980), 18),
+    ("Exercise Notebook 172 pages", "4820", "Nos", (35, 70), 0),
+    ("Wheat Atta 10kg", "1101", "Bag", (380, 560), 5),
+    ("Sugar 50kg bag", "1701", "Bag", (1900, 2400), 5),
+    ("Courier Service", "9968", "Job", (150, 1800), 18),
+    ("Pan Masala 100g", "2106", "Pkt", (180, 320), 40),
 ]
 
 _GSTIN_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -148,7 +173,14 @@ LAYOUTS = {
 }  # fmt: skip
 
 
-def build_invoice(index: int, rng: random.Random) -> dict:
+# --hard style overrides (font, size, date and amount formats).
+HARD_FONTS = ["sans-serif", "serif", "monospace", "droid"]  # droid: Droid Sans, bundled with MuPDF
+HARD_DATES = ["%d/%m/%y", "%d-%m-%Y", "%d %b %y", "%d.%m.%y"]
+HARD_AMOUNTS = ["grouped", "rupee", "plain", "rs"]
+
+
+def build_invoice(index: int, rng: random.Random, hard: bool = False, long: bool = False) -> dict:
+    """One invoice. `hard` varies style more; `long` gives 30-40 lines (2+ PDF pages)."""
     layout_name = list(LAYOUTS)[index % len(LAYOUTS)]
     layout = LAYOUTS[layout_name]
     vendor_name, vendor_address, vendor_state = rng.choice(VENDORS)
@@ -159,11 +191,22 @@ def build_invoice(index: int, rng: random.Random) -> dict:
     intra_state = buyer_state == vendor_state
     buyer_registered = rng.random() > 0.2
 
-    lines = []
-    for description, hsn, unit, (low, high), rate in rng.sample(PRODUCTS, rng.randint(1, 7)):
+    pool = PRODUCTS + EXTRA_PRODUCTS if hard else PRODUCTS
+    count = rng.randint(30, 40) if long else rng.randint(1, 7)
+    if count <= len(pool):
+        products = rng.sample(pool, count)
+    else:  # long bills repeat items from different lots
+        products = rng.sample(pool, len(pool)) + rng.choices(pool, k=count - len(pool))
+    lines, seen = [], set()
+    for description, hsn, unit, (low, high), rate in products:
+        if description in seen:
+            description = f"{description} (Lot {rng.randint(10, 99)})"
+        seen.add(description)
         quantity = Decimal(rng.randint(1, 20))
         if unit == "Kg" and rng.random() < 0.5:
             quantity = Decimal(rng.randint(5, 95)) / 2  # e.g. 12.5 kg
+        if hard and unit in ("Hrs", "Ltr") and rng.random() < 0.5:
+            quantity = Decimal(rng.randint(3, 39)) / 2  # e.g. 7.5 hours
         price = money(Decimal(rng.randint(low * 100, high * 100)) / 100)
         gross = money(quantity * price)
         discount = Decimal(0)
@@ -182,18 +225,6 @@ def build_invoice(index: int, rng: random.Random) -> dict:
                  cgst, sgst, igst, total)
         )  # fmt: skip
 
-    subtotal = sum((line.taxable for line in lines), Decimal(0))
-    cgst = sum((line.cgst for line in lines if line.cgst), Decimal(0)) if intra_state else None
-    sgst = sum((line.sgst for line in lines if line.sgst), Decimal(0)) if intra_state else None
-    igst = None if intra_state else sum((line.igst for line in lines), Decimal(0))
-    exact_total = subtotal + (cgst or 0) + (sgst or 0) + (igst or 0)
-    # The letterhead layout rounds the payable amount to whole rupees, as many shops do.
-    round_off = None
-    total = exact_total
-    if layout_name == "letterhead":
-        total = exact_total.quantize(Decimal(1), rounding=ROUND_HALF_UP)
-        round_off = total - exact_total
-
     year_suffix = rng.choice(["2026-27", "26-27"])
     number = rng.choice([
         f"{vendor_name[:3].upper()}/{year_suffix}/{rng.randint(1, 999):04d}",
@@ -201,9 +232,19 @@ def build_invoice(index: int, rng: random.Random) -> dict:
         f"{rng.randint(100, 9999)}",
     ])  # fmt: skip
 
+    style = {}
+    if hard:
+        style = {
+            "font": rng.choice(HARD_FONTS),
+            "size": rng.choice([7.5, 8, 9, 10]),
+            "date": rng.choice(HARD_DATES + [layout["date"]]),
+            "amount": rng.choice(HARD_AMOUNTS),
+        }
+
     return {
         "id": f"inv_{index + 1:03d}",
         "layout": layout_name,
+        "style": style,
         "vendor_name": vendor_name,
         "vendor_address": vendor_address,
         "vendor_gstin": make_gstin(vendor_state, rng),
@@ -215,13 +256,25 @@ def build_invoice(index: int, rng: random.Random) -> dict:
         "place_of_supply": layout["pos"].format(name=STATES[buyer_state], code=buyer_state),
         "intra_state": intra_state,
         "lines": lines,
-        "subtotal": subtotal,
-        "cgst": cgst,
-        "sgst": sgst,
-        "igst": igst,
-        "round_off": round_off,
-        "total": total,
+        **_totals({"layout": layout_name, "intra_state": intra_state, "lines": lines}),
     }
+
+
+def _totals(inv: dict) -> dict:
+    lines, intra_state = inv["lines"], inv["intra_state"]
+    subtotal = sum((line.taxable for line in lines), Decimal(0))
+    cgst = sum((line.cgst for line in lines if line.cgst), Decimal(0)) if intra_state else None
+    sgst = sum((line.sgst for line in lines if line.sgst), Decimal(0)) if intra_state else None
+    igst = None if intra_state else sum((line.igst for line in lines), Decimal(0))
+    exact_total = subtotal + (cgst or 0) + (sgst or 0) + (igst or 0)
+    # The letterhead layout rounds the payable amount to whole rupees, as many shops do.
+    round_off = None
+    total = exact_total
+    if inv["layout"] == "letterhead":
+        total = exact_total.quantize(Decimal(1), rounding=ROUND_HALF_UP)
+        round_off = total - exact_total
+    return {"subtotal": subtotal, "cgst": cgst, "sgst": sgst, "igst": igst,
+            "round_off": round_off, "total": total}  # fmt: skip
 
 
 # ---------------------------------------------------------------------------
@@ -278,6 +331,8 @@ def fmt_amount(value: Decimal, style: str) -> str:
     if style == "plain":
         return f"{value:.2f}"
     grouped = indian_grouping(value)
+    if style == "rs":
+        return f"Rs. {grouped}"
     return f"₹{grouped}" if style == "rupee" else grouped
 
 
@@ -286,7 +341,7 @@ def fmt_qty(quantity: Decimal) -> str:
 
 
 def render_html(inv: dict) -> str:
-    layout = LAYOUTS[inv["layout"]]
+    layout = {**LAYOUTS[inv["layout"]], **inv.get("style", {})}
     a = lambda value: fmt_amount(value, layout["amount"])  # noqa: E731
     intra = inv["intra_state"]
     buyer_gstin = f"<br>GSTIN: {inv['buyer_gstin']}" if inv["buyer_gstin"] else ""
@@ -336,7 +391,7 @@ def render_html(inv: dict) -> str:
 
     header_band = "background:#1f4e79;color:white;padding:8px;" if inv["layout"] == "modern" else ""
     return f"""
-    <div style="font-family:{layout["font"]};font-size:9pt">
+    <div style="font-family:{layout["font"]};font-size:{layout.get("size", 9)}pt">
       <div style="{header_band}">
         <div style="font-size:15pt;font-weight:bold">{inv["vendor_name"]}</div>
         <div>{inv["vendor_address"]}</div>
@@ -363,12 +418,37 @@ td.label { font-weight: bold; }
 
 
 def render_pdf(inv: dict) -> bytes:
-    doc = pymupdf.open()
     # The compact layout uses a narrower A5 page, like a shop receipt.
     width, height = (420, 595) if inv["layout"] == "compact" else (595, 842)
+    if inv.get("style"):
+        return _render_flowing_pdf(inv, width, height)
+    doc = pymupdf.open()
     page = doc.new_page(width=width, height=height)
     page.insert_htmlbox(pymupdf.Rect(30, 30, width - 30, height - 30), render_html(inv), css=CSS)
     return doc.tobytes()
+
+
+def _render_flowing_pdf(inv: dict, width: float, height: float) -> bytes:
+    """--hard invoices: text flows onto further pages instead of shrinking to fit."""
+    archive, css = None, CSS
+    if inv["style"]["font"] == "droid":
+        archive = pymupdf.Archive()
+        archive.add((pymupdf.Font("cjk").buffer, "droid.ttf"))  # Droid Sans, bundled with MuPDF
+        css += "@font-face { font-family: droid; src: url(droid.ttf); }"
+    story = pymupdf.Story(html=render_html(inv), user_css=css, archive=archive)
+    buffer = io.BytesIO()
+    writer = pymupdf.DocumentWriter(buffer)
+    mediabox = pymupdf.Rect(0, 0, width, height)
+    more = True
+    while more:
+        device = writer.begin_page(mediabox)
+        more, _ = story.place(mediabox + (30, 30, -30, -30))
+        story.draw(device)
+        writer.end_page()
+    writer.close()
+    doc = pymupdf.open(stream=buffer.getvalue(), filetype="pdf")
+    doc.subset_fonts()  # embed only the glyphs used (Droid Sans alone is 3.5 MB)
+    return doc.tobytes(garbage=3, deflate=True)
 
 
 def to_image(pdf: bytes, kind: str, rng: random.Random) -> bytes:
@@ -382,7 +462,55 @@ def to_image(pdf: bytes, kind: str, rng: random.Random) -> bytes:
     return pixmap.tobytes("jpeg", jpg_quality=70)
 
 
+def blur(pixmap: pymupdf.Pixmap, factor: float) -> pymupdf.Pixmap:
+    """Soften by shrinking and scaling back up (like an out-of-focus camera)."""
+    width, height = round(pixmap.width * factor), round(pixmap.height * factor)
+    small = pymupdf.Pixmap(pixmap, width, height, None)
+    return pymupdf.Pixmap(small, pixmap.width, pixmap.height, None)
+
+
+def degrade(pdf: bytes, kind: str, rng: random.Random) -> tuple[bytes, str, list[str]]:
+    """--hard images: (file bytes, extension, what was done). First page only."""
+    page = pymupdf.open(stream=pdf, filetype="pdf")[0]
+    if kind == "scan":  # a cheap low-resolution scan
+        dpi = rng.choice([80, 90, 100])
+        return page.get_pixmap(dpi=dpi, alpha=False).tobytes("png"), "png", [f"scan {dpi}dpi"]
+    if kind == "photo":  # a phone photo: more rotation, out of focus, warm paper
+        angle = rng.choice([-1, 1]) * rng.uniform(2.5, 4.5)
+        zoom = 150 / 72
+        pixmap = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom).prerotate(angle), alpha=False)
+        sharpness = rng.choice([0.45, 0.55, 0.65])
+        pixmap = blur(pixmap, sharpness)
+        pixmap.tint_with(0x262626, 0xF0E6D2)
+        quality = rng.choice([45, 55, 65])
+        done = [f"rotated {angle:.1f}°", f"blur {sharpness}", f"jpeg q{quality}"]
+        return pixmap.tobytes("jpeg", jpg_quality=quality), "jpg", done
+    # A faint photocopy: grey, low contrast, slightly soft.
+    pixmap = page.get_pixmap(dpi=110, alpha=False, colorspace=pymupdf.csGRAY)
+    pixmap = blur(pixmap, 0.75)
+    dark = rng.choice([0x5A, 0x6E, 0x80])
+    pixmap.tint_with(dark * 0x010101, 0xE4E4E4)
+    return pixmap.tobytes("png"), "png", [f"photocopy (ink #{dark:02X})", "blur 0.75"]
+
+
 # ---------------------------------------------------------------------------
+
+
+def make_hard(index: int, rng: random.Random) -> tuple[dict, bytes, str, list[str]]:
+    """A --hard invoice: 40% PDF (some long, 2 pages), 20% each scan/photo/photocopy."""
+    kind = {2: "scan", 3: "photo", 4: "photocopy"}.get(index % 5, "pdf")
+    long = kind == "pdf" and rng.random() < 0.4
+    inv = build_invoice(index, rng, hard=True, long=long)
+    pdf = render_pdf(inv)
+    if kind == "pdf":
+        return inv, pdf, "pdf", [f"{len(pymupdf.open(stream=pdf, filetype='pdf'))} page(s)"]
+    # Images show one page, so keep image invoices short enough to fit on it.
+    while len(pymupdf.open(stream=pdf, filetype="pdf")) > 1:
+        inv["lines"].pop()
+        inv.update(_totals(inv))
+        pdf = render_pdf(inv)
+    data, extension, done = degrade(pdf, kind, rng)
+    return inv, data, extension, done
 
 
 def main() -> None:
@@ -391,6 +519,8 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--out", default="data/sample_invoices")
     parser.add_argument("--truth", default="evals/datasets/starter")
+    parser.add_argument("--hard", action="store_true", help="the harder test-split variants")
+    parser.add_argument("--prefix", default="inv", help="file name prefix, e.g. test")
     args = parser.parse_args()
 
     rng = random.Random(args.seed)  # same seed -> identical invoices every run
@@ -400,10 +530,15 @@ def main() -> None:
 
     manifest = []
     for index in range(args.count):
-        inv = build_invoice(index, rng)
-        pdf = render_pdf(inv)
-        kind = {3: "png", 4: "jpg"}.get(index % 5, "pdf")  # 60% PDF, 20% scan, 20% photo
-        data = pdf if kind == "pdf" else to_image(pdf, kind, rng)
+        if args.hard:
+            inv, data, kind, degradations = make_hard(index, rng)
+        else:
+            inv = build_invoice(index, rng)
+            pdf = render_pdf(inv)
+            kind = {3: "png", 4: "jpg"}.get(index % 5, "pdf")  # 60% PDF, 20% scan, 20% photo
+            data = pdf if kind == "pdf" else to_image(pdf, kind, rng)
+            degradations = []
+        inv["id"] = inv["id"].replace("inv", args.prefix, 1)
         file_path = out_dir / f"{inv['id']}.{kind}"
         file_path.write_bytes(data)
 
@@ -414,6 +549,7 @@ def main() -> None:
             "layout": inv["layout"], "format": kind,
             "tax_type": "intra" if inv["intra_state"] else "inter",
             "line_items": len(inv["lines"]),
+            **({"degradations": degradations} if args.hard else {}),
         })  # fmt: skip
 
     (truth_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")

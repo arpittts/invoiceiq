@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Lakshmi Traders",
+  "vendor_gstin": "29GTKSQ9322M4ZF",
+  "buyer_name": "Reddy Software Labs",
+  "buyer_gstin": "36DBTKD1790W3ZP",
+  "invoice_number": "INV-79347",
+  "invoice_date": "2026-06-06",
+  "place_of_supply": "36-Telangana",
+  "line_items": [
+    {
+      "description": "Fresh Vegetables (assorted)",
+      "hsn_sac_code": "0709",
+      "quantity": "42",
+      "unit": "Kg",
+      "unit_price": "39.68",
+      "discount": null,
+      "taxable_value": "1666.56",
+      "gst_rate": "0",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "1666.56",
+  "cgst": null,
+  "sgst": null,
+  "igst": "0.00",
+  "total": "1666.56"
+}

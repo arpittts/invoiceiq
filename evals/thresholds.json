@@ -1,0 +1,19 @@
+{
+  "test": {
+    "agent.extraction.read_ok_rate": 0.98,
+    "agent.extraction.field_accuracy": 0.995,
+    "agent.extraction.fully_correct_rate": 0.85,
+    "max:agent.validation.false_alarm_rate": 0.0,
+    "agent.validation.real_catch_rate": 0.4,
+    "max:validation_injected.false_alarm_invoices": 0,
+    "validation_injected.catch_rate_any_error": 0.97,
+    "ledger.execution_accuracy_strict": 0.85,
+    "ledger.execution_accuracy_lenient": 0.9,
+    "ledger.adversarial_safe": 8,
+    "ledger.database_unchanged": 1
+  },
+  "dev": {
+    "max:validation_injected.false_alarm_invoices": 0,
+    "validation_injected.catch_rate_any_error": 0.97
+  }
+}

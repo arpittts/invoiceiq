@@ -32,3 +32,6 @@ data/real/
 # Official HSN/SAC downloads (government files, re-downloadable; see scripts/ingest_hsn.py)
 data/hsn raw/
 data/hsn_raw/
+
+# Local replay reports (overwritten on every `make eval`; CI uploads its own)
+evals/reports/latest-*

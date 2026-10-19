@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Sharma Auto Parts",
+  "vendor_gstin": "27YNFRW7204L4ZN",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": null,
+  "invoice_number": "INV-45090",
+  "invoice_date": "2026-08-10",
+  "place_of_supply": "27-Maharashtra",
+  "line_items": [
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "2",
+      "unit": "Ltr",
+      "unit_price": "517.22",
+      "discount": null,
+      "taxable_value": "1034.44",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "LED Bulb 9W",
+      "hsn_sac_code": "8539",
+      "quantity": "7",
+      "unit": "Nos",
+      "unit_price": "64.80",
+      "discount": null,
+      "taxable_value": "453.60",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "1488.04",
+  "cgst": "133.92",
+  "sgst": "133.92",
+  "igst": null,
+  "total": "1755.88"
+}

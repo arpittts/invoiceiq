@@ -20,57 +20,19 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "backend"))
+sys.path.insert(0, str(REPO))
+
+from evals.metrics import percentile, score  # noqa: E402
 
 from app.config import get_settings  # noqa: E402
 from app.llm.pricing import PRICES  # noqa: E402
-from app.schemas.extraction import InvoiceExtraction  # noqa: E402
 from app.services.extraction import extract_from_pages, get_provider  # noqa: E402
 from app.services.pdf import render_pages  # noqa: E402
 from app.tracing import flush_traces  # noqa: E402
 
 MIME = {".pdf": "application/pdf", ".png": "image/png", ".jpg": "image/jpeg"}
-HEADER_FIELDS = [
-    "vendor_name", "vendor_gstin", "buyer_name", "buyer_gstin", "invoice_number",
-    "invoice_date", "place_of_supply", "subtotal", "cgst", "sgst", "igst", "total",
-]  # fmt: skip
-LINE_FIELDS = [
-    "description", "hsn_sac_code", "quantity", "unit", "unit_price", "discount",
-    "taxable_value", "gst_rate", "cgst_amount", "sgst_amount", "igst_amount", "line_total",
-]  # fmt: skip
 # Rough tokens per single-page invoice, used only for the up-front estimate.
 EST_INPUT_TOKENS, EST_OUTPUT_TOKENS = 7000, 2500
-
-
-def same(expected, actual) -> bool:
-    """Compare a ground-truth value (string/None) with an extracted typed value."""
-    if expected is None or actual is None:
-        return expected is None and actual is None
-    if isinstance(actual, Decimal):
-        return Decimal(expected) == actual
-    if hasattr(actual, "isoformat"):
-        return expected == actual.isoformat()
-    return " ".join(str(expected).split()) == " ".join(str(actual).split())
-
-
-def score(truth: dict, extraction: InvoiceExtraction) -> tuple[int, int]:
-    """(correct fields, total fields). Missing or extra line items count as wrong."""
-    correct = total = 0
-    for name in HEADER_FIELDS:
-        total += 1
-        correct += same(truth[name], getattr(extraction, name).value)
-    true_lines, got_lines = truth["line_items"], extraction.line_items
-    for index in range(max(len(true_lines), len(got_lines))):
-        for name in LINE_FIELDS:
-            total += 1
-            if index < len(true_lines) and index < len(got_lines):
-                correct += same(true_lines[index][name], getattr(got_lines[index], name).value)
-    return correct, total
-
-
-def percentile(values: list[float], pct: float) -> float:
-    ordered = sorted(values)
-    index = min(len(ordered) - 1, round(pct / 100 * (len(ordered) - 1)))
-    return ordered[index]
 
 
 def main() -> None:

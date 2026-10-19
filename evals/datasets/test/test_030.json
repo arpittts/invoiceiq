@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Lakshmi Traders",
+  "vendor_gstin": "29FCEXN6869F3ZG",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": "19OCHQG1294X8ZZ",
+  "invoice_number": "LAK/26-27/0450",
+  "invoice_date": "2026-09-07",
+  "place_of_supply": "19-West Bengal",
+  "line_items": [
+    {
+      "description": "Emulsion Paint 20L",
+      "hsn_sac_code": "3209",
+      "quantity": "3",
+      "unit": "Bkt",
+      "unit_price": "5152.19",
+      "discount": null,
+      "taxable_value": "15456.57",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "7",
+      "unit": "Box",
+      "unit_price": "1029.97",
+      "discount": null,
+      "taxable_value": "7209.79",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Cotton T-Shirt",
+      "hsn_sac_code": "6109",
+      "quantity": "10",
+      "unit": "Nos",
+      "unit_price": "469.71",
+      "discount": null,
+      "taxable_value": "4697.10",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Printer Paper A4 (500 sheets)",
+      "hsn_sac_code": "4802",
+      "quantity": "20",
+      "unit": "Ream",
+      "unit_price": "347.75",
+      "discount": null,
+      "taxable_value": "6955.00",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "34318.46",
+  "cgst": null,
+  "sgst": null,
+  "igst": "5566.70",
+  "total": "39885.16"
+}

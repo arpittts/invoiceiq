@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Gupta Electricals",
+  "vendor_gstin": "07YISNW0237E7ZB",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": null,
+  "invoice_number": "INV-27462",
+  "invoice_date": "2026-09-11",
+  "place_of_supply": "Delhi (07)",
+  "line_items": [
+    {
+      "description": "Fresh Vegetables (assorted)",
+      "hsn_sac_code": "0709",
+      "quantity": "19",
+      "unit": "Kg",
+      "unit_price": "83.55",
+      "discount": null,
+      "taxable_value": "1587.45",
+      "gst_rate": "0",
+      "cgst_amount": "0.00",
+      "sgst_amount": "0.00",
+      "igst_amount": null,
+      "line_total": "1587.45"
+    },
+    {
+      "description": "Two-wheeler Tyre",
+      "hsn_sac_code": "4011",
+      "quantity": "7",
+      "unit": "Nos",
+      "unit_price": "1779.83",
+      "discount": null,
+      "taxable_value": "12458.81",
+      "gst_rate": "18",
+      "cgst_amount": "1121.29",
+      "sgst_amount": "1121.29",
+      "igst_amount": null,
+      "line_total": "14701.39"
+    },
+    {
+      "description": "PVC Pipe 4 inch x 3m",
+      "hsn_sac_code": "3917",
+      "quantity": "18",
+      "unit": "Nos",
+      "unit_price": "508.38",
+      "discount": "457.54",
+      "taxable_value": "8693.30",
+      "gst_rate": "18",
+      "cgst_amount": "782.40",
+      "sgst_amount": "782.40",
+      "igst_amount": null,
+      "line_total": "10258.10"
+    },
+    {
+      "description": "Annual Maintenance Service",
+      "hsn_sac_code": "998719",
+      "quantity": "17",
+      "unit": "Job",
+      "unit_price": "5967.05",
+      "discount": null,
+      "taxable_value": "101439.85",
+      "gst_rate": "18",
+      "cgst_amount": "9129.59",
+      "sgst_amount": "9129.59",
+      "igst_amount": null,
+      "line_total": "119699.03"
+    }
+  ],
+  "subtotal": "124179.41",
+  "cgst": "11033.28",
+  "sgst": "11033.28",
+  "igst": null,
+  "total": "146245.97"
+}

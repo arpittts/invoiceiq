@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Sri Murugan Stores",
+  "vendor_gstin": "33NLZYY8280F6Z6",
+  "buyer_name": "Desai Builders",
+  "buyer_gstin": "24REFAD8051L5ZT",
+  "invoice_number": "SRI/26-27/0555",
+  "invoice_date": "2026-08-06",
+  "place_of_supply": "Gujarat (24)",
+  "line_items": [
+    {
+      "description": "Split Air Conditioner 1.5 Ton",
+      "hsn_sac_code": "8415",
+      "quantity": "6",
+      "unit": "Nos",
+      "unit_price": "38669.50",
+      "discount": "4640.34",
+      "taxable_value": "227376.66",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "40927.80",
+      "line_total": "268304.46"
+    },
+    {
+      "description": "Bathing Soap (pack of 4)",
+      "hsn_sac_code": "3401",
+      "quantity": "13",
+      "unit": "Pkt",
+      "unit_price": "174.65",
+      "discount": null,
+      "taxable_value": "2270.45",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "113.52",
+      "line_total": "2383.97"
+    },
+    {
+      "description": "Pan Masala 100g",
+      "hsn_sac_code": "2106",
+      "quantity": "10",
+      "unit": "Pkt",
+      "unit_price": "186.81",
+      "discount": null,
+      "taxable_value": "1868.10",
+      "gst_rate": "40",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "747.24",
+      "line_total": "2615.34"
+    },
+    {
+      "description": "PVC Pipe 4 inch x 3m",
+      "hsn_sac_code": "3917",
+      "quantity": "7",
+      "unit": "Nos",
+      "unit_price": "526.30",
+      "discount": null,
+      "taxable_value": "3684.10",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "663.14",
+      "line_total": "4347.24"
+    }
+  ],
+  "subtotal": "235199.31",
+  "cgst": null,
+  "sgst": null,
+  "igst": "42451.70",
+  "total": "277651.01"
+}

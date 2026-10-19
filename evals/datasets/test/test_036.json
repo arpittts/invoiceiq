@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19CFEAF8485E6ZW",
+  "buyer_name": "Singh Logistics",
+  "buyer_gstin": "09RAZFV5797R2ZT",
+  "invoice_number": "2482",
+  "invoice_date": "2026-05-29",
+  "place_of_supply": "Uttar Pradesh (State Code: 09)",
+  "line_items": [
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "12",
+      "unit": "Ltr",
+      "unit_price": "519.25",
+      "discount": null,
+      "taxable_value": "6231.00",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1121.58",
+      "line_total": "7352.58"
+    },
+    {
+      "description": "LED Television 43 inch",
+      "hsn_sac_code": "8528",
+      "quantity": "4",
+      "unit": "Nos",
+      "unit_price": "29719.81",
+      "discount": "5943.96",
+      "taxable_value": "112935.28",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "20328.35",
+      "line_total": "133263.63"
+    },
+    {
+      "description": "Exercise Notebook 172 pages",
+      "hsn_sac_code": "4820",
+      "quantity": "12",
+      "unit": "Nos",
+      "unit_price": "50.65",
+      "discount": null,
+      "taxable_value": "607.80",
+      "gst_rate": "0",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "0.00",
+      "line_total": "607.80"
+    }
+  ],
+  "subtotal": "119774.08",
+  "cgst": null,
+  "sgst": null,
+  "igst": "21449.93",
+  "total": "141224"
+}

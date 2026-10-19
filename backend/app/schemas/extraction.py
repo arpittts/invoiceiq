@@ -120,6 +120,7 @@ _DATE_FORMATS = [
     "%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%d/%m/%y", "%d-%m-%y", "%d.%m.%y",
     "%Y-%m-%d",
     "%d %b %Y", "%d-%b-%Y", "%d %B %Y", "%d-%B-%Y", "%d %b, %Y", "%d %B, %Y",
+    "%d %b %y", "%d-%b-%y", "%d/%b/%y",
     "%b %d, %Y", "%B %d, %Y",
 ]  # fmt: skip
 

@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19CGXGD1592D3ZK",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": "19GUNGN0824J6ZI",
+  "invoice_number": "INV-65466",
+  "invoice_date": "2026-06-21",
+  "place_of_supply": "19-West Bengal",
+  "line_items": [
+    {
+      "description": "Two-wheeler Tyre",
+      "hsn_sac_code": "4011",
+      "quantity": "16",
+      "unit": "Nos",
+      "unit_price": "1378.80",
+      "discount": null,
+      "taxable_value": "22060.80",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Exercise Notebook 172 pages",
+      "hsn_sac_code": "4820",
+      "quantity": "12",
+      "unit": "Nos",
+      "unit_price": "41.49",
+      "discount": null,
+      "taxable_value": "497.88",
+      "gst_rate": "0",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "22558.68",
+  "cgst": "1985.47",
+  "sgst": "1985.47",
+  "igst": null,
+  "total": "26529.62"
+}

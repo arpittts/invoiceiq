@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19UBJEI7613J2ZF",
+  "buyer_name": "Desai Builders",
+  "buyer_gstin": "24IVNCP5442W1Z0",
+  "invoice_number": "KOL/2026-27/0639",
+  "invoice_date": "2026-09-13",
+  "place_of_supply": "24-Gujarat",
+  "line_items": [
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "6",
+      "unit": "Ltr",
+      "unit_price": "435.22",
+      "discount": null,
+      "taxable_value": "2611.32",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Courier Service",
+      "hsn_sac_code": "9968",
+      "quantity": "3",
+      "unit": "Job",
+      "unit_price": "1710.39",
+      "discount": null,
+      "taxable_value": "5131.17",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "7742.49",
+  "cgst": null,
+  "sgst": null,
+  "igst": "1393.65",
+  "total": "9136.14"
+}

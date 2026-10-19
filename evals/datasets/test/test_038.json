@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19GAZKZ9061T3ZU",
+  "buyer_name": "Singh Logistics",
+  "buyer_gstin": "09EZOLK3548H5ZX",
+  "invoice_number": "KOL/2026-27/0532",
+  "invoice_date": "2026-07-20",
+  "place_of_supply": "09-Uttar Pradesh",
+  "line_items": [
+    {
+      "description": "Courier Service",
+      "hsn_sac_code": "9968",
+      "quantity": "9",
+      "unit": "Job",
+      "unit_price": "1517.30",
+      "discount": null,
+      "taxable_value": "13655.70",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "18",
+      "unit": "Box",
+      "unit_price": "1334.95",
+      "discount": null,
+      "taxable_value": "24029.10",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Wheat Atta 10kg",
+      "hsn_sac_code": "1101",
+      "quantity": "8",
+      "unit": "Bag",
+      "unit_price": "395.78",
+      "discount": null,
+      "taxable_value": "3166.24",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "12",
+      "unit": "Ltr",
+      "unit_price": "363.86",
+      "discount": null,
+      "taxable_value": "4366.32",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "45217.36",
+  "cgst": null,
+  "sgst": null,
+  "igst": "7727.52",
+  "total": "52944.88"
+}

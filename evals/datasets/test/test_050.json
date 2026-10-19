@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Sri Murugan Stores",
+  "vendor_gstin": "33YJXWS1805V4ZZ",
+  "buyer_name": "Desai Builders",
+  "buyer_gstin": "33KXBCS1965E1Z1",
+  "invoice_number": "4392",
+  "invoice_date": "2026-09-20",
+  "place_of_supply": "33-Tamil Nadu",
+  "line_items": [
+    {
+      "description": "Emulsion Paint 20L",
+      "hsn_sac_code": "3209",
+      "quantity": "4",
+      "unit": "Bkt",
+      "unit_price": "6301.49",
+      "discount": null,
+      "taxable_value": "25205.96",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Cotton T-Shirt",
+      "hsn_sac_code": "6109",
+      "quantity": "1",
+      "unit": "Nos",
+      "unit_price": "500.53",
+      "discount": null,
+      "taxable_value": "500.53",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "PVC Pipe 4 inch x 3m",
+      "hsn_sac_code": "3917",
+      "quantity": "1",
+      "unit": "Nos",
+      "unit_price": "464.16",
+      "discount": null,
+      "taxable_value": "464.16",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "26170.65",
+  "cgst": "2322.82",
+  "sgst": "2322.82",
+  "igst": null,
+  "total": "30816.29"
+}

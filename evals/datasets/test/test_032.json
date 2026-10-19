@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Patel Hardware & Paints",
+  "vendor_gstin": "24BIYVA8378X2ZE",
+  "buyer_name": "Singh Logistics",
+  "buyer_gstin": "09TKUYW9610C1ZJ",
+  "invoice_number": "PAT/2026-27/0996",
+  "invoice_date": "2026-09-01",
+  "place_of_supply": "Uttar Pradesh (State Code: 09)",
+  "line_items": [
+    {
+      "description": "Plumbing Repair Service",
+      "hsn_sac_code": "995461",
+      "quantity": "9",
+      "unit": "Hrs",
+      "unit_price": "561.97",
+      "discount": "252.89",
+      "taxable_value": "4804.84",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "864.87",
+      "line_total": "5669.71"
+    }
+  ],
+  "subtotal": "4804.84",
+  "cgst": null,
+  "sgst": null,
+  "igst": "864.87",
+  "total": "5670"
+}

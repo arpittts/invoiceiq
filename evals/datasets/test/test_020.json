@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Verma Wholesale Mart",
+  "vendor_gstin": "09JNNRN3166L4ZW",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": "09TRXTS7453X6ZZ",
+  "invoice_number": "VER/26-27/0924",
+  "invoice_date": "2026-05-13",
+  "place_of_supply": "Uttar Pradesh (State Code: 09)",
+  "line_items": [
+    {
+      "description": "PVC Pipe 4 inch x 3m",
+      "hsn_sac_code": "3917",
+      "quantity": "9",
+      "unit": "Nos",
+      "unit_price": "559.84",
+      "discount": null,
+      "taxable_value": "5038.56",
+      "gst_rate": "18",
+      "cgst_amount": "453.47",
+      "sgst_amount": "453.47",
+      "igst_amount": null,
+      "line_total": "5945.50"
+    },
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "18",
+      "unit": "Ltr",
+      "unit_price": "435.52",
+      "discount": null,
+      "taxable_value": "7839.36",
+      "gst_rate": "18",
+      "cgst_amount": "705.54",
+      "sgst_amount": "705.54",
+      "igst_amount": null,
+      "line_total": "9250.44"
+    }
+  ],
+  "subtotal": "12877.92",
+  "cgst": "1159.01",
+  "sgst": "1159.01",
+  "igst": null,
+  "total": "15196"
+}

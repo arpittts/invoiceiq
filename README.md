@@ -2,7 +2,7 @@
 
 An AI agent that reads Indian GST invoices (photos or PDFs), extracts structured data, validates it, classifies line items with the right HSN/SAC code and GST rate, and lets a human approve the result and query the ledger in plain English.
 
-> Status: early development (Phase 7: ledger Q&A). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
+> Status: early development (Phase 8: evaluation and CI). The full plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
 > Disclaimer: output is an automation aid, not tax or legal advice. Rates and codes change, so always verify.
 
@@ -144,6 +144,41 @@ Caveat: the descriptions are LLM-written from known codes, so these numbers meas
 After extraction, deterministic rules check what the model read (no AI involved): GSTIN format and mod-36 checksum, state codes, CGST+SGST vs IGST for the place of supply, line math, tax math, totals (each within ₹1), date range, duplicates and required fields. Problems are stored as issues with a rule code, field, severity and message, and returned with the invoice.
 
 `make check-validation` injects 12 kinds of realistic misreads into the 20 correct starter invoices. Latest run: **0 false alarms, 97.9% of 632 injected errors caught**. Every miss was a digit swap in the paise (largest ₹0.72), which is inside the ₹1 rounding tolerance and cannot be detected by arithmetic.
+
+## Evaluation
+
+[![CI](https://github.com/arpittts/invoiceiq/actions/workflows/ci.yml/badge.svg)](https://github.com/arpittts/invoiceiq/actions/workflows/ci.yml)
+
+One command runs the whole pipeline (the LangGraph agent, validation, HSN suggestions, auto-approve decision) on a frozen test set and the ledger questions, and writes a JSON and Markdown report to `evals/reports/`:
+
+```bash
+make eval          # replays recorded model replies: free, no API key, ~10 s (what CI runs)
+make eval-record   # calls the real model and refreshes the recordings (free on Gemini, ~40 min)
+```
+
+**Test set:** 60 synthetic invoices, generated once (`make invoices-test`, seed 2026) and never used while building. They are harder than the 20 dev invoices: low-resolution scans (80-100 dpi), blurred phone photos rotated 2.5-4.5°, faint low-contrast photocopies, 30-40 line bills that run onto a second page, more fonts and sizes, 2-digit years and "Rs." amounts.
+
+**Results** (test split, `gemini-3.5-flash-lite` free tier, recorded 2026-10-19; full report: [evals/reports/eval-test-20261019-094649.md](evals/reports/eval-test-20261019-094649.md)):
+
+| Metric | Result |
+| --- | --- |
+| Field accuracy (exact match, every header and line field) | **99.8%** |
+| Invoices read fully correctly | **88.3%** (53/60) |
+| By file type, fully correct | PDF 94.7%, 2-page PDF 100%, photocopy 91.7%, scan 83.3%, photo 75.0% |
+| False alarms on correctly read invoices | **0%** |
+| Real misreads flagged by validation | 3/7 (every misread that changed an amount or GSTIN was flagged; the 4 unflagged were a stray "." in a description and blank or unprinted line totals) |
+| Injected misreads caught by validation | **98.1%** of 1,944 |
+| Auto-approve precision | **100%** (9 approved, 0 wrong) |
+| Ledger Q&A execution accuracy | 86.7% strict, 93.3% lenient (30 questions) |
+| Adversarial ledger prompts | 8/8 safe, database unchanged |
+| Cost per invoice | $0 (free tier) |
+| Latency per invoice, p50 / p95 | 8.6 s / 35.6 s |
+
+How to read these: the invoices are synthetic, so they are cleaner than real phone photos of crumpled bills. Gemini's per-field confidences sit at 0.95-1.0 even when wrong, so auto-approve relies on the validation rules and HSN confidence, not on the model's confidence. Ledger accuracy varies between runs of the same model (an earlier run scored 29/30); in this one, 2 questions failed because the SQL guard rejected date functions (`to_char`, `make_date`) that are not on its allow-list.
+
+**Record and replay:** a recorded run saves every model request's fingerprint (hashes of the prompts, schema name, model and page image sizes) with the reply in `evals/recordings/`. Replay serves those replies in order, so CI checks everything around the model (parsing, validation, the agent's routing, the SQL guard, scoring) without a key or network. If a prompt, the schema, the model or page rendering changes, replay stops with "recordings are out of date" until someone runs `make eval-record`. HSN suggestions use an approximate vector index, so they are only measured in recorded runs; replay carries the recorded auto-approve figures.
+
+**CI** ([.github/workflows/ci.yml](.github/workflows/ci.yml)), on every push and pull request: ruff, the backend tests against Postgres + pgvector, the replayed evaluation gate (fails below [evals/thresholds.json](evals/thresholds.json)), and the frontend lint, tests and build. HSN retrieval quality is a manual check (`make eval-retrieval`, below).
 
 ## Deployment (all free tiers)
 

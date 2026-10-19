@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Verma Wholesale Mart",
+  "vendor_gstin": "09YJIKZ6533W9Z4",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": null,
+  "invoice_number": "2411",
+  "invoice_date": "2026-08-25",
+  "place_of_supply": "Uttar Pradesh (State Code: 09)",
+  "line_items": [
+    {
+      "description": "Two-wheeler Tyre",
+      "hsn_sac_code": "4011",
+      "quantity": "10",
+      "unit": "Nos",
+      "unit_price": "1294.85",
+      "discount": null,
+      "taxable_value": "12948.50",
+      "gst_rate": "18",
+      "cgst_amount": "1165.37",
+      "sgst_amount": "1165.37",
+      "igst_amount": null,
+      "line_total": "15279.24"
+    },
+    {
+      "description": "Sugar 50kg bag",
+      "hsn_sac_code": "1701",
+      "quantity": "4",
+      "unit": "Bag",
+      "unit_price": "2398.67",
+      "discount": null,
+      "taxable_value": "9594.68",
+      "gst_rate": "5",
+      "cgst_amount": "239.87",
+      "sgst_amount": "239.87",
+      "igst_amount": null,
+      "line_total": "10074.42"
+    },
+    {
+      "description": "Cement 50kg bag",
+      "hsn_sac_code": "2523",
+      "quantity": "1",
+      "unit": "Bag",
+      "unit_price": "358.74",
+      "discount": null,
+      "taxable_value": "358.74",
+      "gst_rate": "18",
+      "cgst_amount": "32.29",
+      "sgst_amount": "32.29",
+      "igst_amount": null,
+      "line_total": "423.32"
+    }
+  ],
+  "subtotal": "22901.92",
+  "cgst": "1437.53",
+  "sgst": "1437.53",
+  "igst": null,
+  "total": "25777"
+}

@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Verma Wholesale Mart",
+  "vendor_gstin": "09LJSXB9218U9Z5",
+  "buyer_name": "Desai Builders",
+  "buyer_gstin": "24TXBJS9531Z5ZZ",
+  "invoice_number": "4152",
+  "invoice_date": "2026-08-16",
+  "place_of_supply": "Gujarat (24)",
+  "line_items": [
+    {
+      "description": "Steel Almirah",
+      "hsn_sac_code": "9403",
+      "quantity": "4",
+      "unit": "Nos",
+      "unit_price": "11520.41",
+      "discount": null,
+      "taxable_value": "46081.64",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "8294.70",
+      "line_total": "54376.34"
+    }
+  ],
+  "subtotal": "46081.64",
+  "cgst": null,
+  "sgst": null,
+  "igst": "8294.70",
+  "total": "54376.34"
+}

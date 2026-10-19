@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Patel Hardware & Paints",
+  "vendor_gstin": "24GKICJ8818C4ZR",
+  "buyer_name": "Nair Hospitality LLP",
+  "buyer_gstin": "29ORLZZ2223R5ZQ",
+  "invoice_number": "6113",
+  "invoice_date": "2026-08-31",
+  "place_of_supply": "Karnataka (29)",
+  "line_items": [
+    {
+      "description": "Sugar 50kg bag",
+      "hsn_sac_code": "1701",
+      "quantity": "20",
+      "unit": "Bag",
+      "unit_price": "1998.79",
+      "discount": "799.52",
+      "taxable_value": "39176.28",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1958.81",
+      "line_total": "41135.09"
+    },
+    {
+      "description": "Plumbing Repair Service",
+      "hsn_sac_code": "995461",
+      "quantity": "4.5",
+      "unit": "Hrs",
+      "unit_price": "476.69",
+      "discount": null,
+      "taxable_value": "2145.11",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "386.12",
+      "line_total": "2531.23"
+    },
+    {
+      "description": "Bathing Soap (pack of 4)",
+      "hsn_sac_code": "3401",
+      "quantity": "3",
+      "unit": "Pkt",
+      "unit_price": "178.88",
+      "discount": null,
+      "taxable_value": "536.64",
+      "gst_rate": "5",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "26.83",
+      "line_total": "563.47"
+    }
+  ],
+  "subtotal": "41858.03",
+  "cgst": null,
+  "sgst": null,
+  "igst": "2371.76",
+  "total": "44229.79"
+}

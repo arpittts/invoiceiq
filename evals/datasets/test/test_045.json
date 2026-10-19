@@ -1,0 +1,30 @@
+{
+  "vendor_name": "Lakshmi Traders",
+  "vendor_gstin": "29LBFWT7757J9ZV",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": null,
+  "invoice_number": "INV-72715",
+  "invoice_date": "2026-05-17",
+  "place_of_supply": "West Bengal (19)",
+  "line_items": [
+    {
+      "description": "Cement 50kg bag",
+      "hsn_sac_code": "2523",
+      "quantity": "17",
+      "unit": "Bag",
+      "unit_price": "358.47",
+      "discount": "304.70",
+      "taxable_value": "5789.29",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1042.07",
+      "line_total": "6831.36"
+    }
+  ],
+  "subtotal": "5789.29",
+  "cgst": null,
+  "sgst": null,
+  "igst": "1042.07",
+  "total": "6831.36"
+}

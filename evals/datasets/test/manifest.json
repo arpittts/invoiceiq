@@ -1,0 +1,758 @@
+[
+  {
+    "id": "test_001",
+    "file": "data/sample_invoices/test/test_001.pdf",
+    "truth": "evals/datasets/test/test_001.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 36,
+    "degradations": [
+      "2 page(s)"
+    ]
+  },
+  {
+    "id": "test_002",
+    "file": "data/sample_invoices/test/test_002.pdf",
+    "truth": "evals/datasets/test/test_002.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 30,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_003",
+    "file": "data/sample_invoices/test/test_003.png",
+    "truth": "evals/datasets/test/test_003.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "scan 100dpi"
+    ]
+  },
+  {
+    "id": "test_004",
+    "file": "data/sample_invoices/test/test_004.jpg",
+    "truth": "evals/datasets/test/test_004.json",
+    "layout": "letterhead",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "rotated -4.5\u00b0",
+      "blur 0.45",
+      "jpeg q65"
+    ]
+  },
+  {
+    "id": "test_005",
+    "file": "data/sample_invoices/test/test_005.png",
+    "truth": "evals/datasets/test/test_005.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 4,
+    "degradations": [
+      "photocopy (ink #80)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_006",
+    "file": "data/sample_invoices/test/test_006.pdf",
+    "truth": "evals/datasets/test/test_006.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 31,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_007",
+    "file": "data/sample_invoices/test/test_007.pdf",
+    "truth": "evals/datasets/test/test_007.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_008",
+    "file": "data/sample_invoices/test/test_008.png",
+    "truth": "evals/datasets/test/test_008.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 5,
+    "degradations": [
+      "scan 80dpi"
+    ]
+  },
+  {
+    "id": "test_009",
+    "file": "data/sample_invoices/test/test_009.jpg",
+    "truth": "evals/datasets/test/test_009.json",
+    "layout": "classic",
+    "format": "jpg",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "rotated -2.8\u00b0",
+      "blur 0.45",
+      "jpeg q45"
+    ]
+  },
+  {
+    "id": "test_010",
+    "file": "data/sample_invoices/test/test_010.png",
+    "truth": "evals/datasets/test/test_010.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "photocopy (ink #5A)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_011",
+    "file": "data/sample_invoices/test/test_011.pdf",
+    "truth": "evals/datasets/test/test_011.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_012",
+    "file": "data/sample_invoices/test/test_012.pdf",
+    "truth": "evals/datasets/test/test_012.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 32,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_013",
+    "file": "data/sample_invoices/test/test_013.png",
+    "truth": "evals/datasets/test/test_013.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "scan 80dpi"
+    ]
+  },
+  {
+    "id": "test_014",
+    "file": "data/sample_invoices/test/test_014.jpg",
+    "truth": "evals/datasets/test/test_014.json",
+    "layout": "modern",
+    "format": "jpg",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "rotated 4.2\u00b0",
+      "blur 0.45",
+      "jpeg q65"
+    ]
+  },
+  {
+    "id": "test_015",
+    "file": "data/sample_invoices/test/test_015.png",
+    "truth": "evals/datasets/test/test_015.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 7,
+    "degradations": [
+      "photocopy (ink #80)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_016",
+    "file": "data/sample_invoices/test/test_016.pdf",
+    "truth": "evals/datasets/test/test_016.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 32,
+    "degradations": [
+      "2 page(s)"
+    ]
+  },
+  {
+    "id": "test_017",
+    "file": "data/sample_invoices/test/test_017.pdf",
+    "truth": "evals/datasets/test/test_017.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 3,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_018",
+    "file": "data/sample_invoices/test/test_018.png",
+    "truth": "evals/datasets/test/test_018.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "scan 90dpi"
+    ]
+  },
+  {
+    "id": "test_019",
+    "file": "data/sample_invoices/test/test_019.jpg",
+    "truth": "evals/datasets/test/test_019.json",
+    "layout": "compact",
+    "format": "jpg",
+    "tax_type": "inter",
+    "line_items": 5,
+    "degradations": [
+      "rotated 3.3\u00b0",
+      "blur 0.65",
+      "jpeg q65"
+    ]
+  },
+  {
+    "id": "test_020",
+    "file": "data/sample_invoices/test/test_020.png",
+    "truth": "evals/datasets/test/test_020.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "photocopy (ink #5A)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_021",
+    "file": "data/sample_invoices/test/test_021.pdf",
+    "truth": "evals/datasets/test/test_021.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_022",
+    "file": "data/sample_invoices/test/test_022.pdf",
+    "truth": "evals/datasets/test/test_022.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 36,
+    "degradations": [
+      "2 page(s)"
+    ]
+  },
+  {
+    "id": "test_023",
+    "file": "data/sample_invoices/test/test_023.png",
+    "truth": "evals/datasets/test/test_023.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 6,
+    "degradations": [
+      "scan 90dpi"
+    ]
+  },
+  {
+    "id": "test_024",
+    "file": "data/sample_invoices/test/test_024.jpg",
+    "truth": "evals/datasets/test/test_024.json",
+    "layout": "letterhead",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "rotated -2.8\u00b0",
+      "blur 0.55",
+      "jpeg q55"
+    ]
+  },
+  {
+    "id": "test_025",
+    "file": "data/sample_invoices/test/test_025.png",
+    "truth": "evals/datasets/test/test_025.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "photocopy (ink #80)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_026",
+    "file": "data/sample_invoices/test/test_026.pdf",
+    "truth": "evals/datasets/test/test_026.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_027",
+    "file": "data/sample_invoices/test/test_027.pdf",
+    "truth": "evals/datasets/test/test_027.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 6,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_028",
+    "file": "data/sample_invoices/test/test_028.png",
+    "truth": "evals/datasets/test/test_028.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "scan 90dpi"
+    ]
+  },
+  {
+    "id": "test_029",
+    "file": "data/sample_invoices/test/test_029.jpg",
+    "truth": "evals/datasets/test/test_029.json",
+    "layout": "classic",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 4,
+    "degradations": [
+      "rotated 2.9\u00b0",
+      "blur 0.65",
+      "jpeg q45"
+    ]
+  },
+  {
+    "id": "test_030",
+    "file": "data/sample_invoices/test/test_030.png",
+    "truth": "evals/datasets/test/test_030.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 4,
+    "degradations": [
+      "photocopy (ink #6E)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_031",
+    "file": "data/sample_invoices/test/test_031.pdf",
+    "truth": "evals/datasets/test/test_031.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 4,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_032",
+    "file": "data/sample_invoices/test/test_032.pdf",
+    "truth": "evals/datasets/test/test_032.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 1,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_033",
+    "file": "data/sample_invoices/test/test_033.png",
+    "truth": "evals/datasets/test/test_033.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 1,
+    "degradations": [
+      "scan 80dpi"
+    ]
+  },
+  {
+    "id": "test_034",
+    "file": "data/sample_invoices/test/test_034.jpg",
+    "truth": "evals/datasets/test/test_034.json",
+    "layout": "modern",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 5,
+    "degradations": [
+      "rotated -2.9\u00b0",
+      "blur 0.55",
+      "jpeg q55"
+    ]
+  },
+  {
+    "id": "test_035",
+    "file": "data/sample_invoices/test/test_035.png",
+    "truth": "evals/datasets/test/test_035.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 4,
+    "degradations": [
+      "photocopy (ink #5A)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_036",
+    "file": "data/sample_invoices/test/test_036.pdf",
+    "truth": "evals/datasets/test/test_036.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 3,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_037",
+    "file": "data/sample_invoices/test/test_037.pdf",
+    "truth": "evals/datasets/test/test_037.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 36,
+    "degradations": [
+      "2 page(s)"
+    ]
+  },
+  {
+    "id": "test_038",
+    "file": "data/sample_invoices/test/test_038.png",
+    "truth": "evals/datasets/test/test_038.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 4,
+    "degradations": [
+      "scan 90dpi"
+    ]
+  },
+  {
+    "id": "test_039",
+    "file": "data/sample_invoices/test/test_039.jpg",
+    "truth": "evals/datasets/test/test_039.json",
+    "layout": "compact",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 5,
+    "degradations": [
+      "rotated -3.2\u00b0",
+      "blur 0.45",
+      "jpeg q65"
+    ]
+  },
+  {
+    "id": "test_040",
+    "file": "data/sample_invoices/test/test_040.png",
+    "truth": "evals/datasets/test/test_040.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 2,
+    "degradations": [
+      "photocopy (ink #5A)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_041",
+    "file": "data/sample_invoices/test/test_041.pdf",
+    "truth": "evals/datasets/test/test_041.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_042",
+    "file": "data/sample_invoices/test/test_042.pdf",
+    "truth": "evals/datasets/test/test_042.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 34,
+    "degradations": [
+      "2 page(s)"
+    ]
+  },
+  {
+    "id": "test_043",
+    "file": "data/sample_invoices/test/test_043.png",
+    "truth": "evals/datasets/test/test_043.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "scan 90dpi"
+    ]
+  },
+  {
+    "id": "test_044",
+    "file": "data/sample_invoices/test/test_044.jpg",
+    "truth": "evals/datasets/test/test_044.json",
+    "layout": "letterhead",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "rotated -3.7\u00b0",
+      "blur 0.55",
+      "jpeg q55"
+    ]
+  },
+  {
+    "id": "test_045",
+    "file": "data/sample_invoices/test/test_045.png",
+    "truth": "evals/datasets/test/test_045.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 1,
+    "degradations": [
+      "photocopy (ink #6E)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_046",
+    "file": "data/sample_invoices/test/test_046.pdf",
+    "truth": "evals/datasets/test/test_046.json",
+    "layout": "modern",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_047",
+    "file": "data/sample_invoices/test/test_047.pdf",
+    "truth": "evals/datasets/test/test_047.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 3,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_048",
+    "file": "data/sample_invoices/test/test_048.png",
+    "truth": "evals/datasets/test/test_048.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "inter",
+    "line_items": 6,
+    "degradations": [
+      "scan 100dpi"
+    ]
+  },
+  {
+    "id": "test_049",
+    "file": "data/sample_invoices/test/test_049.jpg",
+    "truth": "evals/datasets/test/test_049.json",
+    "layout": "classic",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 3,
+    "degradations": [
+      "rotated 4.1\u00b0",
+      "blur 0.65",
+      "jpeg q65"
+    ]
+  },
+  {
+    "id": "test_050",
+    "file": "data/sample_invoices/test/test_050.png",
+    "truth": "evals/datasets/test/test_050.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 3,
+    "degradations": [
+      "photocopy (ink #5A)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_051",
+    "file": "data/sample_invoices/test/test_051.pdf",
+    "truth": "evals/datasets/test/test_051.json",
+    "layout": "compact",
+    "format": "pdf",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_052",
+    "file": "data/sample_invoices/test/test_052.pdf",
+    "truth": "evals/datasets/test/test_052.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 30,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_053",
+    "file": "data/sample_invoices/test/test_053.png",
+    "truth": "evals/datasets/test/test_053.json",
+    "layout": "classic",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 4,
+    "degradations": [
+      "scan 80dpi"
+    ]
+  },
+  {
+    "id": "test_054",
+    "file": "data/sample_invoices/test/test_054.jpg",
+    "truth": "evals/datasets/test/test_054.json",
+    "layout": "modern",
+    "format": "jpg",
+    "tax_type": "inter",
+    "line_items": 1,
+    "degradations": [
+      "rotated 4.2\u00b0",
+      "blur 0.45",
+      "jpeg q45"
+    ]
+  },
+  {
+    "id": "test_055",
+    "file": "data/sample_invoices/test/test_055.png",
+    "truth": "evals/datasets/test/test_055.json",
+    "layout": "compact",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 6,
+    "degradations": [
+      "photocopy (ink #80)",
+      "blur 0.75"
+    ]
+  },
+  {
+    "id": "test_056",
+    "file": "data/sample_invoices/test/test_056.pdf",
+    "truth": "evals/datasets/test/test_056.json",
+    "layout": "letterhead",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 6,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_057",
+    "file": "data/sample_invoices/test/test_057.pdf",
+    "truth": "evals/datasets/test/test_057.json",
+    "layout": "classic",
+    "format": "pdf",
+    "tax_type": "inter",
+    "line_items": 39,
+    "degradations": [
+      "1 page(s)"
+    ]
+  },
+  {
+    "id": "test_058",
+    "file": "data/sample_invoices/test/test_058.png",
+    "truth": "evals/datasets/test/test_058.json",
+    "layout": "modern",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 3,
+    "degradations": [
+      "scan 90dpi"
+    ]
+  },
+  {
+    "id": "test_059",
+    "file": "data/sample_invoices/test/test_059.jpg",
+    "truth": "evals/datasets/test/test_059.json",
+    "layout": "compact",
+    "format": "jpg",
+    "tax_type": "intra",
+    "line_items": 2,
+    "degradations": [
+      "rotated -2.9\u00b0",
+      "blur 0.65",
+      "jpeg q55"
+    ]
+  },
+  {
+    "id": "test_060",
+    "file": "data/sample_invoices/test/test_060.png",
+    "truth": "evals/datasets/test/test_060.json",
+    "layout": "letterhead",
+    "format": "png",
+    "tax_type": "intra",
+    "line_items": 3,
+    "degradations": [
+      "photocopy (ink #5A)",
+      "blur 0.75"
+    ]
+  }
+]

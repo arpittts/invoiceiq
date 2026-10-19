@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Gupta Electricals",
+  "vendor_gstin": "07TQIJF7820W7ZN",
+  "buyer_name": "Kapoor Retail",
+  "buyer_gstin": "07XZEII3177I7ZU",
+  "invoice_number": "GUP/2026-27/0172",
+  "invoice_date": "2026-06-24",
+  "place_of_supply": "Delhi (07)",
+  "line_items": [
+    {
+      "description": "Annual Maintenance Service",
+      "hsn_sac_code": "998719",
+      "quantity": "20",
+      "unit": "Job",
+      "unit_price": "7719.70",
+      "discount": "3087.88",
+      "taxable_value": "151306.12",
+      "gst_rate": "18",
+      "cgst_amount": "13617.55",
+      "sgst_amount": "13617.55",
+      "igst_amount": null,
+      "line_total": "178541.22"
+    },
+    {
+      "description": "LED Television 43 inch",
+      "hsn_sac_code": "8528",
+      "quantity": "1",
+      "unit": "Nos",
+      "unit_price": "30927.13",
+      "discount": null,
+      "taxable_value": "30927.13",
+      "gst_rate": "18",
+      "cgst_amount": "2783.44",
+      "sgst_amount": "2783.44",
+      "igst_amount": null,
+      "line_total": "36494.01"
+    },
+    {
+      "description": "Mobile Phone Charger",
+      "hsn_sac_code": "8504",
+      "quantity": "16",
+      "unit": "Nos",
+      "unit_price": "517.12",
+      "discount": null,
+      "taxable_value": "8273.92",
+      "gst_rate": "18",
+      "cgst_amount": "744.65",
+      "sgst_amount": "744.65",
+      "igst_amount": null,
+      "line_total": "9763.22"
+    },
+    {
+      "description": "Two-wheeler Tyre",
+      "hsn_sac_code": "4011",
+      "quantity": "1",
+      "unit": "Nos",
+      "unit_price": "1330.77",
+      "discount": null,
+      "taxable_value": "1330.77",
+      "gst_rate": "18",
+      "cgst_amount": "119.77",
+      "sgst_amount": "119.77",
+      "igst_amount": null,
+      "line_total": "1570.31"
+    }
+  ],
+  "subtotal": "191837.94",
+  "cgst": "17265.41",
+  "sgst": "17265.41",
+  "igst": null,
+  "total": "226368.76"
+}

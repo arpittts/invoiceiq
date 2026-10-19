@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Kolkata Paper House",
+  "vendor_gstin": "19XJRBP8820V4ZT",
+  "buyer_name": "Desai Builders",
+  "buyer_gstin": null,
+  "invoice_number": "6468",
+  "invoice_date": "2026-05-07",
+  "place_of_supply": "Gujarat (State Code: 24)",
+  "line_items": [
+    {
+      "description": "Plumbing Repair Service",
+      "hsn_sac_code": "995461",
+      "quantity": "18.5",
+      "unit": "Hrs",
+      "unit_price": "510.01",
+      "discount": null,
+      "taxable_value": "9435.19",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1698.33",
+      "line_total": "11133.52"
+    },
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "5",
+      "unit": "Box",
+      "unit_price": "1201.65",
+      "discount": null,
+      "taxable_value": "6008.25",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": "1081.49",
+      "line_total": "7089.74"
+    }
+  ],
+  "subtotal": "15443.44",
+  "cgst": null,
+  "sgst": null,
+  "igst": "2779.82",
+  "total": "18223"
+}

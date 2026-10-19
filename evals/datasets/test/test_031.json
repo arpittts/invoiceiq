@@ -1,0 +1,72 @@
+{
+  "vendor_name": "Gupta Electricals",
+  "vendor_gstin": "07KACCJ5946B7ZA",
+  "buyer_name": "Singh Logistics",
+  "buyer_gstin": null,
+  "invoice_number": "GUP/26-27/0223",
+  "invoice_date": "2026-06-30",
+  "place_of_supply": "Delhi",
+  "line_items": [
+    {
+      "description": "Printer Paper A4 (500 sheets)",
+      "hsn_sac_code": "4802",
+      "quantity": "11",
+      "unit": "Ream",
+      "unit_price": "321.24",
+      "discount": null,
+      "taxable_value": "3533.64",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Ceramic Floor Tiles 600x600",
+      "hsn_sac_code": "6907",
+      "quantity": "19",
+      "unit": "Box",
+      "unit_price": "1306.59",
+      "discount": null,
+      "taxable_value": "24825.21",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Mobile Phone Charger",
+      "hsn_sac_code": "8504",
+      "quantity": "7",
+      "unit": "Nos",
+      "unit_price": "557.72",
+      "discount": null,
+      "taxable_value": "3904.04",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Aerated Soft Drink 2L",
+      "hsn_sac_code": "2202",
+      "quantity": "4",
+      "unit": "Btl",
+      "unit_price": "99.96",
+      "discount": null,
+      "taxable_value": "399.84",
+      "gst_rate": "40",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "32662.73",
+  "cgst": "2983.63",
+  "sgst": "2983.63",
+  "igst": null,
+  "total": "38629.99"
+}

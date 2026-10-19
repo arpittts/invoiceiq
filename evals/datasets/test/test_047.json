@@ -1,0 +1,58 @@
+{
+  "vendor_name": "Lakshmi Traders",
+  "vendor_gstin": "29EAUKK9328E6Z5",
+  "buyer_name": "Banerjee Clinic",
+  "buyer_gstin": "29APVXZ0146L8Z9",
+  "invoice_number": "918",
+  "invoice_date": "2026-06-16",
+  "place_of_supply": "Karnataka",
+  "line_items": [
+    {
+      "description": "Courier Service",
+      "hsn_sac_code": "9968",
+      "quantity": "7",
+      "unit": "Job",
+      "unit_price": "1312.58",
+      "discount": null,
+      "taxable_value": "9188.06",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Printer Paper A4 (500 sheets)",
+      "hsn_sac_code": "4802",
+      "quantity": "13",
+      "unit": "Ream",
+      "unit_price": "372.44",
+      "discount": null,
+      "taxable_value": "4841.72",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    },
+    {
+      "description": "Engine Oil 1L",
+      "hsn_sac_code": "2710",
+      "quantity": "4",
+      "unit": "Ltr",
+      "unit_price": "332.86",
+      "discount": null,
+      "taxable_value": "1331.44",
+      "gst_rate": "18",
+      "cgst_amount": null,
+      "sgst_amount": null,
+      "igst_amount": null,
+      "line_total": null
+    }
+  ],
+  "subtotal": "15361.22",
+  "cgst": "1382.51",
+  "sgst": "1382.51",
+  "igst": null,
+  "total": "18126.24"
+}

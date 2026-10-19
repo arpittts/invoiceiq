@@ -153,12 +153,12 @@ make eval-record   # calls the real model and refreshes the recordings (free on 
 | Real misreads flagged by validation | 3/7 (every misread that changed an amount or GSTIN was flagged; the 4 unflagged were a stray "." in a description and blank or unprinted line totals) |
 | Injected misreads caught by validation | **98.1%** of 1,944 |
 | Auto-approve precision | **100%** (9 approved, 0 wrong) |
-| Ledger Q&A execution accuracy | 86.7% strict, 93.3% lenient (30 questions) |
+| Ledger Q&A execution accuracy | 90.0% strict, 96.7% lenient (30 questions; v1.1 guard fix, same recorded replies) |
 | Adversarial ledger prompts | 8/8 safe, database unchanged |
 | Cost per invoice | $0 (free tier) |
 | Latency per invoice, p50 / p95 | 8.6 s / 35.6 s |
 
-How to read these: the invoices are synthetic, so they are cleaner than real phone photos of crumpled bills. Gemini's per-field confidences sit at 0.95-1.0 even when wrong, so auto-approve relies on the validation rules and HSN confidence, not on the model's confidence. Ledger accuracy varies between runs of the same model (an earlier run scored 29/30); in this one, 2 questions failed because the SQL guard rejected date functions (`to_char`, `make_date`) that are not on its allow-list.
+How to read these: the invoices are synthetic, so they are cleaner than real phone photos of crumpled bills. Gemini's per-field confidences sit at 0.95-1.0 even when wrong, so auto-approve relies on the validation rules and HSN confidence, not on the model's confidence. Ledger accuracy varies between runs of the same model (an earlier run scored 29/30). In this recording it was 26/30 at v1.0, because the SQL guard blocked two safe date functions (see below); after the fix, replaying the identical replies gives 27/30 strict. The remaining strict miss on monthly totals has the right amounts with months written "2026-05" instead of "2026-05-01"; the scorer counts that as different on purpose, rather than being loosened to flatter the fix.
 
 **Record and replay:** a recorded run saves every model request's fingerprint (hashes of the prompts, schema name, model and page image sizes) with the reply in `evals/recordings/`. Replay serves those replies in order, so CI checks everything around the model (parsing, validation, the agent's routing, the SQL guard, scoring) without a key or network. If a prompt, the schema, the model or page rendering changes, replay stops with "recordings are out of date" until someone runs `make eval-record`. HSN suggestions use an approximate vector index, so they are only measured in recorded runs; replay carries the recorded auto-approve figures.
 
@@ -217,6 +217,8 @@ Two independent walls keep it safe:
 | Adversarial prompts (drop table, other users' data, set_config, pg_sleep, password hashes...) | **8/8 safe, database unchanged** |
 
 The first run scored 73%: the evaluation caught a guard bug (sqlglot parses `AND`/`OR` as functions, so every date range was rejected). Guard tests with logic operators now prevent it from returning.
+
+A second naming bug of the same kind surfaced in the v1.0 test-split recording: `to_char` was on the allow-list, but sqlglot reports it as `time_to_str`, so "spending each month" was blocked, and `make_date` ("this financial year") was missing. v1.1 allows `to_char`/`time_to_str`, `make_date`, `to_date` and `date_part`, with tests that they still can't wrap `pg_sleep`, `pg_read_file` or `set_config`. Replaying the same recorded replies: **26/30 → 27/30 strict, 28/30 → 29/30 lenient**.
 
 ## Design decisions and what failed
 
@@ -353,7 +355,7 @@ Free tiers change, so check each provider's current limits before relying on the
 - **Synthetic data.** All evaluation invoices are generated (with exact ground truth); real crumpled, handwritten or multi-column invoices will score lower.
 - **Tax data gaps.** Services (SAC) rates, amendment 19/2025 and the exemption notification 02/2017 are not loaded, so some defaults are wrong (fresh vegetables show 5%, pan masala 28% instead of 40%). The `RATE_MISMATCH` warning sends these to a person.
 - **Model confidence is uninformative** on the free model (0.95-1.0 even when wrong).
-- **Ledger Q&A varies between runs** (26-29 of 30 questions with the same model), and the SQL guard rejects some valid date functions (`to_char`, `make_date`).
+- **Ledger Q&A varies between runs** (27-29 of 30 questions with the same model), and the strict scorer compares values exactly, so a differently formatted but equal answer counts as a miss.
 - **Free hosting.** The API sleeps after 15 idle minutes (first request about a minute); in-memory rate limits reset on restart (the daily cap does not); the free Gemini tier may use inputs to improve Google's products, so only synthetic invoices belong in the demo.
 - **One process.** Processing runs as a FastAPI background task, not a queue.
 
@@ -362,7 +364,6 @@ Free tiers change, so check each provider's current limits before relying on the
 - Load SAC rates, amendment 19/2025 and the exemption list; show each rate's notification date.
 - A job queue (e.g. Postgres-backed) for processing, with retries and progress.
 - Calibrate confidence (e.g. agreement between two reads) so auto-approve can rely on it.
-- Widen the SQL guard's allow-list for safe date functions, with tests.
 - GSTR-2B reconciliation: match approved invoices against the government's supplier data.
 - Evaluate on a small set of consented, anonymised real invoices.
 

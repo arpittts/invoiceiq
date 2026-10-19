@@ -26,6 +26,14 @@ from app.services.sql_guard import UnsafeSQL, check_sql
         "SELECT COUNT(*) FROM v_invoices WHERE (igst > 0 OR cgst > 0) AND NOT total IS NULL",
         "SELECT COUNT(*) FROM v_invoices WHERE total BETWEEN 1000 AND 5000",
         "SELECT description FROM v_line_items WHERE gst_rate IN (5, 18) AND description LIKE '%a%'",
+        # Date functions sqlglot renames (TO_CHAR -> time_to_str): the model wrote these
+        # for "spending each month" and "this financial year", and the guard blocked them.
+        "SELECT TO_CHAR(invoice_date, 'YYYY-MM') AS month, ROUND(SUM(total), 2) "
+        "FROM v_invoices GROUP BY 1 ORDER BY 1",
+        "SELECT ROUND(SUM(total), 2) FROM v_invoices WHERE invoice_date >= "
+        "MAKE_DATE(CAST(EXTRACT(YEAR FROM DATE '2026-10-18') AS INTEGER), 4, 1)",
+        "SELECT COUNT(*) FROM v_invoices WHERE invoice_date >= TO_DATE('2026-04-01', 'YYYY-MM-DD')",
+        "SELECT DATE_PART('month', invoice_date) AS m, COUNT(*) FROM v_invoices GROUP BY 1",
     ],
 )
 def test_normal_questions_pass(sql):
@@ -61,6 +69,11 @@ def test_normal_questions_pass(sql):
         ("RESET ROLE", "Only SELECT"),
         ("COPY v_invoices TO '/tmp/x'", "Only SELECT"),
         ("this is not sql", "parsed|SELECT"),
+        # Still blocked after allowing more date functions
+        ("SELECT TO_CHAR(pg_sleep(10), 'x')", "pg_sleep"),
+        ("SELECT MAKE_DATE(2026, 4, 1) FROM v_invoices WHERE pg_sleep(5) IS NULL", "pg_sleep"),
+        ("SELECT TO_DATE(pg_read_file('/etc/passwd'), 'YYYY')", "pg_read_file"),
+        ("SELECT TO_CHAR(NOW(), set_config('app.user_id', '2', true))", "not allowed"),
     ],
 )
 def test_hostile_queries_are_rejected(sql, reason):

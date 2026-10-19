@@ -142,7 +142,7 @@ make eval-record   # calls the real model and refreshes the recordings (free on 
 
 **Test set:** 60 synthetic invoices, generated once (`make invoices-test`, seed 2026) and never used while building. They are harder than the 20 dev invoices: low-resolution scans (80-100 dpi), blurred phone photos rotated 2.5-4.5°, faint low-contrast photocopies, 30-40 line bills that run onto a second page, more fonts and sizes, 2-digit years and "Rs." amounts.
 
-**Results** (test split, `gemini-3.5-flash-lite` free tier, recorded 2026-10-19; full report: [evals/reports/eval-test-20261019-094649.md](evals/reports/eval-test-20261019-094649.md)):
+**Results** (test split, `gemini-3.5-flash-lite` free tier, recorded 2026-10-19; v1.1 report: [evals/reports/eval-test-20261019-125755.md](evals/reports/eval-test-20261019-125755.md), v1.0 report: [evals/reports/eval-test-20261019-094649.md](evals/reports/eval-test-20261019-094649.md)):
 
 | Metric | Result |
 | --- | --- |
@@ -152,13 +152,15 @@ make eval-record   # calls the real model and refreshes the recordings (free on 
 | False alarms on correctly read invoices | **0%** |
 | Real misreads flagged by validation | 3/7 (every misread that changed an amount or GSTIN was flagged; the 4 unflagged were a stray "." in a description and blank or unprinted line totals) |
 | Injected misreads caught by validation | **98.1%** of 1,944 |
-| Auto-approve precision | **100%** (9 approved, 0 wrong) |
+| Auto-approve precision | **93.3%** (15 approved, 1 wrong; v1.0: 100%, 9 approved; see below) |
 | Ledger Q&A execution accuracy | 90.0% strict, 96.7% lenient (30 questions; v1.1 guard fix, same recorded replies) |
 | Adversarial ledger prompts | 8/8 safe, database unchanged |
 | Cost per invoice | $0 (free tier) |
 | Latency per invoice, p50 / p95 | 8.6 s / 35.6 s |
 
 How to read these: the invoices are synthetic, so they are cleaner than real phone photos of crumpled bills. Gemini's per-field confidences sit at 0.95-1.0 even when wrong, so auto-approve relies on the validation rules and HSN confidence, not on the model's confidence. Ledger accuracy varies between runs of the same model (an earlier run scored 29/30). In this recording it was 26/30 at v1.0, because the SQL guard blocked two safe date functions (see below); after the fix, replaying the identical replies gives 27/30 strict. The remaining strict miss on monthly totals has the right amounts with months written "2026-05" instead of "2026-05-01"; the scorer counts that as different on purpose, rather than being loosened to flatter the fix.
+
+**What changed in v1.1, and why auto-approve precision went down.** v1.0's rate catalogue had wrong defaults (fresh vegetables 5%, pan masala 28%), so 29 of the 60 test invoices carried a false `RATE_MISMATCH` warning, and every warning blocks auto-approval. With the corrected rates there are **0 rate warnings** and 7 more invoices qualified, but 2 of them were not fully correct: on one, the model left the printed line totals blank; on the other, it filled in line totals that the layout doesn't print. Neither touches an amount that counts (taxable value, tax, total), and both had been blocked in v1.0 only by accident. A new warning, `LINE_TOTAL_MISSING` (a line showing tax amounts but no line total), catches the first; it was **designed after seeing these results**, so treat 93.3% (15 approved, 1 wrong) as a development number, not a clean held-out one (without the rule: 87.5%, 16 approved, 2 wrong). The rule fires on none of the 80 correct invoices. The remaining case can't be caught by a rule, since the rules can't see which columns a layout prints; agreement between two independent reads (roadmap) would. Auto-approve stays off by default.
 
 **Record and replay:** a recorded run saves every model request's fingerprint (hashes of the prompts, schema name, model and page image sizes) with the reply in `evals/recordings/`. Replay serves those replies in order, so CI checks everything around the model (parsing, validation, the agent's routing, the SQL guard, scoring) without a key or network. If a prompt, the schema, the model or page rendering changes, replay stops with "recordings are out of date" until someone runs `make eval-record`. HSN suggestions use an approximate vector index, so they are only measured in recorded runs; replay carries the recorded auto-approve figures.
 
@@ -167,7 +169,7 @@ How to read these: the invoices are synthetic, so they are cleaner than real pho
 
 ### Validation
 
-After extraction, deterministic rules check what the model read (no AI involved): GSTIN format and mod-36 checksum, state codes, CGST+SGST vs IGST for the place of supply, line math, tax math, totals (each within ₹1), date range, duplicates and required fields. Problems are stored as issues with a rule code, field, severity and message, and returned with the invoice.
+After extraction, deterministic rules check what the model read (no AI involved): GSTIN format and mod-36 checksum, state codes, CGST+SGST vs IGST for the place of supply, line math, tax math, totals (each within ₹1), date range, duplicates and required fields, plus warnings for an HSN code or rate that differs from the suggestion and for a line that shows tax amounts but no line total. Problems are stored as issues with a rule code, field, severity and message, and returned with the invoice.
 
 `make check-validation` injects 12 kinds of realistic misreads into the 20 correct starter invoices. Latest run: **0 false alarms, 97.9% of 632 injected errors caught**. Every miss was a digit swap in the paise (largest ₹0.72), which is inside the ₹1 rounding tolerance and cannot be detected by arithmetic.
 
@@ -175,7 +177,7 @@ After extraction, deterministic rules check what the model read (no AI involved)
 
 Every line item gets a suggested HSN (goods) or SAC (services) code and an indicative GST rate, citing the official row it came from.
 
-- **Corpus:** the GST portal's HSN directory (21,928 HSN + 681 SAC codes), one row per code with its parent heading as context. Rates come from Notification 09/2025-Central Tax (Rate) as amended by 01/2026: each code takes the rate of its most specific schedule entry; 73% of HSN codes get a single rate, 24% depend on the description (e.g. T-shirts by price, motorcycles by engine size) and are left for a human. Rates are indicative and each row cites its schedule entry; services rates, amendment 19/2025 and the exemption list (Notification 02/2017, nil-rated goods such as fresh vegetables) are not loaded, so an exempt item can show a 5% default. The `RATE_MISMATCH` warning flags exactly that case for a person to check, which is also why it blocks auto-approval.
+- **Corpus:** the GST portal's HSN directory (21,928 HSN + 681 SAC codes), one row per code with its parent heading as context. Rates (v1.1) come from the goods schedules of Notification 09/2025-Central Tax (Rate) as amended by 19/2025 (pan masala and tobacco 40%, biris 18%, the 28% schedule removed, from 1 Feb 2026) and 01/2026, plus the nil-rated goods of 10/2025 (which replaced 02/2017). Each code takes the rate of its most specific entry; when entries at that level disagree (rice: nil loose, 5% pre-packaged), or the only match is a chapter-wide entry naming specific goods, no single rate is given and a person decides. 65% of HSN codes get a single rate, 17% depend on the description and 16% have only a chapter-wide entry. Services: no up-to-date consolidated version of 11/2017 exists, so only the three headings that 15/2025 restates in full get rates (9968 delivery 18%, 99972 beauty 5% without input tax credit, other 9997 18%; job work 9988 lists its options); the other services are left to a person. Rates are indicative and every row cites its entry. The `RATE_MISMATCH` warning flags a printed rate that differs from the suggestion, which is also why it blocks auto-approval.
 - **Retrieval:** pgvector (bge-small-en-v1.5, HNSW) + Postgres full-text + the code printed on the invoice, merged with reciprocal rank fusion (k=60).
 - **Selection:** one LLM call per invoice picks from each line's top 5 and must cite a candidate id; uncited or low-confidence picks are left for the reviewer.
 - **Checks:** `HSN_MISMATCH` and `RATE_MISMATCH` warnings when the printed code or rate disagrees with the suggestion.
@@ -229,6 +231,7 @@ A second naming bug of the same kind surfaced in the v1.0 test-split recording: 
 - **Settings are not a security boundary.** The first ledger isolation used a session setting (`app.user_id`); any role can change a setting, so a query that slipped past the guard could have switched users. It became a context table the read-only role can't write, and tests bypass the guard on purpose to prove the database alone holds.
 - **The evaluation caught a guard bug.** Ledger accuracy first measured 73%: sqlglot parses `AND`/`OR` as functions, so every date range was blocked. Fixed, with regression tests.
 - **Free tiers shaped the design.** A paid API and a paid host were ruled out: Gemini's free tier for the LLM, Render + Neon + Vercel for hosting, files as database blobs, the embedding model baked into the image, a daily call cap (on the free tier every call costs $0, so a dollar cap alone would never trigger), and recorded replies for CI and the demo.
+- **A wrong rate is worse than no rate.** v1.0 gave every fresh vegetable 5%: a Schedule I entry listed under Chapter 07 meant only dried herbs ("jaribooti"), but the ingest treated it as a catch-all for the chapter. v1.1 never takes a single rate from a chapter-wide entry, loads the exemption list, and leaves conditional rates to a person: fewer codes get a rate (73% to 65%), but the ones that do are right. The same caution kept services out: no current consolidated notification existed, so only fully restated headings were loaded.
 - **Model confidence isn't a safety net.** Gemini reports 0.95-1.0 confidence even on misreads, so auto-approve leans on validation and HSN confidence, and stays off by default.
 
 ## Run locally
@@ -353,7 +356,7 @@ Free tiers change, so check each provider's current limits before relying on the
 ## Limitations
 
 - **Synthetic data.** All evaluation invoices are generated (with exact ground truth); real crumpled, handwritten or multi-column invoices will score lower.
-- **Tax data gaps.** Services (SAC) rates, amendment 19/2025 and the exemption notification 02/2017 are not loaded, so some defaults are wrong (fresh vegetables show 5%, pan masala 28% instead of 40%). The `RATE_MISMATCH` warning sends these to a person.
+- **Tax data gaps.** Services rates exist only for the three headings 15/2025 restates in full (24 of 681 SAC codes); the rest need an up-to-date consolidated 11/2017, which wasn't available. Conditional rates (pre-packaged vs loose, price thresholds) are left to a person. One source copy (10/2025) is a third-party mirror of the gazette text.
 - **Model confidence is uninformative** on the free model (0.95-1.0 even when wrong).
 - **Ledger Q&A varies between runs** (27-29 of 30 questions with the same model), and the strict scorer compares values exactly, so a differently formatted but equal answer counts as a miss.
 - **Free hosting.** The API sleeps after 15 idle minutes (first request about a minute); in-memory rate limits reset on restart (the daily cap does not); the free Gemini tier may use inputs to improve Google's products, so only synthetic invoices belong in the demo.
@@ -361,7 +364,7 @@ Free tiers change, so check each provider's current limits before relying on the
 
 ## Roadmap
 
-- Load SAC rates, amendment 19/2025 and the exemption list; show each rate's notification date.
+- Load all services rates once an up-to-date consolidated 11/2017 is available; show each rate's effective date.
 - A job queue (e.g. Postgres-backed) for processing, with retries and progress.
 - Calibrate confidence (e.g. agreement between two reads) so auto-approve can rely on it.
 - GSTR-2B reconciliation: match approved invoices against the government's supplier data.

@@ -1,14 +1,14 @@
 {
- "recorded_at": "2026-10-19T09:44:39+00:00",
+ "recorded_at": "2026-10-19T12:57:55+00:00",
  "model_extract": "gemini-3.5-flash-lite",
  "model_fast": "gemini-3.5-flash-lite",
  "summary": {
   "auto_approve": {
    "measured": true,
-   "approved": 9,
-   "coverage": 0.15,
-   "precision": 1.0,
-   "wrong_but_approved": 0
+   "approved": 15,
+   "coverage": 0.25,
+   "precision": 0.9333333333333333,
+   "wrong_but_approved": 1
   }
  },
  "cases": {
@@ -45,22 +45,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "df19c074cab98e2f",
+      "instruction": "95d06283ac2daaa3",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 2968, \"confidence\": 0.9, \"reason\": \"Candidate 2968: Pan Masala falls under food preparations specifically for pan masala.\"}, {\"line\": 2, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates properly specify 43-inch LED television sets.\"}, {\"line\": 3, \"candidate_id\": 16978, \"confidence\": 0.9, \"reason\": \"Candidate 16978: Split system air conditioners fall under split system air conditioning machines.\"}, {\"line\": 4, \"candidate_id\": 7213, \"confidence\": 0.9, \"reason\": \"Candidate 7213: Toothpaste in paste form falls under dentifrices in paste.\"}, {\"line\": 5, \"candidate_id\": 22098, \"confidence\": 0.9, \"reason\": \"Candidate 22098: Courier services specifically cover courier services.\"}, {\"line\": 6, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates fit plumbing repair services.\"}, {\"line\": 7, \"candidate_id\": 8830, \"confidence\": 0.9, \"reason\": \"Candidate 8830: Two-wheeler tyre falls under pneumatic tyres used on motorcycles.\"}, {\"line\": 8, \"candidate_id\": 1822, \"confidence\": 0.9, \"reason\": \"Candidate 1822: Basmati Rice falls under semi-milled or wholly-milled basmati rice.\"}, {\"line\": 9, \"candidate_id\": 12764, \"confidence\": 0.9, \"reason\": \"Candidate 12764: Cotton T-Shirt falls under knitted T-shirts of cotton.\"}, {\"line\": 10, \"candidate_id\": 934, \"confidence\": 0.9, \"reason\": \"Candidate 934: Ghee falls under butter and other fats and oils derived from milk.\"}, {\"line\": 11, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates specifically fit standard A4 printer paper.\"}, {\"line\": 12, \"candidate_id\": 22388, \"confidence\": 0.9, \"reason\": \"Candidate 22388: Annual Maintenance Service falls under maintenance and repair services of other machinery and equipments.\"}, {\"line\": 13, \"candidate_id\": 1193, \"confidence\": 0.9, \"reason\": \"Candidate 1193: Fresh Vegetables fall under other vegetables, fresh or chilled.\"}, {\"line\": 14, \"candidate_id\": 7011, \"confidence\": 0.9, \"reason\": \"Candidate 7011: Acrylic emulsion paint falls under acrylic emulsion based on synthetic polymers.\"}, {\"line\": 15, \"candidate_id\": 10157, \"confidence\": 0.9, \"reason\": \"Candidate 10157: Exercise Notebook falls under exercise books.\"}, {\"line\": 16, \"candidate_id\": 18671, \"confidence\": 0.9, \"reason\": \"Candidate 16871: Mobile phone charger falls under static converters and battery chargers.\"}, {\"line\": 17, \"candidate_id\": 2989, \"confidence\": 0.9, \"reason\": \"Candidate 2989: Aerated soft drink falls under aerated waters.\"}, {\"line\": 18, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates properly specify ceramic floor tiles.\"}, {\"line\": 19, \"candidate_id\": 7237, \"confidence\": 0.8, \"reason\": \"Candidate 7237: Bathing soap falls under soap and organic surface-active products.\"}, {\"line\": 20, \"candidate_id\": 1889, \"confidence\": 0.9, \"reason\": \"Candidate 1889: Wheat Atta falls under wheat or meslin flour.\"}, {\"line\": 21, \"candidate_id\": 2605, \"confidence\": 0.8, \"reason\": \"Candidate 2605: Sugar falls under cane sugar in solid form.\"}, {\"line\": 22, \"candidate_id\": 3464, \"confidence\": 0.9, \"reason\": \"Candidate 3464: Cement falls under Portland cement and similar hydraulic cements.\"}, {\"line\": 23, \"candidate_id\": 19526, \"confidence\": 0.9, \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode (LED) lamps.\"}, {\"line\": 24, \"candidate_id\": 8364, \"confidence\": 0.9, \"reason\": \"Candidate 8364: PVC pipe falls under tubes, pipes and hoses of polymers of vinyl chloride.\"}, {\"line\": 25, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 21193: Steel almirah falls under other furniture and parts thereof.\"}, {\"line\": 26, \"candidate_id\": 3821, \"confidence\": 0.9, \"reason\": \"Candidate 3821: Engine oil falls under petroleum oils for internal combustion engine crankcases.\"}, {\"line\": 27, \"candidate_id\": 12764, \"confidence\": 0.9, \"reason\": \"Candidate 12764: Cotton T-Shirt falls under T-shirts of cotton.\"}, {\"line\": 28, \"candidate_id\": 22388, \"confidence\": 0.9, \"reason\": \"Candidate 22388: Annual Maintenance Service falls under maintenance and repair services of other machinery and equipments.\"}, {\"line\": 29, \"candidate_id\": 8830, \"confidence\": 0.9, \"reason\": \"Candidate 8830: Two-wheeler tyre falls under pneumatic tyres used on motorcycles.\"}, {\"line\": 30, \"candidate_id\": 934, \"confidence\": 0.9, \"reason\": \"Candidate 934: Ghee falls under ghee derived from milk.\"}, {\"line\": 31, \"candidate_id\": 7237, \"confidence\": 0.9, \"reason\": \"Candidate 7237: Bathing soap falls under soap and organic surface-active products.\"}, {\"line\": 32, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates specifically cover 43-inch LED televisions.\"}, {\"line\": 33, \"candidate_id\": 3464, \"confidence\": 0.9, \"reason\": \"Candidate 3464: Cement falls under hydraulic cements.\"}, {\"line\": 34, \"candidate_id\": 1889, \"confidence\": 0.9, \"reason\": \"Candidate 1889: Wheat Atta falls under wheat or meslin flour.\"}, {\"line\": 35, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates specifically match A4 printer paper.\"}, {\"line\": 36, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 21193: Steel almirah falls under other furniture and parts thereof.\"}]}",
+      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 2968, \"confidence\": 0.9, \"reason\": \"Candidate 2968: Pan Masala falls under PAN MASALA.\"}, {\"line\": 2, \"candidate_id\": 19268, \"confidence\": 0.7, \"reason\": \"Candidate 19268: LED Television falls under reception apparatus for television.\"}, {\"line\": 3, \"candidate_id\": 16978, \"confidence\": 0.85, \"reason\": \"Candidate 16978: Split Air-Conditioner 1.5 Ton falls under split system.\"}, {\"line\": 4, \"candidate_id\": 7213, \"confidence\": 0.9, \"reason\": \"Candidate 7213: Toothpaste in paste form falls under dentifrices in paste.\"}, {\"line\": 5, \"candidate_id\": 22098, \"confidence\": 0.9, \"reason\": \"Candidate 22098: Courier service falls under courier services.\"}, {\"line\": 6, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates fit plumbing repair service.\"}, {\"line\": 7, \"candidate_id\": 8830, \"confidence\": 0.9, \"reason\": \"Candidate 8830: Two-wheeler tyre falls under tyres of a kind used on motor cycles.\"}, {\"line\": 8, \"candidate_id\": 1822, \"confidence\": 0.85, \"reason\": \"Candidate 1822: Basmati Rice falls under Basmati Rice.\"}, {\"line\": 9, \"candidate_id\": 12764, \"confidence\": 0.9, \"reason\": \"Candidate 12764: Cotton T-Shirt falls under T-shirts of cotton.\"}, {\"line\": 10, \"candidate_id\": 934, \"confidence\": 0.9, \"reason\": \"Candidate 934: Ghee falls under Ghee.\"}, {\"line\": 11, \"candidate_id\": 9868, \"confidence\": 0.6, \"reason\": \"Candidate 9868: Printer Paper falls under uncoated paper.\"}, {\"line\": 12, \"candidate_id\": 22388, \"confidence\": 0.9, \"reason\": \"Candidate 22388: Annual Maintenance Service falls under maintenance and repair of other machinery and equipment.\"}, {\"line\": 13, \"candidate_id\": 1193, \"confidence\": 0.9, \"reason\": \"Candidate 1193: Fresh Vegetables falls under other vegetables, fresh or chilled.\"}, {\"line\": 14, \"candidate_id\": 7011, \"confidence\": 0.85, \"reason\": \"Candidate 7011: Emulsion Paint falls under acrylic emulsion paint.\"}, {\"line\": 15, \"candidate_id\": 10157, \"confidence\": 0.9, \"reason\": \"Candidate 15: Exercise Notebook falls under exercise books.\"}, {\"line\": 16, \"candidate_id\": 18645, \"confidence\": 0.8, \"reason\": \"Candidate 18645: Mobile Phone Charger falls under static converters and rectifiers.\"}, {\"line\": 17, \"candidate_id\": 2989, \"confidence\": 0.9, \"reason\": \"Candidate 2989: Aerated Soft Drink falls under aerated waters.\"}, {\"line\": 18, \"candidate_id\": 14013, \"confidence\": 0.6, \"reason\": \"Candidate 14013: Ceramic Floor Tiles falls under finishing ceramics.\"}, {\"line\": 19, \"candidate_id\": 7237, \"confidence\": 0.85, \"reason\": \"Candidate 7237: Bathing Soap falls under soap and preparations for use as soap.\"}, {\"line\": 20, \"candidate_id\": 1889, \"confidence\": 0.9, \"reason\": \"Candidate 1889: Wheat Atta falls under wheat or meslin flour.\"}, {\"line\": 21, \"candidate_id\": 2605, \"confidence\": 0.6, \"reason\": \"Candidate 2605: Sugar falls under cane sugar.\"}, {\"line\": 22, \"candidate_id\": 3464, \"confidence\": 0.9, \"reason\": \"Candidate 3464: Cement falls under Portland cement and similar hydraulic cements.\"}, {\"line\": 23, \"candidate_id\": 19526, \"confidence\": 0.85, \"reason\": \"Candidate 19526: LED Bulb falls under light-emitting diode (LED) lamps.\"}, {\"line\": 24, \"candidate_id\": 8355, \"confidence\": 0.9, \"reason\": \"Candidate 8355: PVC Pipe falls under tubes, pipes and hoses of plastics.\"}, {\"line\": 25, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 21193: Steel Almirah falls under other furniture and parts thereof.\"}, {\"line\": 26, \"candidate_id\": 3821, \"confidence\": 0.9, \"reason\": \"Candidate 3821: Engine Oil falls under engine oil conforming to standard IS 13655.\"}, {\"line\": 27, \"candidate_id\": 12764, \"confidence\": 0.9, \"reason\": \"Candidate 12764: Cotton T-Shirt falls under T-shirts of cotton.\"}, {\"line\": 28, \"candidate_id\": 22388, \"confidence\": 0.9, \"reason\": \"Candidate 22388: Annual Maintenance Service falls under maintenance and repair of other machinery and equipment.\"}, {\"line\": 29, \"candidate_id\": 8830, \"confidence\": 0.9, \"reason\": \"Candidate 8830: Two-wheeler Tyre falls under new pneumatic tyres used on motor cycles.\"}, {\"line\": 30, \"candidate_id\": 934, \"confidence\": 0.9, \"reason\": \"Candidate 934: Ghee falls under Ghee.\"}, {\"line\": 31, \"candidate_id\": 7237, \"confidence\": 0.85, \"reason\": \"Candidate 7237: Bathing Soap falls under soap and preparations for use as soap.\"}, {\"line\": 32, \"candidate_id\": 19268, \"confidence\": 0.7, \"reason\": \"Candidate 19268: LED Television falls under reception apparatus for television.\"}, {\"line\": 33, \"candidate_id\": 3474, \"confidence\": 0.8, \"reason\": \"Candidate 3474: Cement falls under other Portland cement.\"}, {\"line\": 34, \"candidate_id\": 1889, \"confidence\": 0.9, \"reason\": \"Candidate 1889: Wheat Atta falls under wheat or meslin flour.\"}, {\"line\": 35, \"candidate_id\": 9868, \"confidence\": 0.6, \"reason\": \"Candidate 9868: Printer Paper falls under uncoated paper.\"}, {\"line\": 36, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 21193: Steel Almirah falls under other furniture and parts thereof.\"}]}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 17743,
-      "output_tokens": 1703,
-      "latency_ms": 4652,
-      "request_id": "euLVao3NK-yUjuMPw63-yAY"
+      "input_tokens": 17892,
+      "output_tokens": 1726,
+      "latency_ms": 5247,
+      "request_id": "UxPWar--McrTjuMPrdmnqAk"
      }
     }
    ],
-   "wall_ms": 35582
+   "wall_ms": 6299
   },
   "test_002": {
    "calls": [
@@ -91,22 +91,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "8d6f02a069df9489",
+      "instruction": "c706eb6511028887",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier services specifically match courier service.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8365,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8365: seamless tubes of polymers of vinyl chloride correctly classify a PVC pipe.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engines fits engine oil 1L.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: dentifrices in paste form matches toothpaste.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: basmati rice falls under semi-milled or wholly-milled rice.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: light-emitting diode LED lamps matches LED bulb 9W.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7239: soap for toilet use matches bathing soap.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat or meslin flour matches wheat atta.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fit a 43-inch LED television.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: acrylic emulsion matches emulsion paint.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton matches cotton t-shirt.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers matches mobile phone charger.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala matches pan masala 100g.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split system air conditioners matches split air conditioner.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise books matches exercise notebook.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: other furniture and parts thereof matches steel almirah.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: portland cement and similar hydraulic cements matches cement.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates specifically describe A4 printer paper sheets.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: pneumatic tyres of a kind used on motor cycles matches two-wheeler tyre.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: cane sugar matches sugar 50kg bag.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee matches ghee 1 kg tin.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14012: finishing ceramics matches ceramic floor tiles.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: other vegetables, fresh or chilled matches fresh vegetables.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 22388: maintenance and repair services of other machinery and equipments matches annual maintenance service.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engines matches engine oil.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: tubes, pipes and hoses of plastics matches PVC pipe.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers matches mobile phone charger.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: courier services is the correct specific match for courier service.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: tubes, pipes and hoses of plastics is the correct heading for PVC pipe.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engines fits the description.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7213: dentifrices in paste form matches toothpaste.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 1822,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 1822: basmati rice is the precise match for basmati rice.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: light-emitting diode LED lamps matches LED bulb.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 7239: toilet soaps matches bathing soap.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1889: wheat or meslin flour matches wheat atta.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": null,\n      \"confidence\": 0.5,\n      \"reason\": \"None of the candidates specifically matches a 43-inch LED television.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 7011: acrylic emulsion matches emulsion paint.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: t-shirts of cotton matches cotton t-shirt.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.6,\n      \"reason\": \"Candidate 18645: electrical static converters covers mobile phone charger.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2968: pan masala is the exact match for pan masala.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 16978: split system air conditioner matches split air conditioner.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 10158: exercise books matches exercise notebook.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 21193: other furniture and parts thereof covers steel almirah.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: portland cement matches cement.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": null,\n      \"confidence\": 0.5,\n      \"reason\": \"None of the candidates specifically details A4 printer paper sheets.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: pneumatic tyres of a kind used on motor cycles matches two-wheeler tyre.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: cane sugar covers sugar bags.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 934,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 934: ghee is the exact match for ghee.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14012: finishing ceramics covers ceramic floor tiles.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: other vegetables, fresh or chilled matches fresh vegetables.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 22388: maintenance and repair services of other machinery and equipment matches annual maintenance service.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil fits the item description.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: tubes and pipes of plastics matches PVC pipe.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers is the exact match for mobile phone charger.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 15130,
-      "output_tokens": 1830,
-      "latency_ms": 5257,
-      "request_id": "XuPVaoLkBNTQqfkPho3V0A4"
+      "input_tokens": 15304,
+      "output_tokens": 1807,
+      "latency_ms": 5057,
+      "request_id": "WRPWasfNDNzXjuMP89jTmQk"
      }
     }
    ],
-   "wall_ms": 5701
+   "wall_ms": 5500
   },
   "test_003": {
    "calls": [
@@ -137,22 +137,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "cf427b0dd6d248c6",
+      "instruction": "139317f1c183ce20",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: Courier services directly matches the description of courier service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: GHEE is the correct specific HSN code for ghee.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly fits printer paper A4 size.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 22388: Maintenance and repair services of other machinery and equipments fits general annual maintenance service.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: BATTERY CHARGERS correctly classifies mobile phone chargers.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidate codes matches a 43 inch LED television.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: courier services is the exact match for courier service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee is classified under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits standard printer paper A4.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 22388: maintenance and repair services of other machinery and equipments covers general annual maintenance service.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 18645: static converters for electrical charging fit a mobile phone charger.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the television candidates matches a 43 inch screen size.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 3359,
+      "input_tokens": 3571,
       "output_tokens": 370,
-      "latency_ms": 1927,
-      "request_id": "aePVavXvF82wjuMPr6mPuQ4"
+      "latency_ms": 1715,
+      "request_id": "XhPWat7NDKrp4-EP-JStoAk"
      }
     }
    ],
-   "wall_ms": 8601
+   "wall_ms": 1854
   },
   "test_004": {
    "calls": [
@@ -229,22 +229,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "0f1355cb371c8c1a",
+      "instruction": "f19bd83bae3f31f4",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates match a 43 inch LED television.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton fall under knitted or crocheted cotton t-shirts.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates correctly represent ceramic floor tiles.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner system falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 1193: fresh assorted vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8366: PVC pipes fall under tubes and pipes of polymers of vinyl chloride.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits the 43 inch screen size for the LED television.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton are classified under this specific code.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly fits ceramic floor tiles of 600x600 size.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split system air conditioning machine matches the 1.5 ton split AC.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 1193: other vegetables, fresh or chilled covers assorted fresh vegetables.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: tubes, pipes and hoses of plastics covers PVC pipes.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 3420,
-      "output_tokens": 373,
-      "latency_ms": 2116,
-      "request_id": "f-PVaq-CLPmCg8UPq9uGwQw"
+      "input_tokens": 3382,
+      "output_tokens": 382,
+      "latency_ms": 1717,
+      "request_id": "YBPWaq59uJqO4w-Kr87hDg"
      }
     }
    ],
-   "wall_ms": 22457
+   "wall_ms": 1858
   },
   "test_005": {
    "calls": [
@@ -298,22 +298,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "ea2f9b9e58067f1f",
+      "instruction": "ca06b7677772a5d3",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner 1.5 ton is a split system air conditioner fixed to a wall or ceiling.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate None: none of the candidates specify general bathing soap without being medicated or in other forms.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala directly matches the description and heading for food preparations.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8366: PVC pipe falls under tubes and pipes of polymers of vinyl chloride.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: split air conditioner 1.5 ton is a split system fixed type air conditioning machine.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.7,\n      \"reason\": \"None of the candidates specifically describe non-medicated bathing soap in bars.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2968,\n      \"confidence\": 1.0,\n      \"reason\": \"Candidate 2968: pan masala directly matches the description of pan masala.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8355: PVC pipe falls under tubes, pipes and hoses of plastics.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2405,
-      "output_tokens": 271,
-      "latency_ms": 1672,
-      "request_id": "jOPVaqOwGJWRjuMPvd76mAs"
+      "input_tokens": 2367,
+      "output_tokens": 259,
+      "latency_ms": 1637,
+      "request_id": "YhPWav6YB5La4-EPtPucuQk"
      }
     }
    ],
-   "wall_ms": 12241
+   "wall_ms": 1745
   },
   "test_006": {
    "calls": [
@@ -390,22 +390,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "6e3e9165ccbfbcd8",
+      "instruction": "1d0a3ceb0f50f865",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits the exact item description for general cane sugar bag.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: cotton t-shirts fall under T-shirts, knitted or crocheted of cotton.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters containing added sugar.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: cement bag falls under Portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: emulsion paint falls under acrylic emulsion paints based on synthetic polymers.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the specific candidates accurately fits standard A4 printer paper.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste falls under dentifrices in paste form.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat atta falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates cover general plumbing repair services.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7237: bathing soap falls under soap and organic surface-active products.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly fit ceramic floor tiles.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: mobile phone charger falls under static converters as battery chargers.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under new pneumatic tyres of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates specifically match a 43-inch LED television.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: fresh vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: basmati rice falls under semi-milled or wholly-milled basmati rice.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil falls under petroleum oils for internal combustion engines.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala falls under food preparations not elsewhere specified.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier service falls under courier services.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8364: PVC pipe falls under tubes, pipes and hoses of polymers of vinyl chloride.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates appropriately match a 9W LED bulb.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: cement bag falls under Portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: cement bag falls under Portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 2604,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2604: sugar bag falls under cane or beet sugar and chemically pure sucrose in solid form.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates specifically match a 43-inch LED television.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits the item correctly.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: T-shirts of cotton fall under cotton knitted t-shirts.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 2989: Aerated waters fall under waters containing added sugar or other sweetening matter.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: Portland cement and similar hydraulic cements cover cement bags.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7011: Acrylic emulsion paint is an emulsion paint based on synthetic polymers.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits printer paper.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 934,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 934: Ghee is classified under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 21193: Steel almirah is classified under other furniture.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7213: Toothpaste in paste form falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 16978: Split air conditioner system falls under split-system air conditioning machines.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 10158: Exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1889: Wheat atta is wheat flour.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7237: Bathing soap falls under soap and preparations for use as soap.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits ceramic floor tiles.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 18645: Mobile phone charger falls under static converters and electrical transformers.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8830: Two-wheeler tyre falls under pneumatic tyres of a kind used on motorcycles.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits LED television 43 inch.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: Fresh vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: Basmati rice falls under semi-milled or wholly-milled basmati rice.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: Engine oil falls under engine oil for internal combustion engine crankcase oils.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2968: Pan masala is classified under food preparations not elsewhere specified or included.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 23: Courier service falls under courier services.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: PVC pipe falls under tubes, pipes and hoses of plastics.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 22388: Annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 3464: Cement bag falls under portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 22388: Annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 3464: Cement bag falls under portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 2604,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 2604: Sugar bag falls under cane or beet sugar and chemically pure sucrose in solid form.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits LED television 43 inch.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 15322,
-      "output_tokens": 1918,
-      "latency_ms": 4909,
-      "request_id": "2ePVaqqXCoewjuMPidrguA4"
+      "input_tokens": 15446,
+      "output_tokens": 1911,
+      "latency_ms": 5079,
+      "request_id": "ZBPWaqaiFMyLjuMPoNivkAk"
      }
     }
    ],
-   "wall_ms": 79819
+   "wall_ms": 5558
   },
   "test_007": {
    "calls": [
@@ -505,22 +505,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "b7d86a2a5815f5d0",
+      "instruction": "fb6647b1ec6a4161",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 7011, \"confidence\": 0.95, \"reason\": \"Candidate 7011: acrylic emulsion paint is specifically covered under acrylic emulsion.\"}, {\"line\": 2, \"candidate_id\": 18671, \"confidence\": 0.9, \"reason\": \"Candidate 18671: mobile phone chargers are classified as battery chargers under static converters.\"}, {\"line\": 3, \"candidate_id\": 7213, \"confidence\": 0.95, \"reason\": \"Candidate 7213: toothpaste in 150g format falls under dentifrices in paste form.\"}, {\"line\": 4, \"candidate_id\": 10158, \"confidence\": 0.95, \"reason\": \"Candidate 10158: exercise notebooks are precisely covered under exercise books.\"}, {\"line\": 5, \"candidate_id\": 21193, \"confidence\": 0.85, \"reason\": \"Candidate 21193: steel almirahs fall under other furniture and parts thereof.\"}]}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint is the most specific match for emulsion paint.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 18645: mobile phone chargers act as static converters/rectifiers.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebooks are classified specifically under exercise books.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirahs are classified as metal furniture under other furniture.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2966,
-      "output_tokens": 254,
-      "latency_ms": 1458,
-      "request_id": "8-PVauq4OtqbjuMPl8rkkQ0"
+      "input_tokens": 3178,
+      "output_tokens": 328,
+      "latency_ms": 1813,
+      "request_id": "aRPWasHbJZaCjuMPpMDpqQ4"
      }
     }
    ],
-   "wall_ms": 13416
+   "wall_ms": 1909
   },
   "test_009": {
    "calls": [
@@ -602,17 +602,17 @@
       "images": []
      },
      "reply": {
-      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 8830, \"confidence\": 0.95, \"reason\": \"Candidate 8830: two-wheeler tyre falls under new pneumatic tyres of a kind used on motor cycles.\"}, {\"line\": 2, \"candidate_id\": 10158, \"confidence\": 0.95, \"reason\": \"Candidate 10158: exercise notebook falls under exercise books.\"}]}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8830: two-wheeler tyre refers to a tyre used on motor cycles.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 10157,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10157: exercise notebook 172 pages falls under exercise books.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 1422,
-      "output_tokens": 104,
-      "latency_ms": 1061,
-      "request_id": "_uPVasPEO4LDjuMPg9_xyQ4"
+      "output_tokens": 141,
+      "latency_ms": 1761,
+      "request_id": "axPWapLKGOfy4-EP18Xu4Qk"
      }
     }
    ],
-   "wall_ms": 5083
+   "wall_ms": 1809
   },
   "test_011": {
    "calls": [
@@ -689,22 +689,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "07210fce411ddef7",
+      "instruction": "9281dffd23801d8f",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 16978, \"confidence\": 0.9, \"reason\": \"Candidate 16978: Split system air conditioner falls under split system.\"}, {\"line\": 2, \"candidate_id\": 3464, \"confidence\": 0.8, \"reason\": \"Candidate 3464: Cement 50kg bag falls under Portland cement and similar hydraulic cements.\"}, {\"line\": 3, \"candidate_id\": 1824, \"confidence\": 0.9, \"reason\": \"Candidate 1824: Basmati Rice 25kg bag falls under basmati rice.\"}, {\"line\": 4, \"candidate_id\": 1193, \"confidence\": 0.9, \"reason\": \"Candidate 1193: Fresh Vegetables fall under other vegetables, fresh or chilled.\"}, {\"line\": 5, \"candidate_id\": 12764, \"confidence\": 0.9, \"reason\": \"Candidate 12764: Cotton T-Shirt falls under T-shirts of cotton.\"}, {\"line\": 6, \"candidate_id\": 7015, \"confidence\": 0.9, \"reason\": \"Candidate 7015: Emulsion Paint 20L falls under emulsion paints not elsewhere specified.\"}, {\"line\": 7, \"candidate_id\": 7239, \"confidence\": 0.9, \"reason\": \"Candidate 7239: Bathing soap falls under toilet soap.\"}, {\"line\": 8, \"candidate_id\": 934, \"confidence\": 0.9, \"reason\": \"Candidate 934: Ghee falls under ghee derived from milk.\"}, {\"line\": 9, \"candidate_id\": 18671, \"confidence\": 0.9, \"reason\": \"Candidate 18671: Mobile Phone Charger falls under battery chargers.\"}, {\"line\": 10, \"candidate_id\": 19526, \"confidence\": 0.8, \"reason\": \"Candidate 19526: LED Bulb 9W falls under light-emitting diode LED lamps.\"}, {\"line\": 11, \"candidate_id\": 9870, \"confidence\": 0.7, \"reason\": \"Candidate 9870: Printer paper falls under uncoated paper of a kind used for writing or printing.\"}, {\"line\": 12, \"candidate_id\": 8830, \"confidence\": 0.9, \"reason\": \"Candidate 8830: Two-wheeler tyre falls under tyres of a kind used on motor cycles.\"}, {\"line\": 13, \"candidate_id\": 19270, \"confidence\": 0.7, \"reason\": \"Candidate 19270: LED Television 43 inch falls under television sets of specific screen sizes.\"}, {\"line\": 14, \"candidate_id\": 14013, \"confidence\": 0.8, \"reason\": \"Candidate 14013: Ceramic floor tiles fall under finishing ceramics.\"}, {\"line\": 15, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 15: Steel Almirah falls under other furniture and parts thereof.\"}, {\"line\": 16, \"candidate_id\": null, \"confidence\": 0.5, \"reason\": \"Candidate none: Plumbing repair service does not have an exact matching candidate in the list.\"}, {\"line\": 17, \"candidate_id\": 22388, \"confidence\": 0.8, \"reason\": \"Candidate 22388: Annual Maintenance Service falls under maintenance and repair services of other machinery and equipments.\"}, {\"line\": 18, \"candidate_id\": 3821, \"confidence\": 0.9, \"reason\": \"Candidate 3821: Engine Oil 1L falls under internal combustion engine crankcase oils.\"}, {\"line\": 19, \"candidate_id\": 7213, \"confidence\": 0.9, \"reason\": \"Candidate 7213: Toothpaste 150g falls under dentifrices in paste.\"}, {\"line\": 20, \"candidate_id\": 8364, \"confidence\": 0.9, \"reason\": \"Candidate 8364: PVC Pipe falls under tubes, pipes and hoses of polymers of vinyl chloride.\"}, {\"line\": 21, \"candidate_id\": 10158, \"confidence\": 0.9, \"reason\": \"Candidate 10158: Exercise Notebook falls under exercise books.\"}, {\"line\": 22, \"candidate_id\": 2968, \"confidence\": 0.9, \"reason\": \"Candidate 2968: Pan Masala falls under pan masala food preparations.\"}, {\"line\": 23, \"candidate_id\": 2605, \"confidence\": 0.8, \"reason\": \"Candidate 2605: Sugar 50kg bag falls under cane sugar.\"}, {\"line\": 24, \"candidate_id\": 1889, \"confidence\": 0.9, \"reason\": \"Candidate 1889: Wheat Atta 10kg falls under wheat or meslin flour.\"}, {\"line\": 25, \"candidate_id\": 22098, \"confidence\": 0.9, \"reason\": \"Candidate 22098: Courier Service falls under courier services.\"}, {\"line\": 26, \"candidate_id\": 2989, \"confidence\": 0.9, \"reason\": \"Candidate 2989: Aerated Soft Drink 2L falls under aerated waters.\"}, {\"line\": 27, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 21193: Steel Almirah falls under other furniture and parts thereof.\"}, {\"line\": 28, \"candidate_id\": 7015, \"confidence\": 0.9, \"reason\": \"Candidate 7015: Emulsion Paint falls under emulsion paints not elsewhere specified.\"}, {\"line\": 29, \"candidate_id\": 7213, \"confidence\": 0.9, \"reason\": \"Candidate 7213: Toothpaste falls under dentifrices in paste.\"}, {\"line\": 30, \"candidate_id\": 7213, \"confidence\": 0.9, \"reason\": \"Candidate 7213: Toothpaste falls under dentifrices in paste.\"}, {\"line\": 31, \"candidate_id\": 2989, \"confidence\": 0.9, \"reason\": \"Candidate 2989: Aerated Soft Drink falls under aerated waters.\"}, {\"line\": 32, \"candidate_id\": 1824, \"confidence\": 0.9, \"reason\": \"Candidate 1824: Basmati Rice falls under basmati rice.\"}]}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: Split system air conditioners fall under split system HSN code.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: Portland and hydraulic cements are correctly classified under this heading.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: Basmati rice is specifically described under this candidate.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: Fresh vegetables fit directly into this broader category.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: Cotton T-shirts fall under knitted cotton garments.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: Acrylic emulsion paint is an aqueous polymer-based paint.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7239: Toilet soaps for bathing use fall under medicated or toilet soaps.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee derived from milk is specifically covered here.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 18645: Mobile phone chargers are static converters under this heading.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19526: LED lamps correspond to LED bulbs.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 9873,\n      \"confidence\": 0.75,\n      \"reason\": \"Candidate 9873: Uncoated paper for printing purposes fits printer paper.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: Two-wheeler tyres are pneumatic tyres for motorcycles.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 19272,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19272: A 43-inch television falls within the corresponding screen size range.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 14012: Ceramic floor tiles are classified under finishing ceramics.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Steel almirahs are classified as other furniture.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate None: No matching plumbing repair candidate was provided in the list.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Maintenance and repair services of other machinery and equipment covers general AMC.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines is specifically listed here.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: Toothpaste in paste form falls under dentifrices.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: PVC pipes are plastic tubes and pipes.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: Exercise notebooks are classified under exercise books.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: Pan masala is specifically named under food preparations.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 2605: Cane sugar in solid form covers general sugar bags.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: Wheat atta is wheat flour.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: Courier services fall directly under postal and courier services.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated soft drinks are classified as aerated waters.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Steel almirahs are furniture items.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 7015,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7015: Emulsion paint falls under emulsion paints not elsewhere specified.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 7211,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7211: Toothpaste is categorized under dentifrices.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 7211,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7211: Toothpaste is categorized under dentifrices.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated soft drinks fall under aerated waters.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: Basmati rice is explicitly listed under milled rice.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 15541,
-      "output_tokens": 1567,
-      "latency_ms": 4563,
-      "request_id": "IeTVasaBFsDn4-EP7IGuuQ4"
+      "input_tokens": 15593,
+      "output_tokens": 1986,
+      "latency_ms": 5713,
+      "request_id": "bRPWaufZPPWIjuMPnoDHyA4"
      }
     }
    ],
-   "wall_ms": 30986
+   "wall_ms": 6178
   },
   "test_013": {
    "calls": [
@@ -786,17 +786,17 @@
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates provides a specific 43 inch LED television code.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee is specifically covered under this code for ghee.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: a two-wheeler tyre falls under tyres of a kind used on motorcycles.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebooks are classified specifically as exercise books.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form is classified under dentifrices in paste.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates accurately matches a 43-inch television size.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls directly under the ghee classification for dairy fats.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: two-wheeler tyres fall under tyres for motor cycles.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebooks are classified specifically as exercise books.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in 150g is a dentifrice in paste form.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 3519,
-      "output_tokens": 364,
-      "latency_ms": 1972,
-      "request_id": "OuTVarqtOK-cjuMPjOH2wQ4"
+      "output_tokens": 365,
+      "latency_ms": 1873,
+      "request_id": "cxPWaungMb65juMPvPKywA4"
      }
     }
    ],
-   "wall_ms": 22953
+   "wall_ms": 2004
   },
   "test_014": {
    "calls": [
@@ -827,22 +827,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "f5690124d3586b42",
+      "instruction": "1db92cb66b842ca5",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7011: acrylic emulsion is the most specific match for emulsion paint.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers are static converters used as mobile phone chargers.\"\n    }\n  ]\n}",
+      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 7011, \"confidence\": 0.95, \"reason\": \"Candidate 7011: acrylic emulsion best describes emulsion paint.\"}, {\"line\": 2, \"candidate_id\": 18645, \"confidence\": 0.85, \"reason\": \"Candidate 18645: static converters and rectifiers match mobile phone chargers.\"}]}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 1231,
-      "output_tokens": 137,
-      "latency_ms": 1295,
-      "request_id": "ROTVauMdxc2t9w-0lcP5Ag"
+      "input_tokens": 1443,
+      "output_tokens": 97,
+      "latency_ms": 1034,
+      "request_id": "dRPWatyiLKLK4-EPgJiq6Aw"
      }
     }
    ],
-   "wall_ms": 8481
+   "wall_ms": 1100
   },
   "test_015": {
    "calls": [
@@ -873,22 +873,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "8e98bbeddf7fea92",
+      "instruction": "5198934e92c693fd",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters are standard soft drinks.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 7237: general soap classification covers bathing soap.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8830: two-wheeler tyres are tyres for motor cycles.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 1822,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 1822: Basmati rice falls under semi-milled or wholly-milled rice.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 22388: maintenance and repair services of other machinery and equipment.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier services specifically match courier service.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebooks are exercise books.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters are the correct classification for aerated soft drinks.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 7237: general soap products fall under heading 3401.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyres are classified under pneumatic tyres used on motor cycles.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: basmati rice is specifically listed under milled rice.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 22388: general annual maintenance service falls under maintenance and repair of other machinery and equipment.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier services are specifically classified under SAC 996812.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebooks are classified under exercise books.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 3681,
-      "output_tokens": 436,
-      "latency_ms": 2249,
-      "request_id": "TOTVavS8LJ_r1e8P2J6J8A0"
+      "output_tokens": 457,
+      "latency_ms": 1954,
+      "request_id": "dhPWat2iNpmmjuMP877goAk"
      }
     }
    ],
-   "wall_ms": 9493
+   "wall_ms": 2077
   },
   "test_016": {
    "calls": [
@@ -923,22 +923,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "9ec9b005bd20ae7e",
+      "instruction": "2bb0cf0cac918388",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls under heading 0405.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: cotton t-shirt is classified under knitted cotton t-shirts.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 21193: steel almirah is classified as other furniture.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres for motor cycles.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb 9W falls under light-emitting diode LED lamps.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8364: PVC pipe falls under tubes and pipes of polymers of vinyl chloride.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala is classified under food preparations.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22388: annual maintenance service is classified under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1193: fresh vegetables assorted fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: basmati rice falls under basmati rice in milled form.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: mobile phone charger falls under battery chargers.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat atta falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: engine oil 1L falls under engine oil conforming to standard IS 13655.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 7015,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7015: emulsion paint falls under emulsion paints not elsewhere specified or included.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 2605: sugar 50kg bag falls under cane sugar.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3464: cement falls under hydraulic cements.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 20: bathing soap falls under soap and organic surface-active products.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19270: LED television 43 inch corresponds to a television set with screen size exceeding 54 cm up to 68 cm or suitable colour television classification.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 14012: ceramic floor tiles fall under finishing ceramics.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier service falls under courier services.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 9873,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9873: printer paper falls under uncoated paper and paperboard of a kind used for writing, printing or other graphic purposes.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: mobile phone charger falls under battery chargers.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 21193: steel almirah is classified as other furniture.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1193: fresh vegetables assorted fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19270: LED television 43 inch falls under television sets of appropriate screen size.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22388: annual maintenance service is classified under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 21193: steel almirah is classified as other furniture.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee is classified under specific HSN code for ghee.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: cotton t-shirts fall under knitted cotton t-shirts.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah is classified as other furniture.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres for motorcycles.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19526: LED bulb 9W falls under LED lamps.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service correctly.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8355: PVC pipe falls under tubes, pipes and hoses of plastics.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala falls under food preparations specifically for pan masala.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: fresh vegetables assorted fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: basmati rice falls under basmati rice.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 18645: mobile phone charger falls under static converters and electrical apparatus.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat atta falls under wheat flour.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: engine oil falls under internal combustion engine crankcase oils.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: emulsion paint falls under acrylic emulsion paints based on synthetic polymers.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: sugar falls under cane sugar.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19: cement falls under portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7239: bathing soap falls under soap for toilet use.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 19271,\n      \"confidence\": 0.75,\n      \"reason\": \"Candidate 19271: LED television 43 inch falls under colour television sets of specific screen size range.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 14012: ceramic floor tiles fall under finishing ceramics and ceramic tiles.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier service falls under courier services.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 9873,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9873: printer paper falls under uncoated paper for writing or printing.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: mobile phone charger falls under battery chargers.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: fresh vegetables assorted fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 19271,\n      \"confidence\": 0.75,\n      \"reason\": \"Candidate 19271: LED television 43 inch falls under colour television sets of specific screen size range.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 15811,
-      "output_tokens": 2056,
-      "latency_ms": 5765,
-      "request_id": "aeTVaoaLM_314-EP_prS2Q4"
+      "input_tokens": 15985,
+      "output_tokens": 2004,
+      "latency_ms": 5129,
+      "request_id": "eRPWatzVJ_e6mNMP-63pmAo"
      }
     }
    ],
-   "wall_ms": 32037
+   "wall_ms": 5618
   },
   "test_017": {
    "calls": [
@@ -1061,22 +1061,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "89940c846bb875ce",
+      "instruction": "83391bad3fbf21c6",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: Basmati Rice fits the description of basmati rice.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers fits the description of a mobile phone charger.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engines fits the description.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 8366: other PVC tubes and pipes fits the description of a PVC pipe.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee fits the description of ghee.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 1824: Basmati Rice is correctly classified under heading 10063020.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.6,\n      \"reason\": \"Candidate 18645: Mobile phone chargers act as static converters falling under heading 8504.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines falls under code 27101972.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 8355: Tubes, pipes and hoses of plastics covers PVC pipes under heading 3917.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee is specifically classified under code 04059020.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2493,
-      "output_tokens": 315,
-      "latency_ms": 1833,
-      "request_id": "heTVarPIK4vurfcP8LKXoAc"
+      "input_tokens": 2667,
+      "output_tokens": 351,
+      "latency_ms": 1764,
+      "request_id": "fhPWat31POeujuMPhu_vwQ4"
      }
     }
    ],
-   "wall_ms": 8287
+   "wall_ms": 1848
   },
   "test_020": {
    "calls": [
@@ -1107,22 +1107,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "2725ed72b289f0ae",
+      "instruction": "a627cef615ff7f70",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8366: PVC pipe fits under tubes and pipes of polymers of vinyl chloride.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines falls under petroleum oils.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8355: plastic pipes and tubes fit PVC pipe descriptions.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engines fits the description.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 1489,
-      "output_tokens": 137,
-      "latency_ms": 1364,
-      "request_id": "i-TVaonsE9PJjuMPoPfbyA4"
+      "input_tokens": 1451,
+      "output_tokens": 132,
+      "latency_ms": 1203,
+      "request_id": "gBPWaqPFLNDx4-EPrpvYsQk"
      }
     }
    ],
-   "wall_ms": 5288
+   "wall_ms": 1281
   },
   "test_021": {
    "calls": [
@@ -1203,22 +1203,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "c2b8b521e253567e",
+      "instruction": "f3227cae7e51233a",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: Basmati Rice falls under milled rice specifications.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits ceramic floor tiles correctly.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: Aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: Cotton T-Shirt falls under T-shirts of cotton.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: Emulsion paint falls under acrylic emulsion paints.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly fits bulk cane sugar bags.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: Split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: Pan Masala falls under food preparations for pan masala.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the specific screen sizes matches a 43-inch television correctly.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: Wheat Atta falls under wheat flour.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7239: Bathing soap falls under soap for toilet use.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidate codes fits plumbing repair services.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8364: PVC pipe falls under tubes and pipes of polymers of vinyl chloride.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Annual maintenance service falls under maintenance and repair of other machinery and equipment.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: Mobile phone charger falls under static converters as battery chargers.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: Courier service falls under courier services.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: Toothpaste falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: Exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: Two-wheeler tyre falls under tyres of a kind used on motorcycles.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee falls under ghee derived from milk.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: Engine oil falls under engine oil for internal combustion engine crankcase oils.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode LED lamps.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: Cement falls under hydraulic cements.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the specific candidate codes directly fits standard A4 printer paper.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 1193: Fresh vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: Emulsion paint falls under acrylic emulsion paints.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits ceramic floor tiles correctly.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8355: PVC pipe falls under tubes and pipes of plastics.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode LED lamps.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits ceramic floor tiles correctly.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits ceramic floor tiles correctly.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the specific candidate codes directly fits standard A4 printer paper.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: Basmati Rice falls under milled rice specifications.\"\n    },\n    {\n      \"line\": 35,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: Basmati Rice falls under milled rice specifications.\"\n    },\n    {\n      \"line\": 36,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Annual maintenance service falls under maintenance and repair of other machinery and equipment.\"\n    }\n  ]\n}",
+      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 1822, \"confidence\": 0.9, \"reason\": \"Candidate 1822: basmati rice falls under semi-milled or wholly-milled rice.\"}, {\"line\": 2, \"candidate_id\": 14013, \"confidence\": 0.8, \"reason\": \"Candidate 14013: ceramic floor tiles fall under finishing ceramics.\"}, {\"line\": 3, \"candidate_id\": 2989, \"confidence\": 0.9, \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters containing added sugar.\"}, {\"line\": 4, \"candidate_id\": 12764, \"confidence\": 0.9, \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"}, {\"line\": 5, \"candidate_id\": 7011, \"confidence\": 0.8, \"reason\": \"Candidate 7011: emulsion paint falls under acrylic emulsion.\"}, {\"line\": 6, \"candidate_id\": 21193, \"confidence\": 0.9, \"reason\": \"Candidate 21193: steel almirah falls under other furniture.\"}, {\"line\": 7, \"candidate_id\": 2605, \"confidence\": 0.7, \"reason\": \"Candidate 2605: sugar falls under cane sugar.\"}, {\"line\": 8, \"candidate_id\": 16978, \"confidence\": 0.9, \"reason\": \"Candidate 16978: split air conditioner falls under split system.\"}, {\"line\": 9, \"candidate_id\": 2968, \"confidence\": 0.9, \"reason\": \"Candidate 2968: pan masala falls under food preparations.\"}, {\"line\": 10, \"candidate_id\": 19269, \"confidence\": 0.7, \"reason\": \"Candidate 10 candidate match is uncertain by exact size, but candidate 19269 is a television receiver.\"}, {\"line\": 11, \"candidate_id\": 1889, \"confidence\": 0.9, \"reason\": \"Candidate 1889: wheat atta falls under wheat flour.\"}, {\"line\": 12, \"candidate_id\": 7239, \"confidence\": 0.8, \"reason\": \"Candidate 7239: bathing soap falls under soap for toilet use.\"}, {\"line\": 13, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"Candidate 13: none of the candidates fit plumbing repair service.\"}, {\"line\": 14, \"candidate_id\": 8355, \"confidence\": 0.9, \"reason\": \"Candidate 8355: PVC pipe falls under tubes, pipes and hoses of plastics.\"}, {\"line\": 15, \"candidate_id\": 22388, \"confidence\": 0.9, \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"}, {\"line\": 16, \"candidate_id\": 18645, \"confidence\": 0.8, \"reason\": \"Candidate 18645: mobile phone charger falls under electrical static converters.\"}, {\"line\": 17, \"candidate_id\": 22098, \"confidence\": 0.9, \"reason\": \"Candidate 22098: courier service falls under courier services.\"}, {\"line\": 18, \"candidate_id\": 7213, \"confidence\": 0.9, \"reason\": \"Candidate 7213: toothpaste falls under dentifrices in paste.\"}, {\"line\": 19, \"candidate_id\": 10157, \"confidence\": 0.9, \"reason\": \"Candidate 10157: exercise notebook falls under exercise books.\"}, {\"line\": 20, \"candidate_id\": 8830, \"confidence\": 0.9, \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres of a kind used on motorcycles.\"}, {\"line\": 21, \"candidate_id\": 934, \"confidence\": 0.9, \"reason\": \"Candidate 934: ghee falls under fats derived from milk.\"}, {\"line\": 22, \"candidate_id\": 3821, \"confidence\": 0.9, \"reason\": \"Candidate 3821: engine oil falls under engine oil conforming to standard.\"}, {\"line\": 23, \"candidate_id\": 19526, \"confidence\": 0.8, \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode lamps.\"}, {\"line\": 24, \"candidate_id\": 3464, \"confidence\": 0.9, \"reason\": \"Candidate 3464: cement falls under portland cement and hydraulic cements.\"}, {\"line\": 25, \"candidate_id\": 9870, \"confidence\": 0.7, \"reason\": \"Candidate 9870: printer paper falls under uncoated paper for printing.\"}, {\"line\": 26, \"candidate_id\": 1193, \"confidence\": 0.9, \"reason\": \"Candidate 1193: fresh vegetables fall under other vegetables, fresh or chilled.\"}, {\"line\": 27, \"candidate_id\": 7011, \"confidence\": 0.8, \"reason\": \"Candidate 7011: emulsion paint falls under acrylic emulsion.\"}, {\"line\": 28, \"candidate_id\": 14013, \"confidence\": 0.8, \"reason\": \"Candidate 14013: ceramic floor tiles fall under finishing ceramics.\"}, {\"line\": 29, \"candidate_id\": 8355, \"confidence\": 0.9, \"reason\": \"Candidate 8355: PVC pipe falls under tubes and pipes of plastics.\"}, {\"line\": 30, \"candidate_id\": 19526, \"confidence\": 0.8, \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode lamps.\"}, {\"line\": 31, \"candidate_id\": 14013, \"confidence\": 0.8, \"reason\": \"Candidate 14013: ceramic floor tiles fall under finishing ceramics.\"}, {\"line\": 32, \"candidate_id\": 14013, \"confidence\": 0.8, \"reason\": \"Candidate 14013: ceramic floor tiles fall under finishing ceramics.\"}, {\"line\": 33, \"candidate_id\": 9870, \"confidence\": 0.7, \"reason\": \"Candidate 9870: printer paper falls under uncoated paper for printing.\"}, {\"line\": 34, \"candidate_id\": 1822, \"confidence\": 0.9, \"reason\": \"Candidate 1822: basmati rice falls under semi-milled or wholly-milled rice.\"}, {\"line\": 35, \"candidate_id\": 1822, \"confidence\": 0.9, \"reason\": \"Candidate 1822: basmati rice falls under semi-milled or wholly-milled rice.\"}, {\"line\": 36, \"candidate_id\": 22388, \"confidence\": 0.9, \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"}]}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 17015,
-      "output_tokens": 2155,
-      "latency_ms": 6030,
-      "request_id": "seTVatLEBu_o1e8P-pORgAw"
+      "input_tokens": 17189,
+      "output_tokens": 1714,
+      "latency_ms": 4554,
+      "request_id": "ghPWatXjOJajjuMPn9qJ6A4"
      }
     }
    ],
-   "wall_ms": 32967
+   "wall_ms": 5085
   },
   "test_023": {
    "calls": [
@@ -1249,22 +1249,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "ff3b6848f4f5adec",
+      "instruction": "4345db18934928e7",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise books are standard stationery items corresponding to the description.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat flour (atta) falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates correctly fit ceramic floor tiles under heading 6907.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drinks fall under aerated waters.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: cement bags are general hydraulic cements under heading 2523.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: two-wheeler tyres are tyres of a kind used on motorcycles.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise notebooks are classified under specific exercise books codes.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat flour (atta) falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly describes ceramic floor tiles under heading 6907.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: cement 50kg bag falls under hydraulic cements.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8330: two-wheeler tyre is classified under tyres used on motor cycles.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 3161,
-      "output_tokens": 384,
-      "latency_ms": 1984,
-      "request_id": "veTVaprdKYewjuMPidrguA4"
+      "output_tokens": 379,
+      "latency_ms": 1967,
+      "request_id": "hxPWaoulJfDWjuMP4fuakQk"
      }
     }
    ],
-   "wall_ms": 8671
+   "wall_ms": 2077
   },
   "test_024": {
    "calls": [
@@ -1295,22 +1295,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "afda57ed527c3312",
+      "instruction": "4b0dcfe37bed686d",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 18671, \"confidence\": 0.95, \"reason\": \"Candidate 18671: battery chargers fall under static converters specifically for charging batteries.\"}, {\"line\": 2, \"candidate_id\": null, \"confidence\": 0.0, \"reason\": \"None of the candidates correctly describes ceramic floor tiles.\"}]}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 18645 matches the printed code 8504 for static converters and chargers.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.9,\n      \"reason\": \"None of the candidates specifically cover ceramic floor tiles under heading 6907.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 1101,
-      "output_tokens": 89,
-      "latency_ms": 1229,
-      "request_id": "w-TVaofyLqHorfcP7uz5uAE"
+      "input_tokens": 1313,
+      "output_tokens": 135,
+      "latency_ms": 1096,
+      "request_id": "iRPWaqCPH8nbjuMPr_XqkQk"
      }
     }
    ],
-   "wall_ms": 5245
+   "wall_ms": 1160
   },
   "test_025": {
    "calls": [
@@ -1433,22 +1433,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "dcf3a942050e65c1",
+      "instruction": "32ddeacd82f2c926",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits standard printer paper A4.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates provides a specific general Portland cement product code.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8366: PVC pipe falls under tubes and pipes of polymers of vinyl chloride.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fit plumbing repair services.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters containing added sugar.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits standard printer paper for general writing and printing.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates represents standard Portland cement for a 50kg bag.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355 covers tubes, pipes and fittings of plastics.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates covers plumbing repair services.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 3388,
-      "output_tokens": 351,
-      "latency_ms": 2243,
-      "request_id": "4-TVauifNI6svr0PlZ-xuAM"
+      "input_tokens": 3350,
+      "output_tokens": 349,
+      "latency_ms": 1820,
+      "request_id": "ixPWauq2DZH6juMP_5WDmAk"
      }
     }
    ],
-   "wall_ms": 15031
+   "wall_ms": 1927
   },
   "test_028": {
    "calls": [
@@ -1525,22 +1525,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "f7188080a14d47c7",
+      "instruction": "c430279347924dc8",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 22388 matches the general maintenance and repair service described.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates match a 43-inch television (which is approximately 109 cm).\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers fall under static converters used for charging.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: pneumatic tyres of a kind used on motor cycles fit two-wheeler tyres.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 22388 matches general maintenance and repair services when specific equipment is not named.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19270 corresponds to a 43 inch television (approx 109 cm, falling into the appropriate higher size tier).\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18645 represents static converters and rectifiers, which includes mobile phone chargers.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830 covers new pneumatic tyres used on motorcycles and two-wheelers.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2292,
-      "output_tokens": 260,
-      "latency_ms": 1614,
-      "request_id": "8eTVaqGUOdSD2roPj7XvWQ"
+      "input_tokens": 2504,
+      "output_tokens": 277,
+      "latency_ms": 2150,
+      "request_id": "jRPWaoL9Ds3XjuMP37-amQk"
      }
     }
    ],
-   "wall_ms": 8217
+   "wall_ms": 2228
   },
   "test_030": {
    "calls": [
@@ -1617,22 +1617,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "a47c2a105b2ea881",
+      "instruction": "e71f133f43ffcf11",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits standard printer paper for general writing and printing.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly represents ceramic floor tiles.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers are static converters used for mobile phone chargers.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 2989: aerated waters are sweet or flavored waters including aerated soft drinks.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits standard printer paper for general printing.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates properly matches ceramic floor tiles under heading 6907.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 18645: mobile phone chargers are static converters falling under heading 8504.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2989: aerated soft drinks fall under aerated waters containing added sugar.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2535,
-      "output_tokens": 242,
-      "latency_ms": 1429,
-      "request_id": "AOXVau3xNZfnrfcP2PLQgAo"
+      "input_tokens": 2747,
+      "output_tokens": 249,
+      "latency_ms": 1431,
+      "request_id": "jxPWapixJcvZjuMPw8qFuA4"
      }
     }
    ],
-   "wall_ms": 7101
+   "wall_ms": 1509
   },
   "test_032": {
    "calls": [
@@ -1755,22 +1755,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "2c2f8e7fedcb538c",
+      "instruction": "c742c60a2f507a30",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: courier services is the most specific match for courier service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19270: 43 inch screen size equals approximately 109 cm, falling into the appropriate category or none of the others fit better, but wait, 43 inch is ~109 cm which exceeds 87 cm. Let's check candidates. Actually none might fit precisely, but let's select null or the best available. Wait, let's output null for line 3 if none fits, or let's re-examine.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers are static converters used as mobile phone chargers.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls specifically under code 04059020.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: Courier services specifically matches courier service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19270: 43 inches is approximately 109 cm, falling under the size category 54 cm to 68 cm? Wait, 43 inches is 109 cm which exceeds 87cm. Let us set candidate_id null if none fit properly or select the best available.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 18645: Static converters and rectifiers encompass mobile phone chargers.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee is specifically listed under heading 04059020.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2546,
-      "output_tokens": 395,
-      "latency_ms": 2359,
-      "request_id": "EuXVaqjDGK-cjuMPjOH2wQ4"
+      "input_tokens": 2758,
+      "output_tokens": 363,
+      "latency_ms": 2284,
+      "request_id": "kRPWatXJFd6qjuMPg7fGuA8"
      }
     }
    ],
-   "wall_ms": 8434
+   "wall_ms": 2380
   },
   "test_035": {
    "calls": [
@@ -1801,22 +1801,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "08d0bbeeb26a9bd8",
+      "instruction": "204cd30394547595",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8366: PVC pipe general other category for vinyl chloride tubes.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint fits aqueous synthetic polymer paints.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: split system air conditioner designed to be fixed.\"\n    }\n  ]\n}",
+      "text": "{\"choices\":[{\"line\":1,\"candidate_id\":8355,\"confidence\":0.9,\"reason\":\"Candidate 8355: plastic pipes match the PVC pipe description.\"},{\"line\":2,\"candidate_id\":2989,\"confidence\":0.8,\"reason\":\"Candidate 2989: aerated waters match aerated soft drink.\"},{\"line\":3,\"candidate_id\":7011,\"confidence\":0.9,\"reason\":\"Candidate 7011: acrylic emulsion fits emulsion paint.\"},{\"line\":4,\"candidate_id\":16978,\"confidence\":0.9,\"reason\":\"Candidate 16978: split system air conditioner matches the 1.5 ton split AC.\"}]}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2478,
-      "output_tokens": 253,
-      "latency_ms": 1504,
-      "request_id": "GuXVaoqkOYPXjuMPteT-uA4"
+      "input_tokens": 2440,
+      "output_tokens": 158,
+      "latency_ms": 1491,
+      "request_id": "kxPWau2PNYHEg8UP84LCwQ4"
      }
     }
    ],
-   "wall_ms": 8024
+   "wall_ms": 1580
   },
   "test_036": {
    "calls": [
@@ -1875,17 +1875,17 @@
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engine crankcase oils fits the description.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits a 43 inch LED television correctly based on screen size.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise books is the most specific matching code for exercise notebooks.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engine crankcase oils.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits a 43 inch LED television set.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise books are the direct match for exercise notebooks.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 2924,
-      "output_tokens": 197,
-      "latency_ms": 1359,
-      "request_id": "J-XVaqPzCNaojuMP4NaDsA4"
+      "output_tokens": 188,
+      "latency_ms": 1515,
+      "request_id": "lRPWasukFoCVjuMPvcfL0Q4"
      }
     }
    ],
-   "wall_ms": 12054
+   "wall_ms": 1574
   },
   "test_037": {
    "calls": [
@@ -1920,22 +1920,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "756773ea6846fc3a",
+      "instruction": "28fb54f7d9cb7194",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: Courier services specifically describes courier service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: Exercise books perfectly matches the exercise notebook description.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee is specifically listed under this candidate code.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: In paste dentifrices correctly matches toothpaste.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: Acrylic emulsion is the standard fit for emulsion paint.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate 995461 is not in the candidate list, and none of the maintenance candidates match plumbing.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: Split system air conditioners correctly matches split air conditioner.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 21193: Other furniture and parts thereof includes steel almirah.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: Battery chargers is the correct code for mobile phone chargers.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: Wheat or meslin flour correctly classifies wheat atta.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: Pan masala explicitly covers the product description.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines matches engine oil.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8364: Polymers of vinyl chloride covers PVC pipe.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: Basmati rice matches the description.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 19269,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19269: Television set screen size fits a 43 inch (approx 109cm, though candidates are limited, 19269 is part of the television series).\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 14011,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 14011: Finishing ceramics covers ceramic floor tiles.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7239: Toilet soaps fits bathing soap.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: Light-emitting diode lamps covers LED bulbs.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 2605: Cane sugar represents standard sugar bags.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Maintenance and repair services of other machinery and equipments fits general annual maintenance.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 9870,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9870: Uncoated paper and paperboard for writing or printing fits printer paper.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: Tyres used on motor cycles fits two-wheeler tyres.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3464: Portland cement and similar hydraulic cements covers cement.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated waters covers aerated soft drinks.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1193: Other vegetables, fresh or chilled fits fresh vegetables.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: T-shirts of cotton matches cotton t-shirt.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: Light-emitting diode lamps matches LED bulb.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: Battery chargers matches mobile phone charger.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: Light-emitting diode lamps matches LED bulb.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: Tubes, pipes and hoses of plastics matches PVC pipe.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: Wheat or meslin flour matches wheat atta.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 21193: Other furniture and parts thereof matches steel almirah.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines matches engine oil.\"\n    },\n    {\n      \"line\": 35,\n      \"candidate_id\": 2604,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2604: Cane or beet sugar matches sugar bag.\"\n    },\n    {\n      \"line\": 36,\n      \"candidate_id\": 14011,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 14011: Finishing ceramics matches ceramic floor tiles.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier services is the most specific code for courier service.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise books are specifically classified under this code.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls under this specific HSN code.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form is classified under this code.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint falls under this specific HSN code.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate 6: none of the provided candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: split system air conditioners fall under this HSN code.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah is classified as other furniture under this heading.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 18645: static converters and chargers fall under this HSN heading.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat atta is wheat flour which falls under this code.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala is specifically classified under this code.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil falls under this specific petroleum oil code.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8355: plastic pipes fall under this HSN heading.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 1822,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1822: basmati rice is a milled rice variety falling under this code.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate 15: none of the candidates specifically cover a 43-inch LED television.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14012: ceramic tiles fall under finishing ceramics.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7239: toilet soap bars for retail sale fall under this code.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED lamps are classified under this HSN code.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 2607,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2607: sugar falls under cane or beet sugar codes.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: general annual maintenance service falls under this SAC code.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 9870,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9870: printer paper falls under uncoated paper for printing purposes.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyres are pneumatic tyres for motorcycles.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: cement falls under hydraulic cements heading.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: aerated soft drinks fall under aerated waters.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1193: fresh assorted vegetables fall under other fresh vegetables.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: cotton t-shirts are classified under this code.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED lamps are classified under this code.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: battery chargers for mobile phones fall under static converters.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED lamps are classified under this code.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 30: plastic pipes fall under plastic tubes and pipes.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 31: wheat flour falls under this HSN code.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 32: steel almirah is classified as other furniture.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 33: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 34: engine oil falls under petroleum oil preparations.\"\n    },\n    {\n      \"line\": 35,\n      \"candidate_id\": 2604,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 35: sugar falls under cane or beet sugar heading.\"\n    },\n    {\n      \"line\": 36,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 36: ceramic floor tiles fall under finishing ceramics.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 17584,
-      "output_tokens": 2253,
-      "latency_ms": 6588,
-      "request_id": "XOXVaqLiK7vr1e8PkraCuQg"
+      "input_tokens": 17758,
+      "output_tokens": 2205,
+      "latency_ms": 5582,
+      "request_id": "lxPWaofCFZe6juMP6Iu0gQM"
      }
     }
    ],
-   "wall_ms": 57992
+   "wall_ms": 6058
   },
   "test_038": {
    "calls": [
@@ -2012,22 +2012,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "0859a8779e049b02",
+      "instruction": "b436e8649a7b4227",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: battery chargers specifically covers mobile phone chargers under static converters.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala is explicitly covered under this HSN code.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.4,\n      \"reason\": \"None of the candidates provide a sufficiently specific generic cane sugar code without specifying sub-types.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7011: acrylic emulsion is the most specific match for emulsion paint.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 18645: mobile phone chargers are classified as static converters under heading 8504.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala is specifically classified under code 21069020.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates for line 3 correctly specifies standard cane sugar.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah is an item of other furniture under heading 9403.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint falls under code 32091010.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 2270,
-      "output_tokens": 321,
-      "latency_ms": 1867,
-      "request_id": "b-XVauvyMc7Bvr0Poo-YuAM"
+      "input_tokens": 2482,
+      "output_tokens": 337,
+      "latency_ms": 1800,
+      "request_id": "nRPWauK0EfjD4-EP-Ozo0A4"
      }
     }
    ],
-   "wall_ms": 8156
+   "wall_ms": 1887
   },
   "test_040": {
    "calls": [
@@ -2127,22 +2127,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "134030b2a0f23cda",
+      "instruction": "dc168e399dd059a3",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 1889, \"confidence\": 0.95, \"reason\": \"Candidate 1889: wheat or meslin flour corresponds to wheat atta 10kg.\"}, {\"line\": 2, \"candidate_id\": 934, \"confidence\": 0.95, \"reason\": \"Candidate 934: ghee fits the description of ghee 1 kg tin.\"}, {\"line\": 3, \"candidate_id\": 7213, \"confidence\": 0.95, \"reason\": \"Candidate 7213: toothpaste in paste form fits toothpaste 150g.\"}, {\"line\": 4, \"candidate_id\": 14011, \"confidence\": 0.6, \"reason\": \"Candidate 14011: finishing ceramics is the best available candidate for ceramic floor tiles.\"}, {\"line\": 5, \"candidate_id\": 2989, \"confidence\": 0.9, \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink 2l.\"}, {\"line\": 6, \"candidate_id\": 12764, \"confidence\": 0.95, \"reason\": \"Candidate 12764: t-shirts of cotton corresponds to cotton t-shirt.\"}]}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat or meslin flour matches wheat atta.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee is specifically classified under this code.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits ceramic floor tiles correctly.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton matches cotton t-shirt.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 2775,
-      "output_tokens": 299,
-      "latency_ms": 1973,
-      "request_id": "hOXVaurwO_7YjuMPpaLtwA4"
+      "output_tokens": 364,
+      "latency_ms": 1811,
+      "request_id": "nxPWarjOE8-EjuMPnIq58Q4"
      }
     }
    ],
-   "wall_ms": 10186
+   "wall_ms": 1917
   },
   "test_042": {
    "calls": [
@@ -2177,22 +2177,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "3736f3693877fdf7",
+      "instruction": "6cd40417e4931760",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: Portland cement and similar hydraulic cements cover cement bags.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: Acrylic emulsion paint is classified under synthetic polymer emulsion paints.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: Courier services specifically cover courier delivery.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7237: Soap and preparations for use as soap cover bathing soap.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: Pneumatic tyres used on motor cycles cover two-wheeler tyres.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: Dentifrices in paste form cover toothpaste.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Maintenance and repair services of other machinery and equipment cover annual maintenance services.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: Exercise books cover exercise notebooks.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee is specifically classified under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: Wheat or meslin flour covers wheat atta.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Other furniture includes steel almirahs.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8364: Tubes, pipes and hoses of polymers of vinyl chloride cover PVC pipes.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: Cane sugar covers sugar bags.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines covers engine oil.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: Basmati rice is specifically classified under semi-milled or wholly-milled rice.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: Split system air conditioning machines cover split air conditioners.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: Light-emitting diode LED lamps cover LED bulbs.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: T-shirts of cotton cover cotton t-shirts.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: Other vegetables, fresh or chilled, cover fresh vegetables.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 9870,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9870: Uncoated paper and paperboard used for writing or printing covers printer paper.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19270: Colour television sets of specific screen size cover LED televisions.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 14011,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14011: Finishing ceramics covers ceramic floor tiles.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: Pan masala is specifically classified under food preparations.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated waters cover aerated soft drinks.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: Battery chargers cover mobile phone chargers.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: Light-emitting diode LED lamps cover LED bulbs.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: Split system air conditioning machines cover split air conditioners.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines covers engine oil.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Other furniture includes steel almirahs.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: Engine oil for internal combustion engines covers engine oil.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Other furniture includes steel almirahs.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: T-shirts of cotton cover cotton t-shirts.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: Pan masala is specifically classified under food preparations.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3464: cement 50kg bag falls under portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint falls under acrylic emulsion.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: courier service falls under courier services.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 7239: bathing soap falls under medicated toilet soaps or toilet use soaps.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7213: toothpaste falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 10158: exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls under ghee derived from milk.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1889: wheat atta falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12: steel almirah is furniture falling under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: PVC pipe falls under tubes, pipes and hoses of plastics.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.75,\n      \"reason\": \"Candidate 2605: sugar falls under cane sugar.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil falls under engine oil for internal combustion engines.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: basmati rice falls under basmati rice.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode lamps.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 1193: fresh vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 9870,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 9870: printer paper falls under uncoated paper and paperboard for writing or printing.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.75,\n      \"reason\": \"Candidate 19270: 43 inch LED television falls under television set of appropriate screen size.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14012: ceramic floor tiles fall under finishing ceramics.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala falls under pan masala.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 18645: mobile phone charger falls under static converters.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode lamps.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil falls under engine oil for internal combustion engines.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil falls under engine oil for internal combustion engines.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala falls under pan masala.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 16759,
-      "output_tokens": 2120,
-      "latency_ms": 5453,
-      "request_id": "oeXVapX9HfWIjuMPnoDHyA4"
+      "input_tokens": 16959,
+      "output_tokens": 2121,
+      "latency_ms": 5491,
+      "request_id": "oRPWasSLLs29juMP1P-PoQk"
      }
     }
    ],
-   "wall_ms": 31711
+   "wall_ms": 5946
   },
   "test_043": {
    "calls": [
@@ -2315,22 +2315,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "81b15a07b11132fe",
+      "instruction": "2fd262878f26958a",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates match a 43 inch LED television as all candidates are for screen sizes up to 87 cm.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste 150g is a dentifrice in paste form.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat atta is wheat flour.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala falls under food preparations specifically classified as pan masala.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee is explicitly listed under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters containing added sugar.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits the 43-inch screen size for the LED television.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in paste form falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat atta is wheat flour.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala falls under food preparations not elsewhere specified or included.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee is explicitly listed under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
       "input_tokens": 3287,
-      "output_tokens": 391,
-      "latency_ms": 1774,
-      "request_id": "xOXVar_1Nc6D1e8P8aL-4AM"
+      "output_tokens": 376,
+      "latency_ms": 1778,
+      "request_id": "pxPWavuSHqSHg8UP44_roA0"
      }
     }
    ],
-   "wall_ms": 23431
+   "wall_ms": 1871
   },
   "test_045": {
    "calls": [
@@ -2522,22 +2522,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "9acac0a01b27b5a7",
+      "instruction": "e2a02644b004f724",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19526: LED bulb 9W falls under light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 3464: Cement 50kg bag is classified under Portland cement, aluminous cement, slag cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 19272,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 19272: A 43-inch LED television (approx 109 cm) falls under color television sets of specific screen sizes.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: Cotton T-Shirt is best classified under knitted t-shirts of cotton.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: Engine oil 1L falls under internal combustion engine crankcase oils.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8364: PVC pipes fall under tubes, pipes and hoses of polymers of vinyl chloride.\"\n    }\n  ]\n}",
+      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 19526, \"confidence\": 0.9, \"reason\": \"Candidate 19526: LED Bulb 9W falls under light-emitting diode (LED) lamps.\"}, {\"line\": 2, \"candidate_id\": 3464, \"confidence\": 0.8, \"reason\": \"Candidate 3464: Cement 50kg bag falls under Portland cement and similar hydraulic cements.\"}, {\"line\": 3, \"candidate_id\": 19270, \"confidence\": 0.7, \"reason\": \"Candidate 19270: LED Television 43 inch (approx 109 cm) corresponds to colour television sets of screen size exceeding 54 cm.\"}, {\"line\": 4, \"candidate_id\": 12764, \"confidence\": 0.95, \"reason\": \"Candidate 12764: Cotton T-Shirt falls under T-shirts of cotton, knitted or crocheted.\"}, {\"line\": 5, \"candidate_id\": 3821, \"confidence\": 0.9, \"reason\": \"Candidate 3821: Engine Oil 1L falls under internal combustion engine crankcase oils.\"}, {\"line\": 6, \"candidate_id\": 8355, \"confidence\": 0.85, \"reason\": \"Candidate 8355: PVC Pipe 4 inch x 3m falls under tubes, pipes and hoses of plastics.\"}]}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 3970,
-      "output_tokens": 427,
-      "latency_ms": 2754,
-      "request_id": "4-XVatjoDrrLjuMP0YLf2A4"
+      "input_tokens": 3932,
+      "output_tokens": 337,
+      "latency_ms": 24182,
+      "request_id": "wBPWarfVCcvZjuMPw8qFuA4"
      }
     }
    ],
-   "wall_ms": 15629
+   "wall_ms": 24276
   },
   "test_049": {
    "calls": [
@@ -2568,22 +2568,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "1a78d735b87e6033",
+      "instruction": "7cd794d55e3fd774",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19526: LED Bulb 9W is classified under light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee 1 kg tin falls under ghee derived from milk.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 8366: PVC Pipe is classified under other tubes and pipes of polymers of vinyl chloride.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19526: LED Bulb 9W is classified as light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee 1 kg tin falls specifically under ghee of milk-derived fats.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8355: PVC Pipe matches tubes, pipes and hoses of plastics.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 1671,
+      "input_tokens": 1633,
       "output_tokens": 208,
-      "latency_ms": 1713,
-      "request_id": "6uXVauPZKPjD4-EP-Ozo0A4"
+      "latency_ms": 1692,
+      "request_id": "wRPWaqSnN7G7juMP-OL06Ak"
      }
     }
    ],
-   "wall_ms": 6674
+   "wall_ms": 1764
   },
   "test_050": {
    "calls": [
@@ -2614,22 +2614,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "51d6efdf6d315e8c",
+      "instruction": "ed082de44dea3677",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint is specifically covered under this code.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton fall precisely under this specific HSN code.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8366: PVC pipes fall under polymers of vinyl chloride other than seamless tubes.\"\n    }\n  ]\n}",
+      "text": "{\"choices\": [{\"line\": 1, \"candidate_id\": 7011, \"confidence\": 0.95, \"reason\": \"Candidate 7011: acrylic emulsion paint is accurately classified under acrylic emulsion.\"}, {\"line\": 2, \"candidate_id\": 12764, \"confidence\": 0.95, \"reason\": \"Candidate 12764: cotton t-shirts fall under T-shirts of cotton.\"}, {\"line\": 3, \"candidate_id\": 8355, \"confidence\": 0.8, \"reason\": \"Candidate 8355: PVC pipes fall under tubes, pipes and hoses of plastics.\"}]}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 1641,
-      "output_tokens": 203,
-      "latency_ms": 7303,
-      "request_id": "9uXVapeaHInXrfcP-NjxgAg"
+      "input_tokens": 1603,
+      "output_tokens": 150,
+      "latency_ms": 1294,
+      "request_id": "wxPWapDZMYvb4-EPiLjtsQc"
      }
     }
    ],
-   "wall_ms": 11537
+   "wall_ms": 1384
   },
   "test_051": {
    "calls": [
@@ -2706,22 +2706,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "5fe927c05ae27fb0",
+      "instruction": "9297a369176399c1",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1889,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1889: wheat or meslin flour matches wheat atta.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8364: tubes, pipes and hoses of polymers of vinyl chloride matches PVC pipe.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 934,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 934: ghee falls under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: other furniture and parts thereof matches steel almirah.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil for internal combustion engines matches engine oil.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: dentifrices in paste matches toothpaste.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: acrylic emulsion matches emulsion paint.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: cane sugar matches sugar.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: basmati rice matches basmati rice.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 19272,\n      \"confidence\": 0.6,\n      \"reason\": \"Candidate 19272: television set of screen size exceeding 74 cm is the closest available size category.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton matches cotton t-shirt.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: pneumatic tyres of a kind used on motorcycles matches two-wheeler tyre.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: other vegetables, fresh or chilled matches fresh vegetables.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 22388: maintenance and repair services of other machinery and equipments matches annual maintenance service.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier services matches courier service.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18671: battery chargers matches mobile phone charger.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: light-emitting diode (LED) lamps matches LED bulb.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 14013,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14013: finishing ceramics matches ceramic floor tiles.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10158: exercise books matches exercise notebook.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: hydraulic cements matches cement.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: pan masala matches pan masala.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 9868,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 9868: uncoated paper matches printer paper.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 7239,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 7239: soap for toilet use matches bathing soap.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 16978: split system air conditioning machines matches split air conditioner.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: aerated waters matches aerated soft drink.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 9868,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 9868: uncoated paper matches printer paper.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair service.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3821: engine oil matches engine oil.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: t-shirts of cotton matches cotton t-shirt.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1887,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1887: wheat atta falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: PVC pipes fall under tubes, pipes and hoses of plastics.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 934,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 934: ghee falls under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil falls under petroleum oils and preparations.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7213: toothpaste in paste form falls under dentifrices.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 7011,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7011: acrylic emulsion paint falls under paints based on acrylic or vinyl polymers.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: sugar falls under cane sugar.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1824: basmati rice falls under semi-milled or wholly-milled basmati rice.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 19272,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 19272: LED television falls under reception apparatus for television.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate none fits: no candidate matches plumbing repair service correctly.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: fresh vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipment.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22098: courier service falls under courier services.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18645: mobile phone charger falls under static converters.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb falls under light-emitting diode lamps.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 14013,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 14013: ceramic floor tiles fall under finishing ceramics.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 10158,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 10158: exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: cement falls under portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2968: pan masala falls under food preparations not elsewhere specified.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate none fits: no candidate correctly matches uncoated paper for writing or printing.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7237: bathing soap falls under soap and organic surface-active products.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate none fits: no candidate correctly matches uncoated paper for writing or printing.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 21938,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21938: plumbing repair service falls under services by way of house-keeping such as plumbing.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 3821: engine oil falls under petroleum oils and preparations.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 14871,
-      "output_tokens": 1815,
-      "latency_ms": 5199,
-      "request_id": "HebVapCzAvTrrfcPjcifgQo"
+      "input_tokens": 15081,
+      "output_tokens": 1859,
+      "latency_ms": 4883,
+      "request_id": "xRPWaur2J42MjuMPsKLS8A4"
      }
     }
    ],
-   "wall_ms": 29277
+   "wall_ms": 5285
   },
   "test_053": {
    "calls": [
@@ -2752,22 +2752,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "f875bedc0217e2db",
+      "instruction": "89a1775d70ed0ac7",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: other vegetables, fresh or chilled matches assorted fresh vegetables.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: tyres of a kind used on motor cycles fits two-wheeler tyre.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8366,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 8366: other PVC pipes of polymers of vinyl chloride fits general PVC pipes.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: maintenance and repair services of other machinery and equipments fits general annual maintenance service.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: assorted fresh vegetables fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 8830: a two-wheeler tyre is of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: tubes, pipes and hoses of plastics covers PVC pipes.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.7,\n      \"reason\": \"Candidate 22388: general annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 1593,
+      "input_tokens": 1555,
       "output_tokens": 268,
-      "latency_ms": 1614,
-      "request_id": "J-bVauDXE4DerfcP2IyquQ8"
+      "latency_ms": 1600,
+      "request_id": "yhPWat_0LMDLjuMPjP-4wA4"
      }
     }
    ],
-   "wall_ms": 7297
+   "wall_ms": 1702
   },
   "test_054": {
    "calls": [
@@ -2959,22 +2959,22 @@
      "request": {
       "model": "gemini-3.5-flash-lite",
       "system": "efa3c944958419ba",
-      "instruction": "4a31d454922d757e",
+      "instruction": "7c19d1da56f57c83",
       "schema": "SelectionOutput",
       "images": []
      },
      "reply": {
-      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: cement 50kg bag falls under portland cement.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2968: pan masala falls under food preparations.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"Candidate none: plumbing repair service has no matching candidate in the list.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7237: bathing soap falls under soap and preparations for use as soap.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: ghee falls under butter and other fats and oils derived from milk.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 10157,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10157: exercise notebook falls under exercise books.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: courier service falls under courier services.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: steel almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 8364,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 8364: PVC pipe falls under tubes, pipes and hoses of polymers of vinyl chloride.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 19270,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 19270: 43 inch LED television falls under television set of screen size exceeding 54 cm but not exceeding 68 cm.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 1887,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1887: wheat atta falls under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 2605,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2605: sugar 50kg bag falls under cane sugar.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: fresh vegetables assorted fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb 9W falls under light-emitting diode lamps.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 14012: ceramic floor tiles fall under finishing ceramics.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 7015,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7015: emulsion paint falls under emulsion paints not elsewhere specified or included.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: basmati rice falls under basmati rice.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: mobile phone charger falls under battery chargers.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 9870,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9870: printer paper A4 falls under uncoated paper and paperboard of a kind used for writing, printing or other graphic purposes.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: split air conditioner falls under split system air conditioning machines.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: engine oil falls under engine oil conforming to standard IS 13655.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: toothpaste in 150g falls under dentifrices in paste.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: cotton t-shirt falls under t-shirts of cotton.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7237: bathing soap falls under soap and preparations for use as soap.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 9870,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9870: printer paper A4 falls under uncoated paper for writing or printing.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: two-wheeler tyre falls under tyres of a kind used on motor cycles.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: annual maintenance service falls under maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb 9W falls under light-emitting diode lamps.\"\n    },\n    {\n      \"line\": 35,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: basmati rice falls under basmati rice.\"\n    },\n    {\n      \"line\": 36,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED bulb 9W falls under light-emitting diode lamps.\"\n    },\n    {\n      \"line\": 37,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: fresh vegetables assorted fall under other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 38,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: mobile phone charger falls under battery chargers.\"\n    },\n    {\n      \"line\": 39,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 2989: aerated soft drink falls under aerated waters.\"\n    }\n  ]\n}",
+      "text": "{\n  \"choices\": [\n    {\n      \"line\": 1,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated Soft Drink 2L is best classified as aerated waters.\"\n    },\n    {\n      \"line\": 2,\n      \"candidate_id\": 3464,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 3464: Cement 50kg bag falls under Portland cement and similar hydraulic cements.\"\n    },\n    {\n      \"line\": 3,\n      \"candidate_id\": 2968,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2968: Pan Masala 100g falls directly under pan masala food preparations.\"\n    },\n    {\n      \"line\": 4,\n      \"candidate_id\": null,\n      \"confidence\": 0.0,\n      \"reason\": \"None of the candidates fits plumbing repair services.\"\n    },\n    {\n      \"line\": 5,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7237: Bathing Soap is classified under soap and organic surface-active products.\"\n    },\n    {\n      \"line\": 6,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: Two-wheeler Tyre is pneumatic tyre used on motorcycles.\"\n    },\n    {\n      \"line\": 7,\n      \"candidate_id\": 934,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 934: Ghee 1 kg tin is specifically classified under ghee.\"\n    },\n    {\n      \"line\": 8,\n      \"candidate_id\": 10157,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 10157: Exercise Notebook is classified as exercise books.\"\n    },\n    {\n      \"line\": 9,\n      \"candidate_id\": 22098,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 22098: Courier Service directly matches courier services.\"\n    },\n    {\n      \"line\": 10,\n      \"candidate_id\": 21193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 21193: Steel Almirah falls under other furniture and parts thereof.\"\n    },\n    {\n      \"line\": 11,\n      \"candidate_id\": 8355,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8355: PVC Pipe is classified as tubes, pipes and hoses of plastics.\"\n    },\n    {\n      \"line\": 12,\n      \"candidate_id\": 19269,\n      \"confidence\": 0.85,\n      \"reason\": \"Candidate 19269: LED Television 43 inch corresponds to colour television with screen size exceeding 36 cm but not exceeding 54 cm.\"\n    },\n    {\n      \"line\": 13,\n      \"candidate_id\": 1887,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1887: Wheat Atta 10kg is classified under wheat or meslin flour.\"\n    },\n    {\n      \"line\": 14,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Annual Maintenance Service is maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 15,\n      \"candidate_id\": 2614,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 2614: Sugar 50kg bag can be categorized under cane sugar variants like khandsari sugar.\"\n    },\n    {\n      \"line\": 16,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: Fresh Vegetables are classified as other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 17,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED Bulb 9W is classified as light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 18,\n      \"candidate_id\": 14012,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 14012: Ceramic Floor Tiles fall under finishing ceramics.\"\n    },\n    {\n      \"line\": 19,\n      \"candidate_id\": 7015,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7015: Emulsion Paint 20L is categorized as emulsion paints not elsewhere specified or included.\"\n    },\n    {\n      \"line\": 20,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: Basmati Rice 25kg bag is specifically classified as basmati rice.\"\n    },\n    {\n      \"line\": 21,\n      \"candidate_id\": 18645,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 18645: Mobile Phone Charger is classified under static converters / electrical transformers.\"\n    },\n    {\n      \"line\": 22,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: Cotton T-Shirt is classified as T-shirts of cotton.\"\n    },\n    {\n      \"line\": 23,\n      \"candidate_id\": 9868,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9868: Printer Paper A4 falls under uncoated paper and paperboard for printing.\"\n    },\n    {\n      \"line\": 24,\n      \"candidate_id\": 16978,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 16978: Split Air Conditioner 1.5 Ton is classified as a split system air conditioning machine.\"\n    },\n    {\n      \"line\": 25,\n      \"candidate_id\": 3821,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 3821: Engine Oil 1L is specifically engine oil for internal combustion engines.\"\n    },\n    {\n      \"line\": 26,\n      \"candidate_id\": 7213,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 7213: Toothpaste 150g is classified as dentifrices in paste form.\"\n    },\n    {\n      \"line\": 27,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: Cotton T-Shirt is classified as T-shirts of cotton.\"\n    },\n    {\n      \"line\": 28,\n      \"candidate_id\": 12764,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 12764: Cotton T-Shirt is classified as T-shirts of cotton.\"\n    },\n    {\n      \"line\": 29,\n      \"candidate_id\": 7237,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 7237: Bathing Soap is classified under soap and organic surface-active products.\"\n    },\n    {\n      \"line\": 30,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: Two-wheeler Tyre is pneumatic tyre used on motorcycles.\"\n    },\n    {\n      \"line\": 31,\n      \"candidate_id\": 9868,\n      \"confidence\": 0.8,\n      \"reason\": \"Candidate 9868: Printer Paper A4 falls under uncoated paper and paperboard for printing.\"\n    },\n    {\n      \"line\": 32,\n      \"candidate_id\": 8830,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 8830: Two-wheeler Tyre is pneumatic tyre used on motorcycles.\"\n    },\n    {\n      \"line\": 33,\n      \"candidate_id\": 22388,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 22388: Annual Maintenance Service is maintenance and repair services of other machinery and equipments.\"\n    },\n    {\n      \"line\": 34,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED Bulb 9W is classified as light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 35,\n      \"candidate_id\": 1824,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 1824: Basmati Rice 25kg bag is specifically classified as basmati rice.\"\n    },\n    {\n      \"line\": 36,\n      \"candidate_id\": 19526,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 19526: LED Bulb 9W is classified as light-emitting diode (LED) lamps.\"\n    },\n    {\n      \"line\": 37,\n      \"candidate_id\": 1193,\n      \"confidence\": 0.9,\n      \"reason\": \"Candidate 1193: Fresh Vegetables are classified as other vegetables, fresh or chilled.\"\n    },\n    {\n      \"line\": 38,\n      \"candidate_id\": 18671,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 18671: Mobile Phone Charger is specifically classified as battery chargers.\"\n    },\n    {\n      \"line\": 39,\n      \"candidate_id\": 2989,\n      \"confidence\": 0.95,\n      \"reason\": \"Candidate 2989: Aerated Soft Drink 2L is best classified as aerated waters.\"\n    }\n  ]\n}",
       "model": "gemini-3.5-flash-lite",
       "stop_reason": "end_turn",
-      "input_tokens": 18787,
-      "output_tokens": 2511,
-      "latency_ms": 6091,
-      "request_id": "b-bVasvuKbHjjuMPxcSmmQo"
+      "input_tokens": 18961,
+      "output_tokens": 2570,
+      "latency_ms": 6390,
+      "request_id": "zRPWat_zCvrOjuMPyMKWsQk"
      }
     }
    ],
-   "wall_ms": 37569
+   "wall_ms": 6907
   },
   "test_058": {
    "calls": [

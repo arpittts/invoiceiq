@@ -24,6 +24,9 @@ spec.loader.exec_module(ingest)
         ("9603 [other than 9603 10 00]", ["9603"]),  # exclusions are ignored
         ("Any Chapter", []),
         ("8516 or 8517", ["8516", "8517"]),
+        # A bare pair after a tariff item is that item's ending, not a chapter
+        ("2906 11 10, 30, 3301", ["29061110", "29061130", "3301"]),
+        ("2403 (other than 2403 19 21, 2403 19 29)", ["2403"]),
     ],
 )
 def test_parse_codes(text, codes):
@@ -68,7 +71,7 @@ def test_conflicting_entries_give_no_single_rate():
 
 def test_code_without_entry():
     rate, note = ingest.assign_rate("01011010", index(entry("I", 1, "0401", "5")))
-    assert rate is None and "No entry" in note
+    assert rate is None and "No rate entry" in note
 
 
 def test_rates_print_without_scientific_notation():
@@ -77,4 +80,62 @@ def test_rates_print_without_scientific_notation():
 
 
 def test_amendment_01_2026_is_applied_by_schedule_and_serial():
-    assert ingest.AMENDMENT_01_2026[("III", 2)] == "2202 91 00, 2202 99 91, 2202 99 99"
+    assert ingest.AMENDMENT_01_2026[("III", "2")] == "2202 91 00, 2202 99 91, 2202 99 99"
+
+
+def test_a_chapter_wide_entry_never_gives_a_single_rate():
+    """Sch I S.No 19 is listed under Chapter 07 but means only dried herbs ('jaribooti');
+    it once gave every fresh vegetable 5%."""
+    rates = index(entry("I", "19", "07", "5", "Herb, bark, dry plant, dry root"))
+    rate, note = ingest.assign_rate("07020000", rates)
+    assert rate is None and "chapter-wide" in note
+
+
+def test_an_exemption_gives_nil_and_cites_10_2025():
+    rates = index(
+        entry("I", "19", "07", "5", "Herb, bark, dry plant"),
+        entry("Nil", "28", "0702", "0", "Tomatoes, fresh or chilled"),
+    )
+    rate, note = ingest.assign_rate("07020000", rates)
+    assert rate == Decimal(0) and "Notification 10/2025 S.No 28 (nil rated)" in note
+
+
+def test_a_conditional_exemption_leaves_the_rate_to_a_person():
+    """Rice is nil when loose, 5% when pre-packaged and labelled: no single rate."""
+    rates = index(
+        entry("I", "48", "1006", "5", "Rice, pre-packaged and labelled"),
+        entry("Nil", "60", "1006", "0", "Rice, other than pre-packaged and labelled"),
+    )
+    rate, note = ingest.assign_rate("10063020", rates)
+    assert rate is None and "0% or 5%" in note
+
+
+def test_amendment_19_2025_moves_tobacco_to_40_and_removes_the_28_schedule():
+    inserted = {
+        (schedule, serial): Decimal(central) * 2
+        for schedule, serial, _, _, central in ingest.AMENDMENT_19_2025_INSERT
+    }
+    assert inserted[("III", "14")] == Decimal(40)  # pan masala
+    assert inserted[("II", "4A")] == Decimal(18)  # biris
+    assert ingest.AMENDMENT_19_2025_OMIT == {"VII"}
+    rates = index(
+        *(
+            entry(schedule, serial, codes, Decimal(central) * 2, description)
+            for schedule, serial, codes, description, central in ingest.AMENDMENT_19_2025_INSERT
+        )
+    )
+    assert ingest.assign_rate("21069020", rates)[0] == Decimal(40)
+    assert ingest.assign_rate("24031921", rates)[0] == Decimal(18)  # biris, more specific
+    assert ingest.assign_rate("24039910", rates)[0] == Decimal(40)  # other tobacco
+
+
+def test_services_get_rates_only_where_15_2025_restates_the_heading():
+    services = {}
+    for e in ingest.service_entries():
+        services.setdefault(e.codes[0], []).append(e)
+    assert ingest.assign_rate("996812", services)[0] == Decimal(18)  # courier
+    beauty_rate, beauty_note = ingest.assign_rate("999721", services)
+    assert beauty_rate == Decimal(5) and "input tax credit" in beauty_note
+    assert ingest.assign_rate("999711", services)[0] == Decimal(18)  # washing, cleaning
+    assert ingest.assign_rate("998819", services)[0] is None  # job work: depends on the goods
+    assert ingest.assign_rate("998719", services)[0] is None  # repairs: not loaded

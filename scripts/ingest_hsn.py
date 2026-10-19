@@ -3,7 +3,13 @@
 Inputs (downloaded by hand, kept out of git):
 - HSN_SAC.xlsx: the GST portal's HSN directory (sheets HSN_MSTR and SAC_MSTR)
 - Notification 09/2025-Central Tax (Rate): goods rate schedules (CGST %; GST = 2x)
+- Notification 19/2025-Central Tax (Rate): pan masala and tobacco to 40% and biris to
+  18% from 1 Feb 2026, and the 28% schedule removed (applied below, from its text)
 - Notification 01/2026-Central Tax (Rate): its May 2026 amendment (applied below)
+- Notification 10/2025-Central Tax (Rate): nil-rated (exempt) goods
+- Notification 15/2025-Central Tax (Rate): services. Only the three headings it
+  restates in full are used (see SERVICE_RATES_15_2025); every other service stays
+  "not loaded", because no up-to-date consolidated 11/2017 is available.
 
 One row per code, no text splitting: each code is already a small, self-contained
 document. Each row gets its parent heading as context, an embedding of
@@ -12,7 +18,8 @@ document. Each row gets its parent heading as context, an embedding of
 Rates are INDICATIVE: many schedule entries carry conditions in their description
 ("pre-packaged and labelled", "of value not exceeding Rs 2500"), and exemptions live
 in other notifications. Each row's source_note names the schedule entry it used,
-so a reviewer can check the condition. Amendment 19/2025 (31 Dec 2025) is not applied.
+so a reviewer can check the condition. An entry listed for a whole chapter ("07: herb,
+bark, dry plant...") names specific goods, so it never gives a single rate on its own.
 
 Re-running is safe: existing codes are updated in place (ids stay stable, so saved
 suggestions stay linked), new codes are added and codes no longer listed removed.
@@ -35,15 +42,50 @@ sys.path.insert(0, str(REPO / "backend"))
 
 DIRECTORY_FILE = "HSN_SAC.xlsx"
 RATE_NOTIFICATION = "266209.pdf"  # 09/2025-Central Tax (Rate), as published in the Gazette
+EXEMPTION_NOTIFICATION = "10-2025-CTR-eng.pdf"  # 10/2025-Central Tax (Rate), nil-rated goods
 FIRST_ENGLISH_PAGE = 76  # the Gazette prints Hindi first; English starts on page 76
 
 # Notification 01/2026-Central Tax (Rate): column (2) of these entries is replaced.
 AMENDMENT_01_2026 = {
-    ("I", 150): "2202 99 21, 2202 99 29",
-    ("I", 151): "22029931, 22029939",
-    ("III", 2): "2202 91 00, 2202 99 91, 2202 99 99",
-    ("III", 3): "2202 99 91, 2202 99 99",
+    ("I", "150"): "2202 99 21, 2202 99 29",
+    ("I", "151"): "22029931, 22029939",
+    ("III", "2"): "2202 91 00, 2202 99 91, 2202 99 99",
+    ("III", "3"): "2202 99 91, 2202 99 99",
 }
+
+# Notification 19/2025-Central Tax (Rate), in force from 1 Feb 2026: Schedule VII (14%
+# central tax, 28% GST) is omitted, and these entries are inserted. (schedule, S. No.,
+# codes as printed, description, central tax %)
+AMENDMENT_19_2025_OMIT = {"VII"}
+AMENDMENT_19_2025_INSERT = [
+    ("II", "4A", "2403 19 21, 2403 19 29", "Biris", "9"),
+    ("III", "14", "2106 90 20", "Pan masala", "20"),
+    ("III", "15", "2401", "Unmanufactured tobacco; tobacco refuse [other than tobacco leaves]",
+     "20"),
+    ("III", "16", "2402", "Cigars, cheroots, cigarillos and cigarettes, of tobacco or of "
+     "tobacco substitutes", "20"),
+    ("III", "17", "2403 (other than 2403 19 21, 2403 19 29)", "Other manufactured tobacco and "
+     "manufactured tobacco substitutes; homogenised or reconstituted tobacco; tobacco extracts "
+     "and essences [other than biris]", "20"),
+    ("III", "18", "2404 11 00", "Products containing tobacco or reconstituted tobacco and "
+     "intended for inhalation without combustion", "20"),
+    ("III", "19", "2404 19 00", "Products containing tobacco or nicotine substitutes and "
+     "intended for inhalation without combustion", "20"),
+]  # fmt: skip
+
+# Notification 15/2025-Central Tax (Rate) restates three service headings of 11/2017 in
+# full, so only these get rates. (S. No. in 11/2017, SAC prefix, description, central tax %)
+# Heading 9988 (job work) has several rates by the goods worked on: no single rate.
+SERVICE_RATES_15_2025 = [
+    ("12", "9968", "Postal, courier, local delivery and other delivery services", "9"),
+    ("35(i)", "99972", "Beauty and physical well-being services, if input tax credit is not "
+     "taken (a mandatory rate)", "2.5"),
+    ("35(ii)", "9997", "Other services (washing, cleaning, dyeing; miscellaneous services)", "9"),
+    ("26(i)", "9988", "Job work: diamonds (Chapter 71)", "0.75"),
+    ("26(ii)", "9988", "Job work: food, textiles, printing of books and other listed goods",
+     "2.5"),
+    ("26(iii-iv)", "9988", "Job work: alcoholic liquor; any other job work", "9"),
+]  # fmt: skip
 
 
 # ---------------------------------------------------------------------------
@@ -66,15 +108,19 @@ def parse_codes(text: str) -> list[str]:
                 codes += [str(n).zfill(len(a)) for n in range(int(a), int(b) + 1)]
             continue
         digits = "".join(re.findall(r"\d+", segment))
-        if len(digits) in (2, 4, 6, 8):
+        if len(digits) == 2 and codes and len(codes[-1]) == 8 and segment.strip() == digits:
+            # '2906 11 10, 30' lists 2906 11 30 too: a bare pair after a tariff item
+            # is that item's last two digits, not Chapter 30.
+            codes.append(codes[-1][:6] + digits)
+        elif len(digits) in (2, 4, 6, 8):
             codes.append(digits)
     return codes
 
 
 @dataclass
 class RateEntry:
-    schedule: str  # "I", "II", ...
-    serial: int
+    schedule: str  # "I", "II", ..., "Nil" (exemptions), "Services"
+    serial: str  # "150", "4A"
     codes_text: str
     description: str
     gst_rate: Decimal  # total GST: twice the CGST rate in the schedule
@@ -116,20 +162,59 @@ def parse_rate_schedules(pdf_path: Path) -> list[RateEntry]:
                 if len(cells) < 3:
                     continue
                 serial, codes_text, description = cells[0], " ".join(cells[1:-1]), cells[-1]
-                number = re.fullmatch(r"(\d+)[A-Z]?\.?", serial)
+                number = re.fullmatch(r"(\d+[A-Z]?)\.?", serial)
                 if number:
                     entries.append(
                         RateEntry(
-                            schedule[0], int(number.group(1)), codes_text, description, schedule[1]
+                            schedule[0], number.group(1), codes_text, description, schedule[1]
                         )
                     )
                 elif entries and not serial:  # a row continued from the previous one
                     entries[-1].codes_text = f"{entries[-1].codes_text} {codes_text}".strip()
                     entries[-1].description = f"{entries[-1].description} {description}".strip()
 
+    # Notification 19/2025: drop the 28% schedule, add the new 40% and 18% entries.
+    entries = [e for e in entries if e.schedule not in AMENDMENT_19_2025_OMIT]
+    for schedule, serial, codes_text, description, central in AMENDMENT_19_2025_INSERT:
+        entries.append(RateEntry(schedule, serial, codes_text, description, Decimal(central) * 2))
+
     for entry in entries:
         entry.codes_text = AMENDMENT_01_2026.get((entry.schedule, entry.serial), entry.codes_text)
         entry.codes = parse_codes(entry.codes_text)
+    return entries
+
+
+def parse_exemptions(pdf_path: Path) -> list[RateEntry]:
+    """The nil-rated goods of Notification 10/2025 (S. No., code, description rows)."""
+    import pymupdf
+
+    entries: list[RateEntry] = []
+    for page in pymupdf.open(pdf_path):
+        for table in page.find_tables().tables:
+            for row in table.extract():
+                cells = [" ".join((cell or "").split()) for cell in row]
+                if len(cells) != 3:  # the 2-column annexure lists instruments, not codes
+                    continue
+                serial, codes_text, description = cells
+                number = re.fullmatch(r"(\d+[A-Z]?)\.?", serial)
+                if number:
+                    entries.append(
+                        RateEntry("Nil", number.group(1), codes_text, description, Decimal(0))
+                    )
+                elif entries and not serial and codes_text + description:
+                    entries[-1].codes_text = f"{entries[-1].codes_text} {codes_text}".strip()
+                    entries[-1].description = f"{entries[-1].description} {description}".strip()
+    for entry in entries:
+        entry.codes = parse_codes(entry.codes_text)
+    return entries
+
+
+def service_entries() -> list[RateEntry]:
+    entries = []
+    for serial, prefix, description, central in SERVICE_RATES_15_2025:
+        entry = RateEntry("Services", serial, prefix, description, Decimal(central) * 2)
+        entry.codes = [prefix]
+        entries.append(entry)
     return entries
 
 
@@ -154,15 +239,25 @@ def assign_rate(code: str, by_prefix: dict[str, list[RateEntry]]) -> tuple[Decim
         if not matches:
             continue
         rates = sorted({entry.gst_rate for entry in matches})
-        cited = "; ".join(
-            f"Sch {e.schedule} S.No {e.serial} ({pct(e.gst_rate)}%): {e.description[:120]}"
-            for e in matches[:3]
-        )
-        if len(rates) == 1:
+        cited = "; ".join(cite(e) for e in matches[:3])
+        if len(rates) == 1 and length > 2:
             return rates[0], cited
         options = " or ".join(f"{pct(rate)}%" for rate in rates)
+        if length == 2:  # a whole-chapter entry names specific goods, not the chapter
+            return None, f"Only a chapter-wide entry for specific goods ({options}). {cited}"
         return None, f"Rate depends on the description ({options}). {cited}"
-    return None, "No entry in Notification 09/2025 (may be exempt or listed elsewhere)"
+    return None, "No rate entry found (may be listed in another notification)"
+
+
+def cite(entry: RateEntry) -> str:
+    if entry.schedule == "Nil":
+        where = f"Notification 10/2025 S.No {entry.serial} (nil rated)"
+    elif entry.schedule == "Services":
+        rate = pct(entry.gst_rate)
+        where = f"Notification 11/2017 S.No {entry.serial} as restated by 15/2025 ({rate}%)"
+    else:
+        where = f"Sch {entry.schedule} S.No {entry.serial} ({pct(entry.gst_rate)}%)"
+    return f"{where}: {entry.description[:120]}"
 
 
 # ---------------------------------------------------------------------------
@@ -239,9 +334,9 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="parse and report, don't write")
     parser.add_argument(
         "--embed",
-        choices=["all", "fragments"],
+        choices=["all", "fragments", "none"],
         default="all",
-        help="recompute embeddings for all rows, or only fragment rows",
+        help="recompute embeddings for all rows, only fragment rows, or none (rates only)",
     )
     args = parser.parse_args()
     folder = (REPO / args.dir) if not Path(args.dir).is_absolute() else Path(args.dir)
@@ -249,17 +344,24 @@ def main() -> None:
     started = time.time()
     codes = read_directory(folder / DIRECTORY_FILE)
     entries = parse_rate_schedules(folder / RATE_NOTIFICATION)
+    exemptions = parse_exemptions(folder / EXEMPTION_NOTIFICATION)
     by_prefix: dict[str, list[RateEntry]] = {}
-    for entry in entries:
+    for entry in entries + exemptions:
         for code in entry.codes:
             by_prefix.setdefault(code, []).append(entry)
+    services_by_prefix: dict[str, list[RateEntry]] = {}
+    for entry in service_entries():
+        services_by_prefix.setdefault(entry.codes[0], []).append(entry)
 
     source = f"GST portal HSN directory (downloaded {args.downloaded})"
     records = []
     for row in codes:
-        rate, rate_note = (None, "Services rates not loaded (no consolidated notification)")
         if row.kind == "HSN":
             rate, rate_note = assign_rate(row.code, by_prefix)
+        else:
+            rate, rate_note = assign_rate(row.code, services_by_prefix)
+            if rate_note.startswith("No rate entry"):
+                rate_note = "Services rate not loaded (only headings restated by 15/2025 are)"
         records.append(
             {
                 "code": row.code,
@@ -268,22 +370,31 @@ def main() -> None:
                 "heading": row.heading,
                 "chapter": row.code[:2],
                 "default_gst_rate": rate,
-                "source_note": f"{source}. Rate (indicative, Notification 09/2025-CT(Rate) "
-                f"as amended by 01/2026): {rate_note}",
+                "source_note": f"{source}. Rate (indicative; goods: Notification "
+                f"09/2025-CT(Rate) as amended by 19/2025 and 01/2026, nil-rated goods 10/2025; "
+                f"services: 15/2025): {rate_note}",
             }
         )
 
     hsn = [r for r in records if r["kind"] == "HSN"]
     with_rate = sum(r["default_gst_rate"] is not None for r in hsn)
     ambiguous = sum("depends on the description" in r["source_note"] for r in hsn)
+    chapter_only = sum("chapter-wide entry" in r["source_note"] for r in hsn)
     print(f"Directory: {len(hsn)} HSN + {len(records) - len(hsn)} SAC codes")
     print(
         f"Rate schedule entries parsed: {len(entries)} "
-        f"({sum(not e.codes for e in entries)} without a code, e.g. 'Any Chapter')"
+        f"({sum(not e.codes for e in entries)} without a code, e.g. 'Any Chapter'); "
+        f"nil-rated entries: {len(exemptions)}"
+    )
+    sac = [r for r in records if r["kind"] == "SAC"]
+    print(
+        f"SAC codes with a rate: {sum(r['default_gst_rate'] is not None for r in sac)} "
+        f"of {len(sac)}"
     )
     print(
         f"HSN codes with a rate: {with_rate} ({with_rate / len(hsn):.0%}); "
-        f"rate depends on description: {ambiguous}; no entry: {len(hsn) - with_rate - ambiguous}"
+        f"rate depends on description: {ambiguous}; only a chapter-wide entry: {chapter_only}; "
+        f"no entry: {len(hsn) - with_rate - ambiguous - chapter_only}"
     )
     if args.dry_run:
         return
@@ -296,7 +407,9 @@ def main() -> None:
 
     embedder = get_embedder()
     to_embed = [
-        i for i, r in enumerate(records) if args.embed == "all" or is_fragment(r["description"])
+        i
+        for i, r in enumerate(records)
+        if args.embed == "all" or (args.embed == "fragments" and is_fragment(r["description"]))
     ]
     texts = [
         embedding_text(records[i]["code"], records[i]["description"], records[i]["heading"])

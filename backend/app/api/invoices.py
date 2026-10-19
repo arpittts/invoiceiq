@@ -1,5 +1,8 @@
+import csv
 import hashlib
+import io
 from datetime import date
+from decimal import Decimal
 from typing import Annotated
 
 import pymupdf
@@ -9,8 +12,10 @@ from sqlalchemy.orm import selectinload
 
 from app.config import get_settings
 from app.deps import CurrentUser, DbSession
-from app.models import ExtractionRun, Invoice, InvoiceFile, InvoiceStatus
+from app.models import ExtractionRun, Invoice, InvoiceFile, InvoiceStatus, ReviewEvent
+from app.ratelimit import limit_user
 from app.schemas.invoice import (
+    DemoResponse,
     ExtractionSummary,
     InvoiceDetailResponse,
     InvoiceListResponse,
@@ -18,10 +23,11 @@ from app.schemas.invoice import (
     InvoiceUpdate,
     InvoiceUploadResponse,
 )
-from app.services import review
+from app.services import budget, demo, review
 from app.services.extraction import process_invoice
 from app.services.pdf import render_pages
 from app.services.storage import load_file, save_file
+from app.services.validation import india_today
 
 router = APIRouter(prefix="/invoices", tags=["invoices"])
 
@@ -51,7 +57,20 @@ def count_pages(content: bytes, mime_type: str) -> int:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "The PDF could not be read") from None
 
 
-@router.post("", response_model=InvoiceUploadResponse, status_code=status.HTTP_201_CREATED)
+def _ensure_ai_available() -> None:
+    """Refuse new AI work once today's cap is reached (the demo invoices still work)."""
+    try:
+        budget.ensure_available()
+    except budget.DailyCapReached as error:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, str(error)) from None
+
+
+@router.post(
+    "",
+    response_model=InvoiceUploadResponse,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[limit_user("upload")],
+)
 async def upload_invoice(
     file: UploadFile, user: CurrentUser, db: DbSession, background_tasks: BackgroundTasks
 ) -> Invoice:
@@ -80,6 +99,8 @@ async def upload_invoice(
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST, f"PDF has more than {settings.max_pages} pages"
         )
+
+    _ensure_ai_available()
 
     invoice_file = InvoiceFile(
         user_id=user.id,
@@ -132,27 +153,83 @@ def list_invoices(
         .limit(limit)
         .offset(offset)
     ).all()
-    items = [
-        InvoiceSummary(
-            id=inv.id,
-            status=inv.status,
-            created_at=inv.created_at,
-            original_name=inv.file.original_name,
-            vendor_name=inv.vendor_name,
-            invoice_number=inv.invoice_number,
-            invoice_date=inv.invoice_date,
-            total=inv.total,
-            overall_confidence=inv.overall_confidence,
-            open_errors=sum(
-                i.severity == "error" and not i.resolved for i in inv.validation_issues
-            ),
-            open_warnings=sum(
-                i.severity == "warning" and not i.resolved for i in inv.validation_issues
-            ),
-        )
-        for inv in invoices
-    ]
-    return InvoiceListResponse(items=items, total=total)
+    return InvoiceListResponse(items=[summarise(inv) for inv in invoices], total=total)
+
+
+def summarise(inv: Invoice) -> InvoiceSummary:
+    """One list row (also used by the dashboard's recent invoices)."""
+    return InvoiceSummary(
+        id=inv.id,
+        status=inv.status,
+        created_at=inv.created_at,
+        original_name=inv.file.original_name,
+        vendor_name=inv.vendor_name,
+        invoice_number=inv.invoice_number,
+        invoice_date=inv.invoice_date,
+        total=inv.total,
+        overall_confidence=inv.overall_confidence,
+        open_errors=sum(i.severity == "error" and not i.resolved for i in inv.validation_issues),
+        open_warnings=sum(
+            i.severity == "warning" and not i.resolved for i in inv.validation_issues
+        ),
+    )
+
+
+@router.post("/demo", response_model=DemoResponse, dependencies=[limit_user("demo")])
+def load_demo_invoices(
+    user: CurrentUser, db: DbSession, background_tasks: BackgroundTasks
+) -> DemoResponse:
+    """Add the bundled demo invoices to your account and read them (replayed, so instant)."""
+    created, skipped = demo.create_demo_invoices(db, user)
+    for invoice_id, calls in created:
+        background_tasks.add_task(demo.process_demo_invoice, invoice_id, calls)
+    return DemoResponse(created=len(created), skipped=skipped, invoice_ids=[i for i, _ in created])
+
+
+EXPORT_COLUMNS = [
+    ("invoice_id", "id"), ("status", "status"), ("vendor_name", "vendor_name"),
+    ("vendor_gstin", "vendor_gstin"), ("buyer_name", "buyer_name"),
+    ("buyer_gstin", "buyer_gstin"), ("invoice_number", "invoice_number"),
+    ("invoice_date", "invoice_date"), ("place_of_supply", "place_of_supply"),
+    ("taxable_amount", "subtotal"), ("cgst", "cgst"), ("sgst", "sgst"), ("igst", "igst"),
+    ("total", "total"), ("currency", "currency"), ("approved_at", "approved_at"),
+]  # fmt: skip
+
+
+def _csv_cell(value) -> str:
+    """Text from an invoice is untrusted: stop spreadsheets running it as a formula."""
+    if value is None:
+        return ""
+    if isinstance(value, Decimal):
+        return format(value, "f")
+    text = value.isoformat() if hasattr(value, "isoformat") else str(value)
+    if isinstance(value, str) and text[:1] in ("=", "+", "-", "@", "\t", "\r"):
+        return "'" + text
+    return text
+
+
+@router.get("/export.csv", response_class=Response)
+def export_csv(
+    user: CurrentUser,
+    db: DbSession,
+    status_filter: Annotated[InvoiceStatus | None, Query(alias="status")] = InvoiceStatus.APPROVED,
+) -> Response:
+    """Your invoices as CSV (approved ones by default), oldest invoice date first."""
+    query = select(Invoice).where(Invoice.user_id == user.id)
+    if status_filter:
+        query = query.where(Invoice.status == status_filter)
+    invoices = db.scalars(query.order_by(Invoice.invoice_date, Invoice.id)).all()
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(name for name, _ in EXPORT_COLUMNS)
+    for invoice in invoices:
+        writer.writerow(_csv_cell(getattr(invoice, attr)) for _, attr in EXPORT_COLUMNS)
+    name = f"invoiceiq-{status_filter or 'all'}-{india_today().isoformat()}.csv"
+    return Response(
+        buffer.getvalue(),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{name}"'},
+    )
 
 
 def _get_own_invoice(db, user, invoice_id: int) -> Invoice:
@@ -265,4 +342,34 @@ def approve_invoice(invoice_id: int, user: CurrentUser, db: DbSession) -> Invoic
 def reject_invoice(invoice_id: int, user: CurrentUser, db: DbSession) -> InvoiceDetailResponse:
     invoice = _get_own_invoice(db, user, invoice_id)
     _run_review(db, lambda: review.reject(db, invoice, user))
+    return _detail(db, invoice)
+
+
+@router.post(
+    "/{invoice_id}/reprocess",
+    response_model=InvoiceDetailResponse,
+    dependencies=[limit_user("reprocess")],
+)
+def reprocess_invoice(
+    invoice_id: int, user: CurrentUser, db: DbSession, background_tasks: BackgroundTasks
+) -> InvoiceDetailResponse:
+    """Read a failed or unreviewed invoice again from scratch (human edits are replaced)."""
+    invoice = _get_own_invoice(db, user, invoice_id)
+    if invoice.status not in (InvoiceStatus.FAILED, InvoiceStatus.NEEDS_REVIEW):
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, f"A {invoice.status} invoice can't be read again"
+        )
+    _ensure_ai_available()
+    db.add(
+        ReviewEvent(
+            invoice_id=invoice.id,
+            user_id=user.id,
+            field="status",
+            old_value=invoice.status,
+            new_value="reprocess",
+        )
+    )
+    invoice.status = InvoiceStatus.PROCESSING
+    db.commit()
+    background_tasks.add_task(process_invoice, invoice.id)
     return _detail(db, invoice)

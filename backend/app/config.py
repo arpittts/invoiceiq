@@ -59,6 +59,14 @@ class Settings(BaseSettings):
     auto_approve_min_confidence: float = 0.9
     auto_approve_min_hsn_confidence: float = 0.8
 
+    # Demo safety (blueprint section 18). Daily cap on real model calls and spend,
+    # reset at midnight India time. On Gemini's free tier calls cost $0, so the call
+    # limit is what protects the free quota.
+    daily_llm_call_limit: int = 300
+    daily_budget_usd: float = 1.0
+    # Rate limits per user and per IP address, as "count/seconds".
+    rate_limits_enabled: bool = True
+
     # Tracing (optional; tracing is skipped when the keys are empty)
     langfuse_public_key: str = ""
     langfuse_secret_key: str = ""

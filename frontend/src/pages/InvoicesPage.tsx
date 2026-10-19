@@ -1,6 +1,7 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation, useSearchParams } from 'react-router'
+import DemoButton from '../components/DemoButton'
 import StatusBadge from '../components/StatusBadge'
 import { api } from '../lib/api'
 import { STATUS_LABELS, formatDate, formatInr } from '../lib/format'
@@ -9,7 +10,12 @@ import type { InvoiceStatus } from '../lib/types'
 const PAGE_SIZE = 20
 
 export default function InvoicesPage() {
-  const [status, setStatus] = useState<InvoiceStatus | ''>('')
+  const [searchParams] = useSearchParams()
+  const notice = (useLocation().state as { notice?: string } | null)?.notice
+  const [status, setStatus] = useState<InvoiceStatus | ''>(
+    (searchParams.get('status') as InvoiceStatus | null) ?? '',
+  )
+  const exportCsv = useMutation({ mutationFn: api.exportCsv })
   const [vendor, setVendor] = useState('')
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
@@ -36,10 +42,24 @@ export default function InvoicesPage() {
     <div>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-xl font-semibold">Invoices</h1>
-        <Link to="/upload" className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white">
-          Upload
-        </Link>
+        <div className="flex flex-wrap items-start gap-2">
+          <button
+            type="button"
+            onClick={() => exportCsv.mutate()}
+            disabled={exportCsv.isPending}
+            title="Approved invoices as a spreadsheet"
+            className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:opacity-50"
+          >
+            {exportCsv.isPending ? 'Exporting…' : 'Export CSV'}
+          </button>
+          <DemoButton />
+          <Link to="/upload" className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white">
+            Upload
+          </Link>
+        </div>
       </div>
+      {notice && <p className="mt-3 rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-800">{notice}</p>}
+      {exportCsv.isError && <p className="mt-3 text-sm text-red-700">{exportCsv.error.message}</p>}
 
       <div className="mt-4 flex flex-wrap gap-3 text-sm">
         <select

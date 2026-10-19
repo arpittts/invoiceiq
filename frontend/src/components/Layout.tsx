@@ -26,6 +26,9 @@ export default function Layout() {
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 py-3">
           <span className="mr-4 text-lg font-semibold tracking-tight">InvoiceIQ</span>
+          <NavLink to="/" end className={navClass}>
+            Dashboard
+          </NavLink>
           <NavLink to="/upload" className={navClass}>
             Upload
           </NavLink>
@@ -34,6 +37,9 @@ export default function Layout() {
           </NavLink>
           <NavLink to="/ask" className={navClass}>
             Ask
+          </NavLink>
+          <NavLink to="/settings" className={navClass}>
+            Settings
           </NavLink>
           <span className="ml-auto text-xs text-gray-500">{apiText}</span>
           <button

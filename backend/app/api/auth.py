@@ -4,13 +4,19 @@ from sqlalchemy.exc import IntegrityError
 
 from app.deps import CurrentUser, DbSession
 from app.models import User
+from app.ratelimit import limit_ip
 from app.schemas.auth import LoginRequest, RegisterRequest, TokenResponse, UserResponse
 from app.security import create_access_token, hash_password, verify_password
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register",
+    response_model=UserResponse,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[limit_ip("register")],
+)
 def register(body: RegisterRequest, db: DbSession) -> User:
     email = body.email.lower()
     if db.scalar(select(User).where(User.email == email)):
@@ -26,7 +32,7 @@ def register(body: RegisterRequest, db: DbSession) -> User:
     return user
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post("/login", response_model=TokenResponse, dependencies=[limit_ip("login")])
 def login(body: LoginRequest, db: DbSession) -> TokenResponse:
     user = db.scalar(select(User).where(User.email == body.email.lower()))
     # Same message for "no such user" and "wrong password", so emails can't be probed.

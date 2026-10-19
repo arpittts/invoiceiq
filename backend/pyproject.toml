@@ -1,6 +1,6 @@
 [project]
 name = "invoiceiq"
-version = "0.1.0"
+version = "1.0.0"
 description = "GST invoice intelligence agent"
 requires-python = ">=3.12,<3.13"
 dependencies = [
@@ -26,6 +26,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# The local MCP server (app/mcp_server.py); not needed by the deployed API.
+mcp = ["mcp==2.3.0"]
 dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",

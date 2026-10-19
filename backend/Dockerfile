@@ -26,5 +26,6 @@ COPY alembic.ini ./
 RUN useradd --create-home appuser && chown -R appuser /app
 USER appuser
 
-# Hosts like Railway set $PORT; default to 8000 locally.
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Hosts like Render set $PORT; default to 8000 locally. --proxy-headers makes the
+# visitor's IP (from the host's proxy) the client address, for the per-IP rate limits.
+CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --proxy-headers --forwarded-allow-ips='*'"]

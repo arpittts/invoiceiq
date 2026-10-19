@@ -11,6 +11,8 @@ Revision notes:
 - 2026-10-18: HSN/SAC (Phase 5): `hsn_codes` adds a `heading` column (parent context for embedding). Retrieval fuses three lists (vector, keyword, printed code). Selection is one LLM call per invoice. Rates are indicative from 09/2025 + 01/2026 (19/2025 and services rates not loaded). New warning rules `HSN_MISMATCH` and `RATE_MISMATCH`. Embedding model is baked into the Docker image and loaded lazily (measured 339 MB on Linux).
 - 2026-10-18: Agent (Phase 6): node order is extract → validate ⇄ re_extract (max 2, within budget) → save → classify → final_check → decide → finalize. Classification runs once after the re-read loop instead of on every pass (saves an LLM call per loop). Re-reads merge only the fields named by failing rules. Auto-approve (off by default) requires zero issues, overall confidence ≥ 0.9 and a confident HSN code on every line.
 - 2026-10-18: Ledger Q&A (Phase 7): user isolation is enforced by the database through a `ledger_query_context` table (connection id → user id, written by the app user inside an always-rolled-back transaction) instead of a setting, because any role can change settings. Queries run as the no-login role `ledger_reader` via `SET LOCAL ROLE`, so no second database password is needed.
+- 2026-10-19: Evaluation (Phase 8): the frozen test split is 60 harder synthetic invoices (seed 2026); the 20 starter invoices are the dev split. CI replays recorded model replies (`evals/recordings/`) instead of calling the model, and gates extraction, validation and ledger metrics; HSN retrieval stays a manual evaluation.
+- 2026-10-19: Polish (Phase 9): the demo-invoice button replays recorded model replies (instant, works when the daily cap is hit). The daily cap counts model calls as well as dollars (`DAILY_LLM_CALL_LIMIT`, `DAILY_BUDGET_USD`), because free-tier calls cost $0. Auto-approve settings are per user (Settings page), with the environment values as defaults. The MCP server uses the official `mcp` SDK 2.x, where FastMCP is now called `MCPServer`. The architecture diagram is Mermaid in the README.
 
 ## 0. How to use this document (instructions for the AI builder)
 
@@ -327,6 +329,13 @@ git push -u origin main
 - Implemented hybrid retrieval (pgvector + full-text with rank fusion) for HSN/SAC classification, improving recall@5 from [A]% (vector-only) to [B]%.
 - Designed a LangGraph workflow with deterministic validation, targeted re-extraction, and human-in-the-loop review; added tracing with Langfuse and an eval-gated CI pipeline.
 - Shipped a guarded text-to-SQL ledger assistant (read-only role, SQL allow-listing) and deployed the full stack with Docker, Vercel, and Railway.
+
+**Filled in with measured results (v1.0.0, 2026-10-19):**
+
+- Built InvoiceIQ, an LLM agent that extracts and validates GST invoices, reaching 99.8% field-level accuracy (88.3% of invoices fully correct) on a 60-invoice held-out set of scans, photos and photocopies at $0 per invoice on Gemini's free tier.
+- Implemented hybrid retrieval (pgvector + full-text with rank fusion) for HSN/SAC classification over 22,609 official codes, improving heading recall@5 from 71.8% (vector-only) to 81.8%.
+- Designed a LangGraph workflow with deterministic validation, targeted re-extraction, and human-in-the-loop review (0 false alarms; 100% auto-approve precision); added tracing with Langfuse and an eval-gated CI pipeline that replays recorded model replies.
+- Shipped a guarded text-to-SQL ledger assistant (read-only role, SQL allow-listing; 8/8 adversarial prompts blocked) and deployed the full stack with Docker, Vercel, Render and Neon.
 
 **Interview talking points:** why hybrid search beat vector-only; how validation catches model mistakes; why a human review step exists; what failed and what you changed; how you control cost; how you prevent prompt injection and unsafe SQL; how you would scale processing with a queue.
 

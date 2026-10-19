@@ -12,8 +12,9 @@ from decimal import Decimal
 
 from app.agent.state import AgentDeps, AgentState
 from app.config import get_settings
-from app.models import Invoice, InvoiceStatus, ReviewEvent
+from app.models import Invoice, InvoiceStatus, ReviewEvent, User
 from app.schemas.extraction import InvoiceExtraction
+from app.services import user_settings
 from app.services.classification import classify_invoice
 from app.services.extraction import apply_extraction, extract_from_pages, save_runs
 from app.services.validation import InvoiceData, india_today, save_validation, validate
@@ -173,21 +174,20 @@ def final_check(state: AgentState, deps: AgentDeps) -> dict:
 
 
 def decide(state: AgentState, deps: AgentDeps) -> dict:
-    """Auto-approve only a spotless, confident invoice, and only when switched on."""
-    settings = get_settings()
+    """Auto-approve only a spotless, confident invoice, and only when the user switched it on."""
     invoice = deps.db.get(Invoice, state["invoice_id"])
+    settings = user_settings.effective(deps.db.get(User, invoice.user_id))
     issues = state.get("issues", [])
     weak_lines = [
         line.position
         for line in invoice.line_items
-        if line.hsn_source_id is None
-        or (line.hsn_confidence or 0) < settings.auto_approve_min_hsn_confidence
+        if line.hsn_source_id is None or (line.hsn_confidence or 0) < settings.min_hsn_confidence
     ]
-    if not settings.auto_approve_enabled:
+    if not settings.enabled:
         decision, reason = "review", "Auto-approve is off: a person reviews every invoice"
     elif issues:
         decision, reason = "review", f"{len(issues)} validation issue(s) need a person"
-    elif (invoice.overall_confidence or 0) < settings.auto_approve_min_confidence:
+    elif (invoice.overall_confidence or 0) < settings.min_confidence:
         decision, reason = "review", f"Confidence {invoice.overall_confidence} is below the bar"
     elif weak_lines:
         decision, reason = "review", f"No confident HSN/SAC code on line(s) {weak_lines}"

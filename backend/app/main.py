@@ -27,7 +27,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     worker.stop()
 
 
-app = FastAPI(title="InvoiceIQ API", version="1.1.0", lifespan=lifespan)
+app = FastAPI(title="InvoiceIQ API", version="1.2.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

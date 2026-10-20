@@ -62,6 +62,7 @@ flowchart LR
 - **HSN/SAC suggestions** with the official source row and indicative rate.
 - **Review**: page image beside an editable form, issues highlighted, low-confidence fields marked, approve/reject/read again, move an approved or rejected invoice back to review, in-page confirmations, full audit trail.
 - **Ledger Q&A**: an answer, the SQL that produced it and the rows.
+- **GSTR-2B reconciliation**: upload a month's GSTR-2B, the Excel file from the GST portal or JSON (or try a sample built from your own books), to see what matches, what differs, and which invoices' input tax credit is at risk because the supplier hasn't reported them; CSV export.
 - **Dashboard** (spend, GST, counts, recent invoices, AI usage), **Settings** (auto-approve and its thresholds per user), **CSV export** of approved invoices (formula-injection safe).
 - **Try demo invoices**: six bundled synthetic invoices, read instantly by replaying recorded model replies, so the demo works even when the daily AI cap is reached.
 - **Demo safety**: per-user and per-IP rate limits, a daily cap on model calls and spend, and a clear message when the cap is hit.
@@ -233,6 +234,14 @@ The first run scored 73%: the evaluation caught a guard bug (sqlglot parses `AND
 
 A second naming bug of the same kind surfaced in the v1.0 test-split recording: `to_char` was on the allow-list, but sqlglot reports it as `time_to_str`, so "spending each month" was blocked, and `make_date` ("this financial year") was missing. v1.1 allows `to_char`/`time_to_str`, `make_date`, `to_date` and `date_part`, with tests that they still can't wrap `pg_sleep`, `pg_read_file` or `set_config`. Replaying the same recorded replies: **26/30 → 27/30 strict, 28/30 → 29/30 lenient**.
 
+### GSTR-2B reconciliation
+
+GSTR-2B is the government's monthly statement of the input tax credit (ITC) your suppliers reported. The **Reconcile** page matches it against your approved invoices: by supplier GSTIN and invoice number (compared after ignoring case, spaces, separators and leading zeros, since suppliers rarely type a number exactly as printed), then date and amounts within ₹1. Each reported invoice is **matched**, **differs** (with the fields), a **possible match** (same supplier and amounts, number written differently: suggested, not assumed), or **not in your books**; and approved invoices nobody reported are **ITC at risk** for that month, or **still waiting** if older. A month's 2B is matched against invoices dated up to its end that no earlier statement matched, because suppliers often report a month late.
+
+`make eval` also checks the matching on synthetic statements with known answers (`scripts/make_gstr2b.py`: 21 supplier invoices over 5 months with reformatted and changed numbers, changed amounts and dates, omissions, late reporting and unbooked suppliers): **21/21 results and 5/5 monthly at-risk lists right**. The rules and these files were written together, so this proves the logic works as designed, not accuracy on real suppliers' data.
+
+**File formats.** The **Excel** reader (the portal's "Download GSTR-2B details (Excel)") was built against a real GSTR-2B downloaded from the GST portal: it reads the period from the *Read me* sheet (month name plus April-March financial year) and invoices from the *B2B* sheet's two-row header by column name, with dates as `dd/mm/yyyy`, places of supply as state names and Yes/No flags. On that file it read all 8 invoices with valid GSTINs and dates, a resolved place of supply, one tax type each and value = taxable + taxes. Only the layout was used: the real file stays out of the repo, and the tests use a synthetic workbook with the same layout. The **JSON** reader follows public descriptions of the portal's JSON and has not been checked against a real file; the page says so on JSON uploads.
+
 ## Design decisions and what failed
 
 - **The model copies, our code computes.** Asking the model for values exactly as printed, then parsing and checking them in Python, made every mistake visible to deterministic rules instead of hidden inside "helpful" corrections.
@@ -314,6 +323,11 @@ All routes are under `/api/v1`.
 | GET | `/invoices/export.csv` | yes | Approved invoices as CSV (`status` to choose another status) |
 | GET | `/dashboard` | yes | Counts by status, approved spend and GST, recent invoices, AI usage |
 | GET, PUT | `/settings` | yes | Your auto-approve switch and thresholds |
+| POST | `/reconcile/gstr2b` | yes | Upload a month's GSTR-2B, the portal's Excel (.xlsx) or JSON (replaces that month), and match it to your approved invoices |
+| POST | `/reconcile/gstr2b/sample/{YYYY-MM}` | yes | A synthetic GSTR-2B built from your own approved invoices, reconciled |
+| GET | `/reconcile/gstr2b`, `/reconcile/gstr2b/{YYYY-MM}` | yes | Months uploaded; one month's report |
+| POST | `/reconcile/gstr2b/{YYYY-MM}/recheck` | yes | Match again (e.g. after approving more invoices) |
+| GET | `/reconcile/gstr2b/{YYYY-MM}/export.csv` | yes | The month's reconciliation as CSV |
 
 Uploaded files are stored on disk in development (`STORAGE_BACKEND=local`) and in Postgres in production (`STORAGE_BACKEND=db`), because free hosts wipe their disks on restart.
 
@@ -371,6 +385,7 @@ Free tiers change, so check each provider's current limits before relying on the
 ## Limitations
 
 - **Synthetic data.** All evaluation invoices are generated (with exact ground truth); real crumpled, handwritten or multi-column invoices will score lower.
+- **GSTR-2B coverage.** Only B2B invoices are read (not amendments, credit/debit notes, ISD, imports or rejected items), and the JSON reader is unverified (the Excel reader was checked against one real portal file).
 - **Tax data gaps.** Services rates exist only for the three headings 15/2025 restates in full (24 of 681 SAC codes); the rest need an up-to-date consolidated 11/2017, which wasn't available. Conditional rates (pre-packaged vs loose, price thresholds) are left to a person. One source copy (10/2025) is a third-party mirror of the gazette text.
 - **Model confidence is uninformative** on the free model (0.95-1.0 even when wrong); the two-read agreement check replaces it for auto-approve, at the cost of one extra call per approval and some correct invoices sent to a person.
 - **Ledger Q&A varies between runs** (27-29 of 30 questions with the same model), and the strict scorer compares values exactly, so a differently formatted but equal answer counts as a miss.
@@ -380,7 +395,6 @@ Free tiers change, so check each provider's current limits before relying on the
 ## Roadmap
 
 - Load all services rates once an up-to-date consolidated 11/2017 is available; show each rate's effective date.
-- GSTR-2B reconciliation: match approved invoices against the government's supplier data.
 - Evaluate on a small set of consented, anonymised real invoices.
 
 ## License

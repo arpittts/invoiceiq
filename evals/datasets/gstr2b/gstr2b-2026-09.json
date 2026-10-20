@@ -1,0 +1,155 @@
+{
+ "data": {
+  "gstin": "27AAACR5055K1Z7",
+  "rtnprd": "092026",
+  "version": "synthetic",
+  "docdata": {
+   "b2b": [
+    {
+     "ctin": "36XRRIX9696L4ZU",
+     "trdnm": "Deccan Office Supplies",
+     "inv": [
+      {
+       "inum": "DEC/26-27/0147",
+       "dt": "14-09-2026",
+       "val": 176658.4,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 16.0,
+         "txval": 152324.81,
+         "igst": 0.0,
+         "cgst": 12166.79,
+         "sgst": 12166.79,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "33FIOHC7810U9ZS",
+     "trdnm": "Sri Murugan Stores",
+     "inv": [
+      {
+       "inum": "INV-68800",
+       "dt": "19-08-2026",
+       "val": 162916.42,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 17.0,
+         "txval": 139520.0,
+         "igst": 0.0,
+         "cgst": 11698.21,
+         "sgst": 11698.21,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "19VACUN2720I7ZS",
+     "trdnm": "Kolkata Paper House",
+     "inv": [
+      {
+       "inum": "9797",
+       "dt": "28-09-2026",
+       "val": 260168.58,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 17.0,
+         "txval": 222013.24,
+         "igst": 0.0,
+         "cgst": 19077.67,
+         "sgst": 19077.67,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "09WUHDW4919Z1Z3",
+     "trdnm": "Verma Wholesale Mart",
+     "inv": [
+      {
+       "inum": "1345",
+       "dt": "03-09-2026",
+       "val": 133952.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 14.0,
+         "txval": 117265.12,
+         "igst": 16686.66,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "19KITWI8083C4Z2",
+     "trdnm": "Kolkata Paper House",
+     "inv": [
+      {
+       "inum": "INV-37802",
+       "dt": "07-09-2026",
+       "val": 114091.78,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 17.0,
+         "txval": 97861.68,
+         "igst": 16230.1,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "24FGGXP4989J2Z5",
+     "trdnm": "Patel Hardware & Paints",
+     "inv": [
+      {
+       "inum": "8879",
+       "dt": "17-09-2026",
+       "val": 223230.71,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 189178.56,
+         "igst": 34052.15,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

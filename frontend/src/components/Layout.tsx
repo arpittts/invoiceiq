@@ -38,6 +38,9 @@ export default function Layout() {
           <NavLink to="/ask" className={navClass}>
             Ask
           </NavLink>
+          <NavLink to="/reconcile" className={navClass}>
+            Reconcile
+          </NavLink>
           <NavLink to="/settings" className={navClass}>
             Settings
           </NavLink>

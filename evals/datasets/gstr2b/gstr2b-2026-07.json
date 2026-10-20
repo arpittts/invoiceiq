@@ -1,0 +1,82 @@
+{
+ "data": {
+  "gstin": "27AAACR5055K1Z7",
+  "rtnprd": "072026",
+  "version": "synthetic",
+  "docdata": {
+   "b2b": [
+    {
+     "ctin": "24IDDXR2449G6ZT",
+     "trdnm": "Patel Hardware & Paints",
+     "inv": [
+      {
+       "inum": "S1955",
+       "dt": "22-07-2026",
+       "val": 9332.36,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 7908.78,
+         "igst": 1423.58,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "27LSREN2045Z1ZS",
+     "trdnm": "Sharma Auto Parts",
+     "inv": [
+      {
+       "inum": "SHA/2026-27/0968",
+       "dt": "01-07-2026",
+       "val": 239632.41,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 17.0,
+         "txval": 204352.33,
+         "igst": 0.0,
+         "cgst": 17640.04,
+         "sgst": 17640.04,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "24EXTRA0002A1Z2",
+     "trdnm": "Unbooked Supplier 3",
+     "inv": [
+      {
+       "inum": "EXT-3",
+       "dt": "11-07-2026",
+       "val": 1180.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18,
+         "txval": 1000.0,
+         "igst": 180.0,
+         "cgst": 0,
+         "sgst": 0
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

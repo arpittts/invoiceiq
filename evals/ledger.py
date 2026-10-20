@@ -34,75 +34,83 @@ ADVERSARIAL = [
 ]
 
 
+def add_truth_invoice(db, user, truth: dict, n: int) -> None:
+    """Add one ground-truth invoice to `user`'s books as approved (shared with reconcile)."""
+    from app.models import Invoice, InvoiceFile, LineItem
+
+    def amount(value):
+        return Decimal(value) if value is not None else None
+
+    file = InvoiceFile(
+        user_id=user.id,
+        original_name=f"{n}.pdf",
+        mime_type="application/pdf",
+        storage_path="-",
+        page_count=1,
+        sha256=f"truth-{user.id}-{n}",
+    )
+    invoice = Invoice(
+        user_id=user.id,
+        file=file,
+        status="approved",
+        approved_at=datetime.now(UTC),
+        vendor_name=truth["vendor_name"],
+        vendor_gstin=truth["vendor_gstin"],
+        buyer_name=truth["buyer_name"],
+        buyer_gstin=truth["buyer_gstin"],
+        invoice_number=truth["invoice_number"],
+        invoice_date=date.fromisoformat(truth["invoice_date"]),
+        place_of_supply=truth["place_of_supply"],
+        **{k: amount(truth[k]) for k in ("subtotal", "cgst", "sgst", "igst", "total")},
+        line_items=[
+            LineItem(
+                position=i,
+                description=line["description"],
+                hsn_sac_code=line["hsn_sac_code"],
+                **{
+                    k: amount(line[k])
+                    for k in (
+                        "quantity",
+                        "unit_price",
+                        "discount",
+                        "taxable_value",
+                        "gst_rate",
+                        "cgst_amount",
+                        "sgst_amount",
+                        "igst_amount",
+                        "line_total",
+                    )
+                },
+                unit=line["unit"],
+            )
+            for i, line in enumerate(truth["line_items"], start=1)
+        ],
+    )
+    db.add(invoice)
+
+
+def dev_truths() -> list[dict]:
+    return [
+        json.loads(p.read_text())
+        for p in sorted((REPO / "evals/datasets/starter").glob("inv_*.json"))
+    ]
+
+
 def seed(db) -> int:
     """Create the ledger user and a rival user; return the ledger user's id."""
-    from app.models import Invoice, InvoiceFile, LineItem, User
+    from app.models import User
     from app.security import hash_password
 
     me = User(email="ledger-eval@example.com", password_hash=hash_password("not-used-123"))
     rival = User(email="other-user@example.com", password_hash=hash_password("not-used-123"))
     db.add_all([me, rival])
     db.flush()
-
-    def amount(value):
-        return Decimal(value) if value is not None else None
-
-    def add(user, truth, n):
-        file = InvoiceFile(
-            user_id=user.id,
-            original_name=f"{n}.pdf",
-            mime_type="application/pdf",
-            storage_path="-",
-            page_count=1,
-            sha256=f"ledger-{user.id}-{n}",
-        )
-        invoice = Invoice(
-            user_id=user.id,
-            file=file,
-            status="approved",
-            approved_at=datetime.now(UTC),
-            vendor_name=truth["vendor_name"],
-            vendor_gstin=truth["vendor_gstin"],
-            buyer_name=truth["buyer_name"],
-            buyer_gstin=truth["buyer_gstin"],
-            invoice_number=truth["invoice_number"],
-            invoice_date=date.fromisoformat(truth["invoice_date"]),
-            place_of_supply=truth["place_of_supply"],
-            **{k: amount(truth[k]) for k in ("subtotal", "cgst", "sgst", "igst", "total")},
-            line_items=[
-                LineItem(
-                    position=i,
-                    description=line["description"],
-                    hsn_sac_code=line["hsn_sac_code"],
-                    **{
-                        k: amount(line[k])
-                        for k in (
-                            "quantity",
-                            "unit_price",
-                            "discount",
-                            "taxable_value",
-                            "gst_rate",
-                            "cgst_amount",
-                            "sgst_amount",
-                            "igst_amount",
-                            "line_total",
-                        )
-                    },
-                    unit=line["unit"],
-                )
-                for i, line in enumerate(truth["line_items"], start=1)
-            ],
-        )
-        db.add(invoice)
-
-    truths = sorted((REPO / "evals/datasets/starter").glob("inv_*.json"))
-    for n, path in enumerate(truths, start=1):
-        add(me, json.loads(path.read_text()), n)
-    for n, path in enumerate(truths[:3], start=100):  # another user's ledger
-        truth = json.loads(path.read_text())
-        truth["vendor_name"] = "Secret Rival Pvt Ltd"
-        truth["invoice_number"] = f"RIVAL-{n}"
-        add(rival, truth, n)
+    truths = dev_truths()
+    for n, truth in enumerate(truths, start=1):
+        add_truth_invoice(db, me, truth, n)
+    for n, truth in enumerate(truths[:3], start=100):  # another user's ledger
+        truth = {**truth, "vendor_name": "Secret Rival Pvt Ltd", "invoice_number": f"RIVAL-{n}"}
+        add_truth_invoice(db, rival, truth, n)
     db.commit()
     return me.id
 

@@ -440,6 +440,13 @@ def markdown(summary: dict, rows: list[dict]) -> str:
             f"| Latency p50 / p95 | {agent['latency']['p50_s']:.1f}s / "
             f"{agent['latency']['p95_s']:.1f}s |",
         ]
+        if summary.get("reconcile"):
+            rec = summary["reconcile"]
+            out.append(
+                f"| GSTR-2B reconciliation (synthetic, labelled) | {pct(rec['row_accuracy'])} "
+                f"of {rec['rows']} invoices; 'ITC at risk' list right in "
+                f"{pct(rec['at_risk_accuracy'])} of {rec['months']} months |"
+            )
         if ledger:
             out += [
                 f"| Ledger Q&A execution accuracy | {pct(ledger['execution_accuracy_strict'])} "
@@ -478,7 +485,14 @@ def markdown(summary: dict, rows: list[dict]) -> str:
                     f"| {r['id']} | {r['slice']} | {', '.join(r['wrong_fields'][:6])} "
                     f"| {', '.join(r['errors']) or 'nothing'} | {r['decision']} |"
                 )
-    elif ledger:
+    if not agent and summary.get("reconcile"):
+        rec = summary["reconcile"]
+        out += [
+            f"GSTR-2B reconciliation: {pct(rec['row_accuracy'])} of {rec['rows']} invoices, "
+            f"'ITC at risk' {pct(rec['at_risk_accuracy'])} of {rec['months']} months; "
+            + ", ".join(f"{k} {v}" for k, v in rec["by_scenario"].items()),
+        ]
+    if not agent and ledger:
         out += [
             f"Ledger Q&A: {pct(ledger['execution_accuracy_strict'])} strict, "
             f"{pct(ledger['execution_accuracy_lenient'])} lenient; adversarial "
@@ -501,7 +515,7 @@ def main(argv: list[str] | None = None) -> None:
     mode.add_argument("--record", action="store_true", help="call the model; save replies")
     mode.add_argument("--live", action="store_true", help="call the model; save nothing")
     parser.add_argument("--resume", action="store_true", help="--record: keep recorded cases")
-    parser.add_argument("--only", choices=["agent", "ledger"], help="run one part")
+    parser.add_argument("--only", choices=["agent", "ledger", "reconcile"], help="run one part")
     parser.add_argument("--limit", type=int, help="first N invoices (smoke test)")
     parser.add_argument("--gate", action="store_true", help="exit 1 below evals/thresholds.json")
     args = parser.parse_args(argv)
@@ -510,7 +524,7 @@ def main(argv: list[str] | None = None) -> None:
 
     # HSN suggestions (and so auto-approve) only when talking to the real model: the
     # vector index is approximate, so its candidates can differ between databases.
-    classify = mode_name != "replay" and args.only != "ledger"
+    classify = mode_name != "replay" and args.only in (None, "agent")
     eval_url, hsn_rows = prepare_database(copy_hsn=classify)
     os.environ.update(
         DATABASE_URL=eval_url,
@@ -526,13 +540,13 @@ def main(argv: list[str] | None = None) -> None:
         f"HSN codes {hsn_rows or 'off'}"
     )
 
-    from evals import injection, ledger
+    from evals import injection, ledger, reconcile
 
     summary: dict = {}
     rows: list[dict] = []
     agent_path = RECORDINGS / f"{args.split}.json"
     try:
-        if args.only != "ledger":
+        if args.only in (None, "agent"):
             providers = Providers(mode_name, agent_path, args.resume)
             print(f"\nInvoices ({args.split} split):")
             rows = evaluate_agent(args.split, providers, args.limit)
@@ -557,7 +571,7 @@ def main(argv: list[str] | None = None) -> None:
                 "false_alarm_invoices": len(injection.false_alarms(truths)),
                 **{k: v for k, v in injection.catch_rates(truths).items() if k != "by_injection"},
             }
-        if args.only != "agent":
+        if args.only in (None, "ledger"):
             from app.db import SessionLocal
 
             ledger_providers = Providers(mode_name, RECORDINGS / "ledger.json", args.resume)
@@ -574,6 +588,15 @@ def main(argv: list[str] | None = None) -> None:
                     "model_fast": settings.llm_model_fast,
                 }
             )
+        if args.only in (None, "reconcile"):
+            from app.db import SessionLocal
+
+            print("\nGSTR-2B reconciliation:")
+            db = SessionLocal()
+            result = reconcile.evaluate(db)
+            db.close()
+            summary["reconcile"] = result["summary"]
+            summary["reconcile_detail"] = result["rows"]
     except OutOfDate as error:
         sys.exit(
             f"\nRecordings are out of date ({error}).\n"
@@ -581,7 +604,9 @@ def main(argv: list[str] | None = None) -> None:
             "recorded.\nRe-record with: make eval-record"
         )
 
-    recorded_at = agent_meta["recorded_at"] if args.only != "ledger" and agent_meta else "this run"
+    recorded_at = (
+        agent_meta["recorded_at"] if args.only in (None, "agent") and agent_meta else "this run"
+    )
     summary["meta"] = {
         "split": args.split,
         "mode": mode_name,

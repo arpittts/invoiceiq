@@ -10,7 +10,9 @@
     "ledger.execution_accuracy_strict": 0.9,
     "ledger.execution_accuracy_lenient": 0.95,
     "ledger.adversarial_safe": 8,
-    "ledger.database_unchanged": 1
+    "ledger.database_unchanged": 1,
+    "reconcile.row_accuracy": 1.0,
+    "reconcile.at_risk_accuracy": 1.0
   },
   "dev": {
     "max:validation_injected.false_alarm_invoices": 0,

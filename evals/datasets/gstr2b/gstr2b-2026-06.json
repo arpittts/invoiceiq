@@ -1,0 +1,82 @@
+{
+ "data": {
+  "gstin": "27AAACR5055K1Z7",
+  "rtnprd": "062026",
+  "version": "synthetic",
+  "docdata": {
+   "b2b": [
+    {
+     "ctin": "27PGREX9973Z8Z5",
+     "trdnm": "Sharma Auto Parts",
+     "inv": [
+      {
+       "inum": "4662",
+       "dt": "18-06-2026",
+       "val": 1337.03,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 1133.08,
+         "igst": 203.95,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "19VHIZZ9361R4ZO",
+     "trdnm": "Kolkata Paper House",
+     "inv": [
+      {
+       "inum": "kol 26 0027 0724",
+       "dt": "10-06-2026",
+       "val": 52199.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 8.0,
+         "txval": 48499.51,
+         "igst": 3699.08,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "24EXTRA0001A1Z1",
+     "trdnm": "Unbooked Supplier 2",
+     "inv": [
+      {
+       "inum": "EXT-2",
+       "dt": "11-06-2026",
+       "val": 1180.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18,
+         "txval": 1000.0,
+         "igst": 180.0,
+         "cgst": 0,
+         "sgst": 0
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,155 @@
+{
+ "data": {
+  "gstin": "27AAACR5055K1Z7",
+  "rtnprd": "082026",
+  "version": "synthetic",
+  "docdata": {
+   "b2b": [
+    {
+     "ctin": "36HYJCH1647U6Z2",
+     "trdnm": "Deccan Office Supplies",
+     "inv": [
+      {
+       "inum": "S1850",
+       "dt": "20-08-2026",
+       "val": 4711.16,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 3992.5,
+         "igst": 0.0,
+         "cgst": 359.33,
+         "sgst": 359.33,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "19DUJUQ9325Y3ZO",
+     "trdnm": "Kolkata Paper House",
+     "inv": [
+      {
+       "inum": "3027",
+       "dt": "31-07-2026",
+       "val": 70817.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 14.0,
+         "txval": 62335.0,
+         "igst": 0.0,
+         "cgst": 4241.0,
+         "sgst": 4241.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "27FIQTN3834M6Z2",
+     "trdnm": "Sharma Auto Parts",
+     "inv": [
+      {
+       "inum": "7887",
+       "dt": "03-08-2026",
+       "val": 160965.97,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 136411.84,
+         "igst": 24554.13,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "19QKIGV5346E5ZQ",
+     "trdnm": "Kolkata Paper House",
+     "inv": [
+      {
+       "inum": "9662",
+       "dt": "07-08-2026",
+       "val": 119353.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 101522.13,
+         "igst": 17831.28,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "24EGNVM2994M9Z0",
+     "trdnm": "Patel Hardware & Paints",
+     "inv": [
+      {
+       "inum": "4944",
+       "dt": "07-08-2026",
+       "val": 31124.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 19.0,
+         "txval": 26163.83,
+         "igst": 0.0,
+         "cgst": 2480.29,
+         "sgst": 2480.29,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "24FBIPD1671S1Z7",
+     "trdnm": "Patel Hardware & Paints",
+     "inv": [
+      {
+       "inum": "INV-72746",
+       "dt": "04-08-2026",
+       "val": 10053.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18.0,
+         "txval": 8519.49,
+         "igst": 1533.51,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

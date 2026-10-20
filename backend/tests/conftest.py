@@ -61,7 +61,7 @@ def clean_tables():
             text(
                 "TRUNCATE users, invoice_files, file_blobs, invoices, line_items, extraction_runs, "
                 "validation_issues, review_events, hsn_codes, ledger_query_context, "
-                "llm_usage_daily, jobs "
+                "llm_usage_daily, jobs, gstr2b_statements, gstr2b_invoices "
                 "RESTART IDENTITY CASCADE"
             )
         )

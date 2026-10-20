@@ -5,7 +5,9 @@ import type {
   DemoResult,
   InvoiceDetail,
   InvoiceList,
+  ReconReport,
   SettingsResponse,
+  StatementSummary,
 } from './types'
 
 // Base URL of the backend, set per environment through VITE_API_URL.
@@ -73,6 +75,20 @@ async function request<T>(path: string, options: { method?: string; json?: unkno
   return response.json()
 }
 
+/** Fetch a file with the token, then let the browser save it. */
+async function download(path: string, fallbackName: string): Promise<void> {
+  const response = await fetch(`${V1}${path}`, { headers: authHeaders() })
+  if (!response.ok) throw await errorFrom(response)
+  const disposition = response.headers.get('Content-Disposition') ?? ''
+  const name = /filename="([^"]+)"/.exec(disposition)?.[1] ?? fallbackName
+  const url = URL.createObjectURL(await response.blob())
+  const link = document.createElement('a')
+  link.href = url
+  link.download = name
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
 export const api = {
   register: (email: string, password: string) =>
     request<{ id: number; email: string }>('/auth/register', { method: 'POST', json: { email, password } }),
@@ -103,19 +119,28 @@ export const api = {
   saveSettings: (settings: AutoApproveSettings) =>
     request<SettingsResponse>('/settings', { method: 'PUT', json: settings }),
 
-  /** Download approved invoices as CSV (fetched with the token, then saved by the browser). */
-  async exportCsv(): Promise<void> {
-    const response = await fetch(`${V1}/invoices/export.csv`, { headers: authHeaders() })
+  statements: () => request<StatementSummary[]>('/reconcile/gstr2b'),
+  reconReport: (period: string) => request<ReconReport>(`/reconcile/gstr2b/${period}`),
+  recheck: (period: string) =>
+    request<ReconReport>(`/reconcile/gstr2b/${period}/recheck`, { method: 'POST' }),
+  sampleStatement: (period: string) =>
+    request<ReconReport>(`/reconcile/gstr2b/sample/${period}`, { method: 'POST' }),
+  async uploadGstr2b(file: File): Promise<ReconReport> {
+    const form = new FormData()
+    form.append('file', file)
+    const response = await fetch(`${V1}/reconcile/gstr2b`, {
+      method: 'POST',
+      headers: authHeaders(),
+      body: form,
+    })
     if (!response.ok) throw await errorFrom(response)
-    const disposition = response.headers.get('Content-Disposition') ?? ''
-    const name = /filename="([^"]+)"/.exec(disposition)?.[1] ?? 'invoiceiq-approved.csv'
-    const url = URL.createObjectURL(await response.blob())
-    const link = document.createElement('a')
-    link.href = url
-    link.download = name
-    link.click()
-    URL.revokeObjectURL(url)
+    return response.json()
   },
+  exportReconciliation: (period: string) =>
+    download(`/reconcile/gstr2b/${period}/export.csv`, `gstr2b-reconcile-${period}.csv`),
+
+  /** Approved invoices as CSV. */
+  exportCsv: () => download('/invoices/export.csv', 'invoiceiq-approved.csv'),
 
   /** A page image as a blob URL. <img src> can't send the token header, so we fetch it. */
   async pageImageUrl(id: number, page: number): Promise<string> {

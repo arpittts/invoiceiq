@@ -143,3 +143,48 @@ export type AutoApproveSettings = {
 export type SettingsResponse = AutoApproveSettings & { defaults: AutoApproveSettings }
 
 export type DemoResult = { created: number; skipped: number; invoice_ids: number[] }
+
+export type MatchStatus = 'matched' | 'mismatched' | 'possible' | 'only_2b'
+
+export type ReconRow = {
+  id: number
+  supplier_gstin: string
+  supplier_name: string | null
+  invoice_number: string
+  invoice_date: string | null
+  taxable_value: string | null
+  tax: string
+  invoice_value: string | null
+  itc_available: boolean
+  reverse_charge: boolean
+  match_status: MatchStatus
+  matched_invoice_id: number | null
+  differences: { field: string; books: string | null; gstr2b: string | null }[] | null
+}
+
+export type BookInvoice = {
+  id: number
+  vendor_name: string | null
+  vendor_gstin: string | null
+  invoice_number: string | null
+  invoice_date: string | null
+  total: string | null
+  tax: string
+}
+
+export type StatementSummary = {
+  period: string
+  file_name: string
+  uploaded_at: string
+  counts: Record<MatchStatus | 'books_only' | 'still_waiting', number>
+  itc_claimable: string
+  itc_at_risk: string
+}
+
+export type ReconReport = StatementSummary & {
+  source_format: string
+  verified_against_portal: boolean
+  rows: ReconRow[]
+  books_only: BookInvoice[]
+  still_waiting: BookInvoice[]
+}

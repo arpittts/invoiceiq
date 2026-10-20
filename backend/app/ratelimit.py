@@ -32,6 +32,7 @@ PER_USER = {
     "ask": (30, 3600),
     "demo": (5, 3600),
     "reprocess": (20, 3600),
+    "reconcile": (30, 3600),
 }
 
 

@@ -1,0 +1,159 @@
+{
+ "rows": [
+  {
+   "period": "2026-08-01",
+   "supplier_gstin": "36HYJCH1647U6Z2",
+   "invoice_number": "S1850",
+   "scenario": "renumbered",
+   "expected": "possible"
+  },
+  {
+   "period": "2026-09-01",
+   "supplier_gstin": "36XRRIX9696L4ZU",
+   "invoice_number": "DEC/26-27/0147",
+   "scenario": "amount_changed",
+   "expected": "mismatched"
+  },
+  {
+   "period": "2026-08-01",
+   "supplier_gstin": "19DUJUQ9325Y3ZO",
+   "invoice_number": "3027",
+   "scenario": "late",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-08-01",
+   "supplier_gstin": "27FIQTN3834M6Z2",
+   "invoice_number": "7887",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-06-01",
+   "supplier_gstin": "27PGREX9973Z8Z5",
+   "invoice_number": "4662",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-09-01",
+   "supplier_gstin": "33FIOHC7810U9ZS",
+   "invoice_number": "INV-68800",
+   "scenario": "late",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-08-01",
+   "supplier_gstin": "19QKIGV5346E5ZQ",
+   "invoice_number": "9662",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-07-01",
+   "supplier_gstin": "24IDDXR2449G6ZT",
+   "invoice_number": "S1955",
+   "scenario": "renumbered",
+   "expected": "possible"
+  },
+  {
+   "period": "2026-07-01",
+   "supplier_gstin": "27LSREN2045Z1ZS",
+   "invoice_number": "SHA/2026-27/0968",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-05-01",
+   "supplier_gstin": "33JZHHA3654C5Z2",
+   "invoice_number": "inv/0036158",
+   "scenario": "reformatted",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-08-01",
+   "supplier_gstin": "24EGNVM2994M9Z0",
+   "invoice_number": "4944",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-05-01",
+   "supplier_gstin": "36NNKRO6036M1ZZ",
+   "invoice_number": "dec 0026 27 0711",
+   "scenario": "reformatted",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-09-01",
+   "supplier_gstin": "19VACUN2720I7ZS",
+   "invoice_number": "9797",
+   "scenario": "date_changed",
+   "expected": "mismatched"
+  },
+  {
+   "period": "2026-09-01",
+   "supplier_gstin": "09WUHDW4919Z1Z3",
+   "invoice_number": "1345",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-09-01",
+   "supplier_gstin": "19KITWI8083C4Z2",
+   "invoice_number": "INV-37802",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-09-01",
+   "supplier_gstin": "24FGGXP4989J2Z5",
+   "invoice_number": "8879",
+   "scenario": "amount_changed",
+   "expected": "mismatched"
+  },
+  {
+   "period": "2026-08-01",
+   "supplier_gstin": "24FBIPD1671S1Z7",
+   "invoice_number": "INV-72746",
+   "scenario": "exact",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-06-01",
+   "supplier_gstin": "19VHIZZ9361R4ZO",
+   "invoice_number": "kol 26 0027 0724",
+   "scenario": "reformatted",
+   "expected": "matched"
+  },
+  {
+   "period": "2026-05-01",
+   "supplier_gstin": "24EXTRA0000A1Z0",
+   "invoice_number": "EXT-1",
+   "scenario": "not_in_books",
+   "expected": "only_2b"
+  },
+  {
+   "period": "2026-06-01",
+   "supplier_gstin": "24EXTRA0001A1Z1",
+   "invoice_number": "EXT-2",
+   "scenario": "not_in_books",
+   "expected": "only_2b"
+  },
+  {
+   "period": "2026-07-01",
+   "supplier_gstin": "24EXTRA0002A1Z2",
+   "invoice_number": "EXT-3",
+   "scenario": "not_in_books",
+   "expected": "only_2b"
+  }
+ ],
+ "at_risk": {
+  "2026-09-01": [
+   "INV-36062"
+  ],
+  "2026-07-01": [
+   "DEC/2026-27/0181"
+  ]
+ }
+}

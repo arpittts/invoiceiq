@@ -1,0 +1,82 @@
+{
+ "data": {
+  "gstin": "27AAACR5055K1Z7",
+  "rtnprd": "052026",
+  "version": "synthetic",
+  "docdata": {
+   "b2b": [
+    {
+     "ctin": "33JZHHA3654C5Z2",
+     "trdnm": "Sri Murugan Stores",
+     "inv": [
+      {
+       "inum": "inv/0036158",
+       "dt": "05-05-2026",
+       "val": 200158.42,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 17.0,
+         "txval": 170381.46,
+         "igst": 29776.96,
+         "cgst": 0.0,
+         "sgst": 0.0,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "36NNKRO6036M1ZZ",
+     "trdnm": "Deccan Office Supplies",
+     "inv": [
+      {
+       "inum": "dec 0026 27 0711",
+       "dt": "06-05-2026",
+       "val": 13948.53,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 10.0,
+         "txval": 12665.45,
+         "igst": 0.0,
+         "cgst": 641.54,
+         "sgst": 641.54,
+         "cess": 0
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "ctin": "24EXTRA0000A1Z0",
+     "trdnm": "Unbooked Supplier 1",
+     "inv": [
+      {
+       "inum": "EXT-1",
+       "dt": "11-05-2026",
+       "val": 1180.0,
+       "pos": "27",
+       "rev": "N",
+       "itcavl": "Y",
+       "items": [
+        {
+         "rt": 18,
+         "txval": 1000.0,
+         "igst": 180.0,
+         "cgst": 0,
+         "sgst": 0
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

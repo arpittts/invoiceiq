@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import ask, auth, dashboard, health, hsn, invoices, settings
+from app.api import ask, auth, dashboard, health, hsn, invoices, reconcile, settings
 from app.config import get_settings
 
 # Our own messages (reads finished, retries, recovered jobs) at INFO, so they show up
@@ -45,3 +45,4 @@ app.include_router(hsn.router, prefix=API_PREFIX)
 app.include_router(ask.router, prefix=API_PREFIX)
 app.include_router(dashboard.router, prefix=API_PREFIX)
 app.include_router(settings.router, prefix=API_PREFIX)
+app.include_router(reconcile.router, prefix=API_PREFIX)

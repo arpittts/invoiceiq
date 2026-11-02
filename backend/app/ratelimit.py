@@ -26,6 +26,7 @@ PER_IP = {
     "upload": (60, 3600),
     "ask": (60, 3600),
     "demo": (10, 3600),
+    "demo_account": (10, 3600),  # "Try the demo" accounts per IP
 }
 PER_USER = {
     "upload": (30, 3600),

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { NavLink, Outlet } from 'react-router'
-import { fetchHealth } from '../lib/api'
+import { NavLink, Outlet, useNavigate } from 'react-router'
+import { api, fetchHealth } from '../lib/api'
 import { useAuth } from '../lib/auth-context'
 
 function navClass({ isActive }: { isActive: boolean }) {
@@ -10,7 +10,10 @@ function navClass({ isActive }: { isActive: boolean }) {
 }
 
 export default function Layout() {
-  const { logout } = useAuth()
+  const { token, logout } = useAuth()
+  const navigate = useNavigate()
+  // Keyed by the token, so signing in as someone else never shows the old account.
+  const me = useQuery({ queryKey: ['me', token], queryFn: api.me, staleTime: Infinity })
   // Free hosting sleeps when idle: the first request can take ~50 seconds.
   const health = useQuery({ queryKey: ['health'], queryFn: fetchHealth, retry: 1 })
   const apiText = health.isPending
@@ -54,6 +57,26 @@ export default function Layout() {
           </button>
         </div>
       </header>
+      {me.data?.is_demo && (
+        <div className="border-b border-amber-200 bg-amber-50">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2 text-sm text-amber-900">
+            <span>
+              <b>Demo account:</b> sample data only, deleted 24 hours after you started. Uploads are
+              read by a free AI tier, so use sample invoices, not real ones.
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                logout()
+                navigate('/register')
+              }}
+              className="font-medium underline"
+            >
+              Create your own account
+            </button>
+          </div>
+        </div>
+      )}
       <main className="mx-auto max-w-7xl px-4 py-6">
         <Outlet />
       </main>

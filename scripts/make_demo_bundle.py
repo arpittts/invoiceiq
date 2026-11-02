@@ -1,4 +1,5 @@
-"""Bundle the "Try demo invoices" files with their recorded model replies.
+"""Bundle the demo files: "Try demo invoices" (with recorded model replies) and the
+"Try the demo" account's ledger (the 20 dev-split invoices, already approved).
 
 Copies a handful of test-split invoices into backend/app/demo/ (so they ship in
 the Docker image) together with the replies recorded by `make eval-record`.
@@ -48,6 +49,20 @@ def main() -> None:
                 "calls": recordings["cases"][case]["calls"],
             }
         )
+    # The demo account's ledger: the 20 dev-split invoices (files and ground truth),
+    # loaded as approved invoices so the dashboard, Ask and Reconcile have data at once.
+    ledger_dir = OUT / "ledger"
+    ledger_dir.mkdir(exist_ok=True)
+    for old in ledger_dir.iterdir():
+        old.unlink()
+    ledger = []
+    for entry in json.loads((REPO / "evals/datasets/starter/manifest.json").read_text()):
+        source = REPO / entry["file"]
+        shutil.copyfile(source, ledger_dir / source.name)
+        truth = json.loads((REPO / entry["truth"]).read_text())
+        ledger.append({"file": f"ledger/{source.name}", "truth": truth})
+    (ledger_dir / "ledger.json").write_text(json.dumps(ledger, indent=1) + "\n")
+
     (OUT / "demo.json").write_text(
         json.dumps({"model_extract": recordings["model_extract"], "invoices": bundle}, indent=1)
         + "\n"

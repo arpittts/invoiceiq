@@ -21,7 +21,7 @@ from sqlalchemy.orm import Session
 from app.llm.replay import RecordingProvider
 from app.models import Invoice, InvoiceFile, InvoiceStatus, User
 from app.services import extraction
-from app.services.storage import save_file
+from app.services.storage import bundled
 
 logger = logging.getLogger(__name__)
 
@@ -71,13 +71,12 @@ def create_demo_invoices(db: Session, user: User) -> tuple[list[tuple[int, int]]
             user_id=user.id,
             original_name=f"demo-{item['file']}",
             mime_type=mime_type,
-            storage_path="",
+            storage_path=bundled(item["file"]),  # the shipped file: no copy per account
             page_count=_page_count(content, mime_type),
             sha256=sha,
         )
         db.add(file)
         db.flush()
-        file.storage_path = save_file(db, file, content)
         invoice = Invoice(user_id=user.id, file=file, status=InvoiceStatus.PROCESSING)
         db.add(invoice)
         db.flush()

@@ -37,6 +37,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [login],
   )
 
-  const value = useMemo(() => ({ token, login, register, logout }), [token, login, register, logout])
+  // "Try the demo": a throwaway account with sample data, deleted after 24 hours.
+  const startDemo = useCallback(async () => {
+    const { access_token } = await api.startDemo()
+    save(access_token)
+  }, [save])
+
+  const value = useMemo(
+    () => ({ token, login, register, startDemo, logout }),
+    [token, login, register, startDemo, logout],
+  )
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

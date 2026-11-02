@@ -3,14 +3,15 @@ import { Link, Navigate, useNavigate } from 'react-router'
 import { useAuth } from '../lib/auth-context'
 
 export default function AuthPage({ mode }: { mode: 'login' | 'register' }) {
-  const { token, login, register } = useAuth()
+  const { token, login, register, startDemo } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
+  const [demoBusy, setDemoBusy] = useState(false)
 
-  if (token) return <Navigate to="/invoices" replace />
+  if (token) return <Navigate to="/" replace />
 
   const isLogin = mode === 'login'
 
@@ -25,6 +26,19 @@ export default function AuthPage({ mode }: { mode: 'login' | 'register' }) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
       setBusy(false)
+    }
+  }
+
+  async function tryDemo() {
+    setError(null)
+    setDemoBusy(true)
+    try {
+      await startDemo()
+      navigate('/')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'The demo could not start')
+    } finally {
+      setDemoBusy(false)
     }
   }
 
@@ -73,6 +87,23 @@ export default function AuthPage({ mode }: { mode: 'login' | 'register' }) {
         >
           {busy ? 'Please wait…' : isLogin ? 'Sign in' : 'Create account'}
         </button>
+        <div className="my-5 flex items-center gap-3 text-xs text-gray-400">
+          <span className="h-px flex-1 bg-gray-200" />
+          or
+          <span className="h-px flex-1 bg-gray-200" />
+        </div>
+        <button
+          type="button"
+          onClick={tryDemo}
+          disabled={demoBusy || busy}
+          className="w-full rounded-md border border-gray-900 px-4 py-2 text-sm font-medium hover:bg-gray-100 disabled:opacity-50"
+        >
+          {demoBusy ? 'Setting up your demo…' : 'Try the demo, no sign-up'}
+        </button>
+        <p className="mt-2 text-center text-xs text-gray-500">
+          A private sample account with invoices to review, a ledger to ask about and a GSTR-2B
+          to reconcile. Deleted after 24 hours.
+        </p>
         <p className="mt-4 text-center text-sm text-gray-600">
           {isLogin ? (
             <>

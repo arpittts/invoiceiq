@@ -94,7 +94,8 @@ export const api = {
     request<{ id: number; email: string }>('/auth/register', { method: 'POST', json: { email, password } }),
   login: (email: string, password: string) =>
     request<{ access_token: string }>('/auth/login', { method: 'POST', json: { email, password } }),
-  me: () => request<{ id: number; email: string }>('/auth/me'),
+  me: () => request<{ id: number; email: string; is_demo: boolean }>('/auth/me'),
+  startDemo: () => request<{ access_token: string }>('/auth/demo', { method: 'POST' }),
 
   listInvoices: (params: Record<string, string | number | undefined>) => {
     const query = new URLSearchParams()

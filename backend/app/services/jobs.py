@@ -27,6 +27,7 @@ import logging
 import threading
 from dataclasses import dataclass
 from datetime import UTC, datetime, time, timedelta
+from time import monotonic
 from zoneinfo import ZoneInfo
 
 from sqlalchemy import select, text
@@ -320,6 +321,19 @@ def recover_orphans() -> int:
     return len(stuck)
 
 
+def _expire_demo_accounts() -> None:
+    """Hourly: delete "Try the demo" accounts older than 24 hours."""
+    from app.services.demo_account import expire_demo_accounts
+
+    try:
+        with SessionLocal() as db:
+            removed = expire_demo_accounts(db)
+        if removed:
+            logger.info("Deleted %s expired demo account(s)", removed)
+    except Exception:
+        logger.exception("Deleting expired demo accounts failed")
+
+
 class Worker:
     """Polls for due jobs in a daemon thread. One at a time (the free AI tier prefers it)."""
 
@@ -344,7 +358,11 @@ class Worker:
             recover_orphans()
         except Exception:
             logger.exception("Recovering stuck invoices failed")
+        next_cleanup = 0.0
         while not self._stop.is_set():
+            if monotonic() >= next_cleanup:
+                next_cleanup = monotonic() + 3600
+                _expire_demo_accounts()
             ran = 0
             try:
                 ran = run_pending(limit=5)

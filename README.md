@@ -4,7 +4,7 @@ An AI agent that reads Indian GST invoices (photos, scans or PDFs), extracts and
 
 [![CI](https://github.com/arpittts/invoiceiq/actions/workflows/ci.yml/badge.svg)](https://github.com/arpittts/invoiceiq/actions/workflows/ci.yml)
 
-**Live demo:** https://invoiceiq-teal.vercel.app (sign up, then click **Try demo invoices**; the free backend sleeps when idle, so the first request can take about a minute)  
+**Live demo:** https://invoiceiq-teal.vercel.app (click **Try the demo, no sign-up** on the sign-in page for a private sample account, deleted after 24 hours; the free backend sleeps when idle, so the first request can take about a minute)  
 **Demo video (60 s):** attached to the [v1.0.0 release](https://github.com/arpittts/invoiceiq/releases/tag/v1.0.0)  
 **Release:** v1.1.0; v1.2 adds a two-read agreement check before auto-approve (since v1.0.0: correct goods and tobacco rates, safer SQL date functions, a durable job queue, and moving invoices back to review). The full build plan is in [docs/BLUEPRINT.md](docs/BLUEPRINT.md).
 
@@ -64,6 +64,7 @@ flowchart LR
 - **Ledger Q&A**: an answer, the SQL that produced it and the rows.
 - **GSTR-2B reconciliation**: upload a month's GSTR-2B, the Excel file from the GST portal or JSON (or try a sample built from your own books), to see what matches, what differs, and which invoices' input tax credit is at risk because the supplier hasn't reported them; CSV export.
 - **Dashboard** (spend, GST, counts, recent invoices, AI usage), **Settings** (auto-approve and its thresholds per user), **CSV export** of approved invoices (formula-injection safe).
+- **Try the demo, no sign-up**: one click on the sign-in page creates a private throwaway account with a 20-invoice approved ledger, a reconciled sample GSTR-2B and six invoices to review. Its files point at copies shipped with the app (no per-account storage), it is deleted 24 hours later, at most 300 exist at once, and each IP can start 10 an hour.
 - **Try demo invoices**: six bundled synthetic invoices, read instantly by replaying recorded model replies, so the demo works even when the daily AI cap is reached.
 - **Demo safety**: per-user and per-IP rate limits, a daily cap on model calls and spend, and a clear message when the cap is hit.
 - **MCP server**: the same services as tools for MCP clients such as Claude.
@@ -306,6 +307,7 @@ All routes are under `/api/v1`.
 | GET | `/health` | no | API and database status |
 | POST | `/auth/register` | no | Create an account (`email`, `password` of 8 to 72 bytes) |
 | POST | `/auth/login` | no | Get a JWT access token |
+| POST | `/auth/demo` | no | "Try the demo": a throwaway sample account (deleted after 24 hours) and its token |
 | GET | `/auth/me` | yes | The logged-in user |
 | POST | `/invoices` | yes | Upload a PDF, PNG or JPEG (max 10 MB, 10 pages); creates an invoice with status `processing` and starts extraction in the background |
 | GET | `/invoices` | yes | Your invoices, filtered by `status`, `vendor`, `date_from`, `date_to`, with `limit`/`offset` paging |
